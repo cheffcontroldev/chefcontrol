@@ -1,7 +1,7 @@
 # ChefControl — Development Guidelines and Rules
 
 > Applicable to all project code.
-> Stack: React + TypeScript + Vite + Tailwind CSS + shadcn/ui + TanStack Query + Zustand + Supabase
+> Stack: React + TypeScript + Vite + Tailwind CSS + TanStack Query + Zustand + Supabase
 
 ---
 

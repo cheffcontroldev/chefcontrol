@@ -1,7 +1,7 @@
 # ChefControl — Normas y Reglas de Desarrollo
 
 > Aplicables a todo el código del proyecto ChefControl.
-> Stack: React + TypeScript + Vite + Tailwind CSS + shadcn/ui + TanStack Query + Zustand + Supabase
+> Stack: React + TypeScript + Vite + Tailwind CSS + TanStack Query + Zustand + Supabase
 
 ---
 
