@@ -1,9 +1,18 @@
+import { Route, Router, Switch } from 'wouter';
 import Layout from './shared/components/Layout';
+import LoginPage from './pages/LoginPage';
+import RegisterPage from './pages/RegisterPage';
 
 function App() {
   return (
     <Layout>
-      <h1 className="text-3xl font-bold underline text-center py-12">ChefControl</h1>
+      <Router>
+        <Switch>
+          <Route path="/" component={() => <h1>Home</h1>} />
+          <Route path="/ingresar" component={LoginPage} />
+          <Route path="/registrarse" component={RegisterPage} />
+        </Switch>
+      </Router>
     </Layout>
   );
 }

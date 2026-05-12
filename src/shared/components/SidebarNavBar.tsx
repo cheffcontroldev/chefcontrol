@@ -13,11 +13,11 @@ export default function SidebarNavBar() {
       <div className="space-x-3">
         <button className="btn btn-xs btn-primary">
           <UserPlus className="size-4" />
-          <span className="hidden">Registrarse</span>
+          <span className="hidden md:block">Registrarse</span>
         </button>
-        <button className="btn btn-xs btn-secondary">
+        <button className="btn btn-xs btn-success">
           <LogIn className="size-4" />
-          <span className="hidden">Iniciar sesión</span>
+          <span className="hidden md:block">Iniciar sesión</span>
         </button>
       </div>
     </nav>
