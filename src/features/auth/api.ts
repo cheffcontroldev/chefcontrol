@@ -27,7 +27,6 @@ async function signIn(input: SignInInput): Promise<AuthUser> {
     throw new Error(authError?.message ?? 'Credenciales inválidas');
   }
 
-  // Consultar tabla users para obtener role y restaurant_id
   const { data: userData, error: userError } = await supabase
     .from('users')
     .select('id, name, email, role, restaurant_id, is_active')
@@ -53,4 +52,35 @@ async function signIn(input: SignInInput): Promise<AuthUser> {
   };
 }
 
-export { signUp, signIn };
+async function signOut(): Promise<void> {
+  const { error } = await supabase.auth.signOut();
+  if (error) throw new Error(error.message);
+}
+
+async function getCurrentUser(): Promise<AuthUser | null> {
+  const {
+    data: { session },
+  } = await supabase.auth.getSession();
+
+  if (!session?.user) return null;
+
+  const { data: userData } = await supabase
+    .from('users')
+    .select('id, name, email, role, restaurant_id, is_active')
+    .eq('auth_id', session.user.id)
+    .single();
+
+  if (!userData) return null;
+
+  return {
+    id: userData.id,
+    authId: session.user.id,
+    name: userData.name,
+    email: userData.email,
+    role: userData.role,
+    restaurantId: userData.restaurant_id,
+    isActive: userData.is_active,
+  };
+}
+
+export { signUp, signIn, signOut, getCurrentUser };

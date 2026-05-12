@@ -3,12 +3,9 @@ import {
   Settings,
   Cuboid,
   Table,
-  Plus,
   FolderTree,
   Ruler,
   ShelvingUnit,
-  MoveUpRight,
-  MoveDownRight,
   BellRing,
   ScrollText,
   LogOut,
@@ -23,28 +20,21 @@ export default function SidebarMenu() {
       <div className="flex min-h-full flex-col items-start bg-base-200 is-drawer-close:w-14 is-drawer-open:w-70">
         <ul className="menu w-full grow pt-3">
           {/* List item */}
-          <SidebarMenuItem icon={Home} title="Dashboard" />
-          <SidebarMenuGroup icon={Cuboid} title="Productos">
-            <SidebarMenuItem icon={Plus} title="Crear Producto" />
-            <SidebarMenuItem icon={Table} title="Listado Productos" />
+          <SidebarMenuItem icon={Home} title="Dashboard" href="/" />
+          <SidebarMenuGroup icon={ShelvingUnit} title="Inventario" href="/inventario">
+            <SidebarMenuItem icon={Cuboid} title="Productos" href="/inventario/productos" />
+            <SidebarMenuItem icon={FolderTree} title="Categorías" href="/inventario/categorias" />
+            <SidebarMenuItem
+              icon={Ruler}
+              title="Unidades de Medida"
+              href="/inventario/unidades-de-medida"
+            />
+            <SidebarMenuItem icon={Table} title="Movimientos" href="/inventario/movimientos" />
           </SidebarMenuGroup>
-          <SidebarMenuGroup icon={FolderTree} title="Categorías">
-            <SidebarMenuItem icon={Plus} title="Crear Categoría" />
-            <SidebarMenuItem icon={Table} title="Listado Categorías" />
-          </SidebarMenuGroup>
-          <SidebarMenuGroup icon={Ruler} title="Unidades de Medida">
-            <SidebarMenuItem icon={Plus} title="Crear Unidad de Medida" />
-            <SidebarMenuItem icon={Table} title="Listado Unidades de Medida" />
-          </SidebarMenuGroup>
-          <SidebarMenuGroup icon={ShelvingUnit} title="Inventario">
-            <SidebarMenuItem icon={MoveUpRight} title="Registrar Entrada" />
-            <SidebarMenuItem icon={MoveDownRight} title="Registrar Salida" />
-            <SidebarMenuItem icon={Table} title="Movimientos" />
-          </SidebarMenuGroup>
-          <SidebarMenuItem icon={BellRing} title="Alertas" />
-          <SidebarMenuItem icon={ScrollText} title="Reportes" />
-          <SidebarMenuItem icon={Settings} title="Configuración" />
-          <SidebarMenuItem icon={LogOut} title="Cerrar Sesión" />
+          <SidebarMenuItem icon={BellRing} title="Alertas" href="/alertas" />
+          <SidebarMenuItem icon={ScrollText} title="Reportes" href="/reportes" />
+          <SidebarMenuItem icon={Settings} title="Configuración" href="/configuracion" />
+          <SidebarMenuItem icon={LogOut} title="Cerrar Sesión" href="/cerrar-sesion" />
         </ul>
       </div>
     </div>
