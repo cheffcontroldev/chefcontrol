@@ -1,6 +1,11 @@
+import { Link } from 'wouter';
 import { PanelRightClose, UserPlus, LogIn } from 'lucide-react';
 
+import { useUiStore } from '@/stores/uiStore';
+
 export default function SidebarNavBar() {
+  const titlePage = useUiStore((state) => state.titlePage);
+
   return (
     <nav className="navbar w-full bg-base-300 flex justify-between">
       <div className="flex items-center justify-items-start">
@@ -8,17 +13,17 @@ export default function SidebarNavBar() {
           {/* Sidebar toggle icon */}
           <PanelRightClose className="my-1.5 inline-block size-4" />
         </label>
-        <div className="px-4">Navbar Title</div>
+        <div className="px-4">{titlePage}</div>
       </div>
       <div className="space-x-3">
-        <button className="btn btn-xs btn-primary">
+        <Link to="/registrarse" className="btn btn-xs btn-primary">
           <UserPlus className="size-4" />
           <span className="hidden md:block">Registrarse</span>
-        </button>
-        <button className="btn btn-xs btn-success">
+        </Link>
+        <Link to="/ingresar" className="btn btn-xs btn-success">
           <LogIn className="size-4" />
           <span className="hidden md:block">Iniciar sesión</span>
-        </button>
+        </Link>
       </div>
     </nav>
   );

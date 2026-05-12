@@ -9,7 +9,7 @@ export default function Sidebar({ children }: { children: React.ReactNode }) {
         {/* Navbar */}
         <SidebarNavBar />
         {/* Page content here */}
-        <div className="p-4">{children}</div>
+        <div className="p-4 min-h-[calc(100vh-4.5rem)] flex justify-center">{children}</div>
       </div>
       <SidebarMenu />
     </div>

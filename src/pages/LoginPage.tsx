@@ -1,3 +1,7 @@
+import { usePageTitle } from '@/shared/hooks/usePageTitle';
+import LoginForm from '../features/auth/components/LoginForm';
+
 export default function LoginPage() {
-  return <div>LoginPage Component</div>;
+  usePageTitle('Iniciar Sesión');
+  return <LoginForm />;
 }
