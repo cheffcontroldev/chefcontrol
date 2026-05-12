@@ -1,3 +1,4 @@
+import Alert from './Alert';
 import SidebarMenu from './SidebarMenu';
 import SidebarNavBar from './SidebarNavBar';
 
@@ -9,7 +10,10 @@ export default function Sidebar({ children }: { children: React.ReactNode }) {
         {/* Navbar */}
         <SidebarNavBar />
         {/* Page content here */}
-        <div className="p-4 min-h-[calc(100vh-4.5rem)] flex justify-center">{children}</div>
+        <div className="p-4 min-h-[calc(100vh-4.5rem)] flex justify-center relative">
+          {children}
+          <Alert />
+        </div>
       </div>
       <SidebarMenu />
     </div>
