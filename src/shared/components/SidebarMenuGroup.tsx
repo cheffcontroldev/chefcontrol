@@ -24,7 +24,7 @@ export default function SidebarMenuItem({
         <Icon className="my-1.5 inline-block size-4" />
         <span className="text-nowrap is-drawer-close:hidden">{title}</span>
       </Link>
-      <ul className="is-drawer-close:hidden is-drawer-open:block">{children}</ul>
+      <ul className="is-drawer-close:-translate-x-6">{children}</ul>
     </li>
   );
 }
