@@ -1,6 +1,7 @@
 import { Route, Router, Switch } from 'wouter';
 import AlertsPage from '@/pages/AlertsPage';
 import CategoriesPage from '@/pages/CategoriesPage';
+import CompleteRegistrationPage from '@/pages/CompleteRegistrationPage';
 import DashboardPage from '@/pages/DashboardPage';
 import InventoryPage from '@/pages/InventoryPage';
 import Layout from '@/shared/components/Layout';
@@ -20,6 +21,7 @@ function App() {
           <Route path="/" component={DashboardPage} />
           <Route path="/ingresar" component={LoginPage} />
           <Route path="/registrarse" component={RegisterPage} />
+          <Route path="/completar-registro" component={CompleteRegistrationPage} />
           <Route path="/inventario/productos" component={ProductsPage} />
           <Route path="/inventario/categorias" component={CategoriesPage} />
           <Route path="/inventario/unidades-de-medida" component={UnitsOfMeasurePage} />

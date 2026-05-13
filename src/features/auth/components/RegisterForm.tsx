@@ -2,7 +2,7 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Link } from 'wouter';
 import Input from '@/shared/components/Input';
-import { signUpSchema, type SignUpInput } from '../schemas';
+import { authSignUpSchema, type AuthSignUpInput } from '../schemas';
 import { useSignUp } from '../hooks/useSignUp';
 
 export default function RegisterForm() {
@@ -12,12 +12,12 @@ export default function RegisterForm() {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<SignUpInput>({
-    resolver: zodResolver(signUpSchema),
+  } = useForm<AuthSignUpInput>({
+    resolver: zodResolver(authSignUpSchema),
     mode: 'onBlur',
   });
 
-  const onSubmit = (data: SignUpInput) => {
+  const onSubmit = (data: AuthSignUpInput) => {
     mutate(data);
   };
 
@@ -28,19 +28,6 @@ export default function RegisterForm() {
         autoComplete="off"
         onSubmit={handleSubmit(onSubmit)}
       >
-        <Input
-          type="text"
-          placeholder="Nombre del Restaurante"
-          {...register('restaurantName')}
-          errorMessage={errors.restaurantName?.message}
-        />
-        <Input
-          type="text"
-          placeholder="Nombre del Administrador"
-          {...register('adminName')}
-          errorMessage={errors.adminName?.message}
-        />
-
         <Input
           type="email"
           placeholder="Email"

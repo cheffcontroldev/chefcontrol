@@ -1,21 +1,14 @@
 import * as z from 'zod';
 
-export const signUpSchema = z
+export const signInSchema = z.object({
+  email: z.string().email('Correo electrónico inválido'),
+  password: z.string().min(1, 'La contraseña es requerida'),
+});
+
+export const authSignUpSchema = z
   .object({
-    restaurantName: z
-      .string()
-      .min(1, 'El nombre del restaurante es requerido')
-      .max(100, 'El nombre del restaurante no puede exceder 100 caracteres'),
-
-    adminName: z
-      .string()
-      .min(1, 'El nombre del administrador es requerido')
-      .max(100, 'El nombre del administrador no puede exceder 100 caracteres'),
-
     email: z.string().email('Correo electrónico inválido'),
-
     password: z.string().min(8, 'La contraseña debe tener al menos 8 caracteres'),
-
     confirmPassword: z.string().min(1, 'La contraseña es requerida'),
   })
   .refine((data) => data.password === data.confirmPassword, {
@@ -23,15 +16,19 @@ export const signUpSchema = z
     path: ['confirmPassword'],
   });
 
-export const signInSchema = z.object({
-  email: z.string().email('Correo electrónico inválido'),
-  password: z.string().min(1, 'La contraseña es requerida'),
+export const completeRegistrationSchema = z.object({
+  restaurantName: z.string().min(1).max(100),
+  restaurantAddress: z.string().optional(),
+  restaurantPhone: z.string().optional(),
+  adminName: z.string().min(1).max(100),
 });
 
-export const recoverPasswordSchema = z.object({
-  email: z.string().email('Correo electrónico inválido'),
-});
+export type CompleteRegistrationFormInput = z.infer<typeof completeRegistrationSchema>;
 
-export type SignUpInput = z.infer<typeof signUpSchema>;
+export interface CompleteRegistrationInput extends CompleteRegistrationFormInput {
+  authId: string;
+  email: string;
+}
+
 export type SignInInput = z.infer<typeof signInSchema>;
-export type RecoverPasswordInput = z.infer<typeof recoverPasswordSchema>;
+export type AuthSignUpInput = z.infer<typeof authSignUpSchema>;

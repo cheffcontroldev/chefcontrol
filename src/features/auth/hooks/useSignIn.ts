@@ -1,3 +1,4 @@
+// features/auth/hooks/useSignIn.ts (ACTUALIZADO)
 import { useMutation } from '@tanstack/react-query';
 import { useLocation } from 'wouter';
 import { signIn } from '../api';
@@ -14,7 +15,10 @@ export function useSignIn() {
       navigate('/');
     },
     onError: (error: Error) => {
-      if (error.message === 'Email not confirmed') {
+      if (error.message === 'INCOMPLETE_REGISTRATION') {
+        setShowAlertMessage('warning', 'Debes completar tu registro antes de continuar');
+        navigate('/completar-registro');
+      } else if (error.message === 'Email not confirmed') {
         setShowAlertMessage('error', 'Tu email no ha sido confirmado');
       } else if (error.message === 'Invalid login credentials') {
         setShowAlertMessage('error', 'Credenciales inválidas');

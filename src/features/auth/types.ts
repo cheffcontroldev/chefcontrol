@@ -1,15 +1,22 @@
-export type Role = 'Administrador' | 'Almacenista' | 'Cheff';
-
-export interface SignUpInput {
-  restaurantName: string;
-  adminName: string;
-  email: string;
-  password: string;
-}
+export type Role = 'Admin' | 'Warehouse' | 'Chef';
 
 export interface SignInInput {
   email: string;
   password: string;
+}
+
+export interface AuthSignUpInput {
+  email: string;
+  password: string;
+}
+
+export interface CompleteRegistrationInput {
+  authId: string;
+  email: string;
+  restaurantName: string;
+  restaurantAddress?: string;
+  restaurantPhone?: string;
+  adminName: string;
 }
 
 export interface AuthUser {
