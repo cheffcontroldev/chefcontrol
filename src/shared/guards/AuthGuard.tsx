@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect } from 'react';
 import { useLocation } from 'wouter';
 import { useAuthStore } from '@/stores/authStore';
@@ -10,13 +11,25 @@ const PUBLIC_ROUTES = ['/ingresar', '/registrarse'];
 const SEMI_PROTECTED_ROUTES = ['/completar-registro'];
 
 export default function AuthGuard({ children }: { children: React.ReactNode }) {
-  const [, navigate] = useLocation();
-  const { isLoading, setUser, clearUser, setLoading } = useAuthStore();
+  const [location, navigate] = useLocation();
+  const { user, isAuthenticated, isLoading, setUser, clearUser, setLoading } = useAuthStore();
 
   useEffect(() => {
     const checkAuth = async () => {
       const path = window.location.pathname;
-      if (PUBLIC_ROUTES.includes(path)) return;
+
+      if (PUBLIC_ROUTES.includes(path)) {
+        setLoading(false);
+        return;
+      }
+
+      if (isAuthenticated && user && user.restaurantId) {
+        if (SEMI_PROTECTED_ROUTES.includes(path)) {
+          navigate('/');
+        }
+        setLoading(false);
+        return;
+      }
 
       setLoading(true);
 
@@ -24,29 +37,43 @@ export default function AuthGuard({ children }: { children: React.ReactNode }) {
         const {
           data: { session },
         } = await supabase.auth.getSession();
-        const isAuthInSupabase = !!session?.user;
-        const currentUser = await getCurrentUser();
-        const hasCompleteRegistration = !!currentUser;
 
-        if (hasCompleteRegistration) {
+        if (!session?.user) {
+          clearUser();
+
+          if (!PUBLIC_ROUTES.includes(path)) {
+            navigate('/ingresar');
+          }
+          setLoading(false);
+          return;
+        }
+
+        const currentUser = await getCurrentUser();
+
+        if (currentUser) {
           setUser({
             id: currentUser.id,
             email: currentUser.email,
+            name: currentUser.name,
             role: currentUser.role,
             restaurantId: currentUser.restaurantId,
+            restaurantName: currentUser.restaurantName,
+            restaurantAddress: currentUser.restaurantAddress,
+            restaurantPhone: currentUser.restaurantPhone,
           });
+
           if (SEMI_PROTECTED_ROUTES.includes(path)) {
             navigate('/');
           }
-        } else if (isAuthInSupabase) {
+        } else {
+          clearUser();
+
           if (!SEMI_PROTECTED_ROUTES.includes(path)) {
             navigate('/completar-registro');
           }
-        } else {
-          clearUser();
-          navigate('/ingresar');
         }
-      } catch {
+      } catch (error) {
+        console.error('💥 Error:', error);
         clearUser();
         navigate('/ingresar');
       } finally {
@@ -55,7 +82,7 @@ export default function AuthGuard({ children }: { children: React.ReactNode }) {
     };
 
     checkAuth();
-  }, [navigate, setUser, clearUser, setLoading]);
+  }, [location]);
 
   if (isLoading) {
     return (

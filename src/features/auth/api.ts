@@ -3,10 +3,7 @@ import type { AuthSignUpInput, SignInInput, CompleteRegistrationInput, AuthUser 
 
 export async function signUp(input: AuthSignUpInput): Promise<{ userId: string; email: string }> {
   const { email, password } = input;
-  const { data, error } = await supabase.auth.signUp({
-    email,
-    password,
-  });
+  const { data, error } = await supabase.auth.signUp({ email, password });
 
   if (error) throw new Error(error.message);
   if (!data.user) throw new Error('No se pudo crear el usuario');
@@ -39,6 +36,7 @@ export async function completeRegistration(input: CompleteRegistrationInput): Pr
 }
 
 export async function signIn(input: SignInInput): Promise<AuthUser> {
+  // 1. Login con Supabase Auth
   const { data: authData, error: authError } = await supabase.auth.signInWithPassword({
     email: input.email,
     password: input.password,
@@ -62,20 +60,32 @@ export async function signIn(input: SignInInput): Promise<AuthUser> {
     throw new Error('Usuario desactivado');
   }
 
-  return {
+  // 3. Consultar restaurante
+
+  const { data: restaurantData, error: restaurantError } = await supabase
+    .from('restaurants')
+    .select('id, name, address, phone, email')
+    .eq('id', userData.restaurant_id)
+    .single();
+
+  if (restaurantError || !restaurantData) {
+    throw new Error('Restaurante no encontrado');
+  }
+
+  const authUser: AuthUser = {
     id: userData.id,
     authId: authData.user.id,
     name: userData.name,
     email: userData.email,
     role: userData.role,
     restaurantId: userData.restaurant_id,
+    restaurantName: restaurantData.name,
+    restaurantAddress: restaurantData.address,
+    restaurantPhone: restaurantData.phone,
     isActive: userData.is_active,
   };
-}
 
-export async function signOut(): Promise<void> {
-  const { error } = await supabase.auth.signOut();
-  if (error) throw new Error(error.message);
+  return authUser;
 }
 
 export async function getCurrentUser(): Promise<AuthUser | null> {
@@ -83,23 +93,51 @@ export async function getCurrentUser(): Promise<AuthUser | null> {
     data: { session },
   } = await supabase.auth.getSession();
 
-  if (!session?.user) return null;
+  if (!session?.user) {
+    return null;
+  }
 
-  const { data: userData } = await supabase
+  // Consultar users
+
+  const { data: userData, error: userError } = await supabase
     .from('users')
     .select('id, name, email, role, restaurant_id, is_active')
     .eq('auth_id', session.user.id)
     .single();
 
-  if (!userData) return null;
+  if (userError || !userData) {
+    return null;
+  }
 
-  return {
+  // Consultar restaurante
+
+  const { data: restaurantData, error: restaurantError } = await supabase
+    .from('restaurants')
+    .select('id, name, address, phone, email')
+    .eq('id', userData.restaurant_id)
+    .single();
+
+  if (restaurantError || !restaurantData) {
+    return null;
+  }
+
+  const authUser: AuthUser = {
     id: userData.id,
     authId: session.user.id,
     name: userData.name,
     email: userData.email,
     role: userData.role,
     restaurantId: userData.restaurant_id,
+    restaurantName: restaurantData.name,
+    restaurantAddress: restaurantData.address,
+    restaurantPhone: restaurantData.phone,
     isActive: userData.is_active,
   };
+
+  return authUser;
+}
+
+export async function signOut(): Promise<void> {
+  const { error } = await supabase.auth.signOut();
+  if (error) throw new Error(error.message);
 }

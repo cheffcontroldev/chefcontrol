@@ -1,11 +1,11 @@
 export type Role = 'Admin' | 'Warehouse' | 'Chef';
 
-export interface SignInInput {
+export interface AuthSignUpInput {
   email: string;
   password: string;
 }
 
-export interface AuthSignUpInput {
+export interface SignInInput {
   email: string;
   password: string;
 }
@@ -26,5 +26,8 @@ export interface AuthUser {
   email: string;
   role: Role;
   restaurantId: string;
+  restaurantName: string;
+  restaurantAddress?: string;
+  restaurantPhone?: string;
   isActive: boolean;
 }

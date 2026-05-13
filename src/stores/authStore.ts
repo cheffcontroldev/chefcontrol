@@ -1,10 +1,15 @@
 import { create } from 'zustand';
+import { persist, createJSONStorage } from 'zustand/middleware';
 
-interface AuthUser {
+export interface AuthUser {
   id: string;
   email: string;
+  name: string;
   role: string;
   restaurantId: string;
+  restaurantName: string;
+  restaurantAddress?: string;
+  restaurantPhone?: string;
 }
 
 interface AuthState {
@@ -19,11 +24,23 @@ interface AuthActions {
   clearUser: () => void;
 }
 
-export const useAuthStore = create<AuthState & AuthActions>((set) => ({
-  user: null,
-  isLoading: true,
-  isAuthenticated: false,
-  setUser: (user) => set({ user, isAuthenticated: !!user, isLoading: false }),
-  setLoading: (loading) => set({ isLoading: loading }),
-  clearUser: () => set({ user: null, isAuthenticated: false, isLoading: false }),
-}));
+export const useAuthStore = create<AuthState & AuthActions>()(
+  persist(
+    (set) => ({
+      user: null,
+      isLoading: true,
+      isAuthenticated: false,
+      setUser: (user) => set({ user, isAuthenticated: !!user, isLoading: false }),
+      setLoading: (loading) => set({ isLoading: loading }),
+      clearUser: () => set({ user: null, isAuthenticated: false, isLoading: false }),
+    }),
+    {
+      name: 'auth-storage',
+      storage: createJSONStorage(() => localStorage),
+      partialize: (state) => ({
+        user: state.user,
+        isAuthenticated: state.isAuthenticated,
+      }),
+    }
+  )
+);

@@ -1,6 +1,5 @@
-// shared/components/SidebarNavBar.tsx
 import { Link } from 'wouter';
-import { PanelRightClose, UserPlus, LogIn, LogOut, User } from 'lucide-react';
+import { PanelRightClose, UserPlus, LogIn, LogOut, User, Store } from 'lucide-react';
 import { useAuthStore } from '@/stores/authStore';
 import { useUiStore } from '@/stores/uiStore';
 import { useSignOut } from '@/features/auth/hooks/useSignOut';
@@ -21,7 +20,7 @@ export default function SidebarNavBar() {
 
       <div className="space-x-3 flex items-center">
         {!isAuthenticated ? (
-          // No autenticado: mostrar login y registro
+          // No autenticado
           <>
             <Link to="/registrarse" className="btn btn-xs btn-primary">
               <UserPlus className="size-4" />
@@ -33,11 +32,15 @@ export default function SidebarNavBar() {
             </Link>
           </>
         ) : (
-          // Autenticado: mostrar usuario y logout
+          // Autenticado: mostrar usuario + restaurante
           <>
             <div className="flex items-center gap-2 px-3">
+              <Store className="size-4" />
+              <span className="hidden md:block text-sm font-medium">{user?.restaurantName}</span>
+            </div>
+            <div className="flex items-center gap-2 px-3 border-l border-base-content/20">
               <User className="size-4" />
-              {/* <span className="hidden md:block text-sm">{user?.name}</span> */}
+              <span className="hidden md:block text-sm">{user?.name}</span>
               <span className="badge badge-sm badge-outline">{user?.role}</span>
             </div>
             <button className="btn btn-xs btn-error" onClick={() => signOut()}>
