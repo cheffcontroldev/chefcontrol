@@ -1,4 +1,4 @@
-export type Role = 'Admin' | 'Warehouse' | 'Chef';
+export type Role = 'Administrador' | 'Almacén' | 'Cocinero';
 
 export interface AuthSignUpInput {
   email: string;
