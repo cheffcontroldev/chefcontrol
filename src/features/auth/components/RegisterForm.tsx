@@ -57,7 +57,7 @@ export default function RegisterForm() {
           </button>
           <p className="text-xs opacity-70">
             ¿Ya tienes una cuenta?{' '}
-            <Link className="link" href="/login">
+            <Link className="link" href="/ingresar">
               Inicia sesión
             </Link>
           </p>

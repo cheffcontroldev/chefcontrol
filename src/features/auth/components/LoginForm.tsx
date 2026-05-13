@@ -47,7 +47,7 @@ export default function LoginForm() {
           </button>
           <p className="text-xs opacity-70">
             ¿No tienes una cuenta?{' '}
-            <Link className="link" href="/register">
+            <Link className="link" href="/registrarse">
               Regístrate
             </Link>
           </p>
