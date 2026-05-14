@@ -2,8 +2,11 @@ import { supabase } from '@/supabase/client';
 
 import type { CreateUserInput, UpdateMyUserInput, UpdateMyPasswordInput } from './types';
 
-export async function getUsers() {
-  const { data, error } = await supabase.from('users').select('*');
+export async function getUsers(restaurantId: string) {
+  const { data, error } = await supabase
+    .from('users')
+    .select('*')
+    .eq('restaurant_id', restaurantId);
   if (error) throw new Error(error.message);
   return data;
 }
