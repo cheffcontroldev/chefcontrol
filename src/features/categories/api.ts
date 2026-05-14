@@ -2,7 +2,7 @@ import { supabase } from '@/supabase/client';
 
 import type { CreateCategoryInput, UpdateCategoryInput } from './types';
 
-const TABLE = '¨categories';
+const TABLE = 'categories';
 
 export async function getCategories(restaurantId: string) {
   const { data, error } = await supabase.from(TABLE).select('*').eq('restaurant_id', restaurantId);
