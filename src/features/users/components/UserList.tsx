@@ -1,10 +1,15 @@
 import { useUsers } from '../hooks/useUsers';
 import { TableColumnActions } from '@/shared/components/TableColumnActions';
+import TableHeaderActions from '@/shared/components/TableHeaderActions';
+import { useUiStore } from '@/stores/uiStore';
 
 export default function UserList() {
   const { data: users, isLoading, error } = useUsers();
+  const { setUserFormMode } = useUiStore();
+  const countUsers = users?.length || 0;
   return (
     <div className="overflow-x-auto w-full max-w-7xl">
+      <TableHeaderActions title="Agregar Usuario" onAdd={() => setUserFormMode('create')} />
       <table className="table">
         {/* head */}
         <thead>
@@ -31,7 +36,7 @@ export default function UserList() {
               </td>
             </tr>
           )}
-          {users.length === 0 && (
+          {countUsers === 0 && (
             <tr>
               <td colSpan={5} className="text-center">
                 No se encontraron usuarios
@@ -45,7 +50,7 @@ export default function UserList() {
               <td className="max-sm:hidden">{user.email}</td>
               <td className="max-md:hidden">{user.role}</td>
               <td>
-                <TableColumnActions />
+                <TableColumnActions formMode={() => setUserFormMode('show')} />
               </td>
             </tr>
           ))}
