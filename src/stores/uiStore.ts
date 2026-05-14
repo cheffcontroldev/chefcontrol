@@ -8,6 +8,7 @@ interface UiState {
   showAlert: boolean;
   userFormMode: FormMode;
   categoryFormMode: FormMode;
+  unitOfMeasureFormMode: FormMode;
 }
 
 interface UiActions {
@@ -15,6 +16,7 @@ interface UiActions {
   setShowAlertMessage: (alertType: AlertType, alertMessage: string) => void;
   setUserFormMode: (formMode: FormMode) => void;
   setCategoryFormMode: (formMode: FormMode) => void;
+  setUnitOfMeasureFormMode: (formMode: FormMode) => void;
 }
 
 export const useUiStore = create<UiState & UiActions>((set) => ({
@@ -24,6 +26,7 @@ export const useUiStore = create<UiState & UiActions>((set) => ({
   alertType: 'warning' as AlertType,
   userFormMode: 'hidden',
   categoryFormMode: 'hidden',
+  unitOfMeasureFormMode: 'hidden',
   setTitlePage: (titlePage: string) => set({ titlePage }),
   setShowAlertMessage: (alertType: AlertType, alertMessage: string) => {
     set({ alertType, alertMessage, showAlert: true });
@@ -33,4 +36,5 @@ export const useUiStore = create<UiState & UiActions>((set) => ({
   },
   setUserFormMode: (formMode: FormMode) => set({ userFormMode: formMode }),
   setCategoryFormMode: (formMode: FormMode) => set({ categoryFormMode: formMode }),
+  setUnitOfMeasureFormMode: (formMode: FormMode) => set({ unitOfMeasureFormMode: formMode }),
 }));
