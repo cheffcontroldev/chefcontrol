@@ -5,7 +5,6 @@ export async function signUp(input: AuthSignUpInput): Promise<{ userId: string; 
   const { email, password } = input;
   const { data, error } = await supabase.auth.signUp({ email, password });
 
-  console.log('ERROR =======> ', error);
   if (error) throw new Error(error.message);
   if (!data.user) throw new Error('No se pudo crear el usuario');
 
@@ -37,7 +36,6 @@ export async function completeRegistration(input: CompleteRegistrationInput): Pr
 }
 
 export async function signIn(input: SignInInput): Promise<AuthUser> {
-  // 1. Login con Supabase Auth
   const { data: authData, error: authError } = await supabase.auth.signInWithPassword({
     email: input.email,
     password: input.password,
@@ -61,11 +59,9 @@ export async function signIn(input: SignInInput): Promise<AuthUser> {
     throw new Error('Usuario desactivado');
   }
 
-  // 3. Consultar restaurante
-
   const { data: restaurantData, error: restaurantError } = await supabase
     .from('restaurants')
-    .select('id, name, address, phone, email')
+    .select('id, name, address, phone, email, is_active')
     .eq('id', userData.restaurant_id)
     .single();
 
@@ -98,11 +94,9 @@ export async function getCurrentUser(): Promise<AuthUser | null> {
     return null;
   }
 
-  // Consultar users
-
   const { data: userData, error: userError } = await supabase
     .from('users')
-    .select('id, name, email, role, restaurant_id, isActive')
+    .select('id, name, email, role, restaurant_id, is_active')
     .eq('auth_id', session.user.id)
     .single();
 
@@ -110,11 +104,9 @@ export async function getCurrentUser(): Promise<AuthUser | null> {
     return null;
   }
 
-  // Consultar restaurante
-
   const { data: restaurantData, error: restaurantError } = await supabase
     .from('restaurants')
-    .select('id, name, address, phone, email')
+    .select('id, name, address, phone, email, is_active')
     .eq('id', userData.restaurant_id)
     .single();
 
@@ -132,7 +124,7 @@ export async function getCurrentUser(): Promise<AuthUser | null> {
     restaurantName: restaurantData.name,
     restaurantAddress: restaurantData.address,
     restaurantPhone: restaurantData.phone,
-    isActive: userData.isActive,
+    isActive: userData.is_active,
   };
 
   return authUser;

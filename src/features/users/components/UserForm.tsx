@@ -1,4 +1,4 @@
-import { useForm, useWatch } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import FormModal from '@/shared/components/FormModal';
 import { useUiStore } from '@/stores/uiStore';
@@ -15,16 +15,12 @@ export default function UserForm() {
   const {
     register,
     handleSubmit,
-    control,
     reset: resetForm,
     formState: { errors },
   } = useForm<CreateUserInput>({
     resolver: zodResolver(createUserSchema),
     mode: 'onBlur',
   });
-
-  const watchedEmail = useWatch({ control, name: 'password' });
-  console.log('email value:', JSON.stringify(watchedEmail));
 
   const { mutate, isPending } = useCreateUser({ resetForm });
 
@@ -36,7 +32,6 @@ export default function UserForm() {
   };
 
   const onSubmit = (data: CreateUserInput) => {
-    console.log('Hola');
     mutate(data, {
       onSuccess: () => {
         resetForm();
