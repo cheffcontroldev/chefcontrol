@@ -7,14 +7,20 @@ import TableHeaderActions from '@/shared/components/TableHeaderActions';
 /* Stores */
 import { useUiStore } from '@/stores/uiStore';
 import { useCategoryStore } from '../store/CategoryStore';
+import { useDeleteStore } from '@/stores/deleteStore';
 
 /* Interfaces and Types */
 import type { Category } from '../types';
+
+/* Hooks */
+import { useDeleteCategory } from '../hooks/useDeleteCategory';
 
 export default function CategoryList() {
   const { data: categories, isLoading, error } = useCategories();
   const { setSelectedCategory } = useCategoryStore();
   const { setCategoryFormMode } = useUiStore();
+  const { setShowConfirmDelete, setConfirmDeleteAction } = useDeleteStore();
+  const { mutate: deleteCategory } = useDeleteCategory();
   const countCategories = categories?.length || 0;
 
   const onShow = (category: Category) => {
@@ -27,6 +33,11 @@ export default function CategoryList() {
     setCategoryFormMode('create');
   };
 
+  const onDelete = (category: Category) => {
+    setShowConfirmDelete(`¿Eliminar la categoría "${category.name}"?`);
+    setConfirmDeleteAction(() => deleteCategory({ id: category.id }));
+  };
+
   return (
     <div className="overflow-x-auto w-full max-w-4xl">
       <TableHeaderActions title="Agregar Categoría" onAdd={() => onCreate()} />
@@ -36,7 +47,7 @@ export default function CategoryList() {
           <tr>
             <th className="hidden">Id</th>
             <th>Nombre</th>
-            <th className="max-sm:hidden">Descripción</th>
+            <th className="max-md:hidden">Descripción</th>
             <th className="text-center">Actions</th>
           </tr>
         </thead>
@@ -66,9 +77,12 @@ export default function CategoryList() {
             <tr key={category.id} className="hover:bg-base-300">
               <th className="hidden">{category.id.toString().slice(0, 8)}...</th>
               <td>{category.name}</td>
-              <td className="max-sm:hidden">{category.description}</td>
+              <td className="max-md:hidden">{category.description}</td>
               <td>
-                <TableColumnActions onShow={() => onShow(category)} />
+                <TableColumnActions
+                  onShow={() => onShow(category)}
+                  onDelete={() => onDelete(category)}
+                />
               </td>
             </tr>
           ))}

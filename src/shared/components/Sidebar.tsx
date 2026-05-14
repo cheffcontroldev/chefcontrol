@@ -1,4 +1,5 @@
 import Alert from './Alert';
+import ModalConfirmDelete from './ModalConfirmDelete';
 import SidebarMenu from './SidebarMenu';
 import SidebarNavBar from './SidebarNavBar';
 
@@ -13,6 +14,7 @@ export default function Sidebar({ children }: { children: React.ReactNode }) {
         <div className="p-4 min-h-[calc(100vh-4.5rem)] flex justify-center relative">
           {children}
           <Alert />
+          <ModalConfirmDelete />
         </div>
       </div>
       <SidebarMenu />

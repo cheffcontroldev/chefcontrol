@@ -48,3 +48,12 @@ export const updateCategory = async (id: string, input: UpdateCategoryInput) => 
 
   return data;
 };
+
+export const deleteCategory = async (id: string) => {
+  const dto = { is_deleted: true };
+  const { data, error } = await supabase.from(TABLE).update(dto).eq('id', id).single();
+
+  if (error) throw new Error(error.message);
+
+  return data;
+};

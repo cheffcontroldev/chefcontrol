@@ -10,7 +10,7 @@ export default function SidebarNavBar() {
   const { mutate: signOut } = useSignOut();
 
   return (
-    <nav className="navbar w-full bg-base-300 flex justify-between">
+    <nav className="navbar w-full bg-base-300 flex flex-col items-start justify-start gap-y-3 lg:flex-row lg:items-center lg:justify-between">
       <div className="flex items-center justify-items-start">
         <label htmlFor="my-drawer-4" aria-label="open sidebar" className="btn btn-square btn-ghost">
           <PanelRightClose className="my-1.5 inline-block size-4" />
