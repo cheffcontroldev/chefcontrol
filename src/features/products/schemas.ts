@@ -8,7 +8,6 @@ export const createProductSchema = z.object({
   stockMinimum: z.number().min(0, 'El stock mínimo debe ser mayor o igual a 0'),
   isActive: z.boolean(),
   categoryId: z.string().optional(),
-  restaurantId: z.string().min(1, 'El restaurante es requerido'),
 });
 
 export const UpdateProductSchema = z.object({
