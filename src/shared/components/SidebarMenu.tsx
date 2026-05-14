@@ -8,7 +8,6 @@ import {
   ShelvingUnit,
   BellRing,
   ScrollText,
-  LogOut,
 } from 'lucide-react';
 import SidebarMenuItem from './SidebarMenuItem';
 import SidebarMenuGroup from './SidebarMenuGroup';
@@ -34,7 +33,6 @@ export default function SidebarMenu() {
           <SidebarMenuItem icon={BellRing} title="Alertas" href="/alertas" />
           <SidebarMenuItem icon={ScrollText} title="Reportes" href="/reportes" />
           <SidebarMenuItem icon={Settings} title="Configuración" href="/configuracion" />
-          <SidebarMenuItem icon={LogOut} title="Cerrar Sesión" href="/cerrar-sesion" />
         </ul>
       </div>
     </div>

@@ -14,6 +14,7 @@ import RegisterPage from '@/pages/RegisterPage';
 import ReportsPage from '@/pages/ReportsPage';
 import SettingsPage from '@/pages/SettingsPage';
 import UnitsOfMeasurePage from '@/pages/UnitsOfMeasurePage';
+import UsersPage from '@/pages/UsersPage';
 
 function App() {
   return (
@@ -32,6 +33,7 @@ function App() {
           <Route path="/alertas" component={AlertsPage} />
           <Route path="/reportes" component={ReportsPage} />
           <Route path="/configuracion" component={SettingsPage} />
+          <Route path="/configuracion/usuarios" component={UsersPage} />
         </Switch>
       </AuthGuard>
     </Router>
