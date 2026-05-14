@@ -15,9 +15,11 @@ export function useAuthGuard() {
         if (currentUser) {
           setUser({
             id: currentUser.id,
+            name: currentUser.name,
             email: currentUser.email,
             role: currentUser.role,
             restaurantId: currentUser.restaurantId,
+            restaurantName: currentUser.restaurantName,
           });
         } else {
           clearUser();

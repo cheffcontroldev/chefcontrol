@@ -21,7 +21,7 @@ export const useUiStore = create<UiState & UiActions>((set) => ({
   alertMessage: '',
   showAlert: false,
   alertType: 'warning' as AlertType,
-  userFormMode: 'show',
+  userFormMode: 'hidden',
   setTitlePage: (titlePage: string) => set({ titlePage }),
   setShowAlertMessage: (alertType: AlertType, alertMessage: string) => {
     set({ alertType, alertMessage, showAlert: true });

@@ -5,6 +5,7 @@ export async function signUp(input: AuthSignUpInput): Promise<{ userId: string; 
   const { email, password } = input;
   const { data, error } = await supabase.auth.signUp({ email, password });
 
+  console.log('ERROR =======> ', error);
   if (error) throw new Error(error.message);
   if (!data.user) throw new Error('No se pudo crear el usuario');
 
@@ -48,7 +49,7 @@ export async function signIn(input: SignInInput): Promise<AuthUser> {
 
   const { data: userData, error: userError } = await supabase
     .from('users')
-    .select('id, name, email, role, restaurant_id, is_active')
+    .select('id, name, email, role, restaurant_id, isActive')
     .eq('auth_id', authData.user.id)
     .single();
 
@@ -56,7 +57,7 @@ export async function signIn(input: SignInInput): Promise<AuthUser> {
     throw new Error('INCOMPLETE_REGISTRATION');
   }
 
-  if (!userData.is_active) {
+  if (!userData.isActive) {
     throw new Error('Usuario desactivado');
   }
 
@@ -82,7 +83,7 @@ export async function signIn(input: SignInInput): Promise<AuthUser> {
     restaurantName: restaurantData.name,
     restaurantAddress: restaurantData.address,
     restaurantPhone: restaurantData.phone,
-    isActive: userData.is_active,
+    isActive: userData.isActive,
   };
 
   return authUser;
@@ -101,7 +102,7 @@ export async function getCurrentUser(): Promise<AuthUser | null> {
 
   const { data: userData, error: userError } = await supabase
     .from('users')
-    .select('id, name, email, role, restaurant_id, is_active')
+    .select('id, name, email, role, restaurant_id, isActive')
     .eq('auth_id', session.user.id)
     .single();
 
@@ -131,7 +132,7 @@ export async function getCurrentUser(): Promise<AuthUser | null> {
     restaurantName: restaurantData.name,
     restaurantAddress: restaurantData.address,
     restaurantPhone: restaurantData.phone,
-    isActive: userData.is_active,
+    isActive: userData.isActive,
   };
 
   return authUser;

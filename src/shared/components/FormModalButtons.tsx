@@ -2,28 +2,43 @@ import type { FormMode } from '@/shared/types';
 
 interface FormModalButtonsProps {
   formMode: FormMode;
-  setFormMode: (formMode: FormMode) => void;
+  onFormButtonActions: (formMode: FormMode) => void;
+  isPending: boolean;
 }
 
-export default function FormModalButtons({ formMode, setFormMode }: FormModalButtonsProps) {
+export default function FormModalButtons({
+  formMode,
+  onFormButtonActions,
+  isPending,
+}: FormModalButtonsProps) {
   return (
-    <div className="card-actions flex gap-3 items-center justify-center py-6">
+    <div className="card-actions w-full flex gap-3 items-center justify-center pt-6">
       {formMode !== 'show' && (
         <>
-          <button type="submit" className="btn btn-primary">
+          <button type="submit" className="btn btn-primary" disabled={isPending}>
             Guardar
           </button>
         </>
       )}
       {formMode === 'show' && (
-        <button className="btn btn-secondary" onClick={() => setFormMode('edit')}>
+        <button
+          type="button"
+          className="btn btn-secondary"
+          onClick={() => onFormButtonActions('edit')}
+          disabled={isPending}
+        >
           Editar
         </button>
       )}
 
       {formMode !== 'edit' && (
         <>
-          <button className="btn btn-neutral" onClick={() => setFormMode('hidden')}>
+          <button
+            type="button"
+            className="btn btn-neutral"
+            onClick={() => onFormButtonActions('hidden')}
+            disabled={isPending}
+          >
             Cerrar
           </button>
         </>

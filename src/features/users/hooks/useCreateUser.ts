@@ -4,7 +4,12 @@ import type { CreateUserInput } from '../schemas';
 import { useAuthStore } from '@/stores/authStore';
 import { useUiStore } from '@/stores/uiStore';
 
-export function useSignIn() {
+type UseCreateUserOptions = {
+  resetForm: () => void;
+  onClose?: () => void;
+};
+
+export function useCreateUser({ resetForm, onClose }: UseCreateUserOptions) {
   const { user } = useAuthStore();
   const { setShowAlertMessage } = useUiStore();
   const queryClient = useQueryClient();
@@ -16,8 +21,14 @@ export function useSignIn() {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['users'] });
       setShowAlertMessage('success', 'Usuario creado exitosamente');
+      resetForm();
+      onClose?.();
     },
     onError: (error: Error) => {
+      if (error.message.includes('email rate limit exceeded')) {
+        setShowAlertMessage('error', 'El email ya está registrado');
+        return;
+      }
       setShowAlertMessage('error', error.message);
     },
   });

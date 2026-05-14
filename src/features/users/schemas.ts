@@ -14,9 +14,10 @@ export const createUserSchema = z.object({
 export const updateUserSchema = z.object({
   name: z.string().min(1, 'El nombre es requerido'),
   email: z.string().email('Correo electrónico inválido'),
-  role: z.enum(ROLE, {
-    message: 'El rol es requerido',
-  }),
+  role: z
+    .string()
+    .min(1, 'El rol es requerido')
+    .pipe(z.enum(ROLE, { message: 'El rol no es válido' })),
 });
 
 export const updatePasswordSchema = z
