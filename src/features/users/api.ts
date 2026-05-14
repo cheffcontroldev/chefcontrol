@@ -1,6 +1,6 @@
 import { supabase } from '@/supabase/client';
 
-import type { CreateUserInput, UpdateUserInput, UpdatePasswordInput } from './types';
+import type { CreateUserInput, UpdateMyUserInput, UpdateMyPasswordInput } from './types';
 
 export async function getUsers() {
   const { data, error } = await supabase.from('users').select('*');
@@ -12,6 +12,12 @@ export async function getUser(id: string) {
   const { data, error } = await supabase.from('users').select('*').eq('id', id).single();
   if (error) throw new Error(error.message);
   return data;
+}
+
+export async function getMyUserId(authId: string) {
+  const { data, error } = await supabase.from('users').select('id').eq('auth_id', authId).single();
+  if (error) throw new Error(error.message);
+  return data.id;
 }
 
 export async function createUser(input: CreateUserInput, restaurantId: string) {
@@ -36,22 +42,19 @@ export async function createUser(input: CreateUserInput, restaurantId: string) {
   return data;
 }
 
-export const updateMyUser = async (id: string, input: UpdateUserInput) => {
-  const user = await getUser(id);
-  if (!user) throw new Error('Usuario no encontrado');
-
+export const updateMyUser = async (authId: string, input: UpdateMyUserInput) => {
   if (input.email) {
     const { error: errorAuth } = await supabase.auth.updateUser({ email: input.email });
     if (errorAuth) throw new Error(errorAuth.message);
   }
-  const { data, error } = await supabase.from('users').update(input).eq('id', id).single();
+  const { data, error } = await supabase.from('users').update(input).eq('auth_id', authId).single();
 
   if (error) throw new Error(error.message);
 
   return data;
 };
 
-export const updateMyPassword = async (password: UpdatePasswordInput['password']) => {
+export const updateMyPassword = async (password: UpdateMyPasswordInput['password']) => {
   const { error: errorAuth } = await supabase.auth.updateUser({ password });
   if (errorAuth) throw new Error(errorAuth.message);
 };

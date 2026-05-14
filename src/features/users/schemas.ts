@@ -5,7 +5,8 @@ import { ROLE } from '@/shared/enums';
 export const createUserSchema = z.object({
   name: z.string().min(1, 'El nombre es requerido'),
   email: z.string().email('Correo electrónico inválido'),
-  Role: z.enum(ROLE, {
+  password: z.string().min(8, 'La contraseña debe tener al menos 8 caracteres'),
+  role: z.enum(ROLE, {
     message: 'El rol es requerido',
   }),
 });
@@ -13,7 +14,7 @@ export const createUserSchema = z.object({
 export const updateUserSchema = z.object({
   name: z.string().min(1, 'El nombre es requerido'),
   email: z.string().email('Correo electrónico inválido'),
-  Role: z.enum(ROLE, {
+  role: z.enum(ROLE, {
     message: 'El rol es requerido',
   }),
 });
@@ -28,6 +29,6 @@ export const updatePasswordSchema = z
     path: ['confirmPassword'],
   });
 
-export type SignInInput = z.infer<typeof createUserSchema>;
+export type CreateUserInput = z.infer<typeof createUserSchema>;
 export type UpdateUserInput = z.infer<typeof updateUserSchema>;
 export type UpdatePasswordInput = z.infer<typeof updatePasswordSchema>;

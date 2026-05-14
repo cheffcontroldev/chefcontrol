@@ -7,13 +7,13 @@ export interface CreateUserInput {
   role: Role;
 }
 
-export interface UpdateUserInput {
+export interface UpdateMyUserInput {
   name: string;
   email: string;
   role: Role;
 }
 
-export interface UpdatePasswordInput {
+export interface UpdateMyPasswordInput {
   password: string;
   confirmPassword: string;
 }
