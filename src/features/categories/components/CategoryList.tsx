@@ -1,15 +1,35 @@
 import { useCategories } from '../hooks/useCategories';
+
+/* Components */
 import { TableColumnActions } from '@/shared/components/TableColumnActions';
 import TableHeaderActions from '@/shared/components/TableHeaderActions';
+
+/* Stores */
 import { useUiStore } from '@/stores/uiStore';
+import { useCategoryStore } from '../store/CategoryStore';
+
+/* Interfaces and Types */
+import type { Category } from '../types';
 
 export default function CategoryList() {
   const { data: categories, isLoading, error } = useCategories();
+  const { setSelectedCategory } = useCategoryStore();
   const { setCategoryFormMode } = useUiStore();
   const countCategories = categories?.length || 0;
+
+  const onShow = (category: Category) => {
+    setSelectedCategory(category);
+    setCategoryFormMode('show');
+  };
+
+  const onCreate = () => {
+    setSelectedCategory(null);
+    setCategoryFormMode('create');
+  };
+
   return (
-    <div className="overflow-x-auto w-full max-w-7xl">
-      <TableHeaderActions title="Agregar Categoría" onAdd={() => setCategoryFormMode('create')} />
+    <div className="overflow-x-auto w-full max-w-4xl">
+      <TableHeaderActions title="Agregar Categoría" onAdd={() => onCreate()} />
       <table className="table">
         {/* head */}
         <thead>
@@ -48,7 +68,7 @@ export default function CategoryList() {
               <td>{category.name}</td>
               <td className="max-sm:hidden">{category.description}</td>
               <td>
-                <TableColumnActions formMode={() => setCategoryFormMode('show')} />
+                <TableColumnActions onShow={() => onShow(category)} />
               </td>
             </tr>
           ))}

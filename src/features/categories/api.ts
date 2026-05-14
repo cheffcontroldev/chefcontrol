@@ -5,13 +5,22 @@ import type { CreateCategoryInput, UpdateCategoryInput } from './types';
 const TABLE = 'categories';
 
 export async function getCategories(restaurantId: string) {
-  const { data, error } = await supabase.from(TABLE).select('*').eq('restaurant_id', restaurantId);
+  const { data, error } = await supabase
+    .from(TABLE)
+    .select('*')
+    .eq('restaurant_id', restaurantId)
+    .eq('is_deleted', false);
   if (error) throw new Error(error.message);
   return data;
 }
 
 export async function getCategory(id: string) {
-  const { data, error } = await supabase.from(TABLE).select('*').eq('id', id).single();
+  const { data, error } = await supabase
+    .from(TABLE)
+    .select('*')
+    .eq('id', id)
+    .eq('is_deleted', false)
+    .single();
   if (error) throw new Error(error.message);
   return data;
 }

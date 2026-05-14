@@ -43,6 +43,19 @@ export default function FormModalButtons({
           </button>
         </>
       )}
+
+      {formMode === 'edit' && (
+        <>
+          <button
+            type="button"
+            className="btn btn-neutral"
+            onClick={() => onFormButtonActions('show')}
+            disabled={isPending}
+          >
+            Cancelar
+          </button>
+        </>
+      )}
     </div>
   );
 }
