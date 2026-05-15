@@ -1,6 +1,6 @@
 import type { Category } from '@/features/categories/types';
 import type { UnitOfMeasure } from '@/features/unitsOfMeasure/types';
-import type { Product } from '../types';
+import type { Product, CreateProductInput, UpdateProductInput } from '../types';
 
 interface responseProduct {
   id: string;
@@ -31,5 +31,21 @@ export const responseToProduct = (response: responseProduct): Product => {
     unitsOfMeasure: response.units_of_measure,
     createdAt: response.created_at,
     updatedAt: response.updated_at,
+  };
+};
+
+export const responseToProducts = (responses: responseProduct[]): Product[] => {
+  return responses.map(responseToProduct);
+};
+
+export const productToRequest = (product: CreateProductInput | UpdateProductInput) => {
+  return {
+    name: product.name,
+    description: product.description,
+    sku_code: product.skuCode,
+    unit_of_measure_id: product.unitOfMeasureId,
+    stock_minimum: product.stockMinimum,
+    category_id: product.categoryId,
+    is_active: product.isActive,
   };
 };
