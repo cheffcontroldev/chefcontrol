@@ -2,6 +2,8 @@ import { supabase } from '@/supabase/client';
 
 import type { CreateUnitOfMeasureInput, UpdateUnitOfMeasureInput } from './types';
 
+import { responseToUnitOfMeasure, responseToUnitOfMeasures } from './mappers/unitOfMeasureMapper';
+
 const TABLE = 'units_of_measure';
 
 export async function getUnitsOfMeasure(restaurantId: string) {
@@ -11,7 +13,7 @@ export async function getUnitsOfMeasure(restaurantId: string) {
     .eq('restaurant_id', restaurantId)
     .eq('is_deleted', false);
   if (error) throw new Error(error.message);
-  return data;
+  return responseToUnitOfMeasures(data);
 }
 
 export async function getUnitOfMeasure(id: string) {
@@ -22,7 +24,7 @@ export async function getUnitOfMeasure(id: string) {
     .eq('is_deleted', false)
     .single();
   if (error) throw new Error(error.message);
-  return data;
+  return responseToUnitOfMeasure(data);
 }
 
 export async function createUnitOfMeasure(input: CreateUnitOfMeasureInput, restaurantId: string) {

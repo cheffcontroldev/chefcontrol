@@ -47,7 +47,7 @@ export async function signIn(input: SignInInput): Promise<AuthUser> {
 
   const { data: userData, error: userError } = await supabase
     .from('users')
-    .select('id, name, email, role, restaurant_id, isActive')
+    .select('id, name, email, role, restaurant_id, is_active')
     .eq('auth_id', authData.user.id)
     .single();
 
@@ -55,7 +55,7 @@ export async function signIn(input: SignInInput): Promise<AuthUser> {
     throw new Error('INCOMPLETE_REGISTRATION');
   }
 
-  if (!userData.isActive) {
+  if (!userData.is_active) {
     throw new Error('Usuario desactivado');
   }
 
@@ -79,7 +79,7 @@ export async function signIn(input: SignInInput): Promise<AuthUser> {
     restaurantName: restaurantData.name,
     restaurantAddress: restaurantData.address,
     restaurantPhone: restaurantData.phone,
-    isActive: userData.isActive,
+    isActive: userData.is_active,
   };
 
   return authUser;

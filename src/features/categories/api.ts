@@ -2,6 +2,8 @@ import { supabase } from '@/supabase/client';
 
 import type { CreateCategoryInput, UpdateCategoryInput } from './types';
 
+import { responseToCategory, responseToCategories } from './mappers/categoryMapper';
+
 const TABLE = 'categories';
 
 export async function getCategories(restaurantId: string) {
@@ -11,7 +13,7 @@ export async function getCategories(restaurantId: string) {
     .eq('restaurant_id', restaurantId)
     .eq('is_deleted', false);
   if (error) throw new Error(error.message);
-  return data;
+  return responseToCategories(data);
 }
 
 export async function getCategory(id: string) {
@@ -22,7 +24,7 @@ export async function getCategory(id: string) {
     .eq('is_deleted', false)
     .single();
   if (error) throw new Error(error.message);
-  return data;
+  return responseToCategory(data);
 }
 
 export async function createCategory(input: CreateCategoryInput, restaurantId: string) {
