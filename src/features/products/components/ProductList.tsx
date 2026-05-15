@@ -23,8 +23,6 @@ export default function ProductList() {
   const { mutate: deleteProduct } = useDeleteProduct();
   const countProducts = products?.length || 0;
 
-  console.log(products);
-
   const onShow = (product: Product) => {
     setSelectedProduct(product);
     setProductFormMode('show');
@@ -82,13 +80,13 @@ export default function ProductList() {
           )}
           {products?.map((product) => (
             <tr key={product.id} className="hover:bg-base-300">
-              <th className="max-2xl:hidden">{product.id.toString().slice(0, 8)}...</th>
+              <th className="max-2xl:hidden">{product.id.slice(0, 8)}...</th>
               <td>{product.name}</td>
-              <td className="max-sm:hidden">{product.sku}</td>
-              <td className="max-md:hidden">{product.category}</td>
-              <td className="max-lg:hidden">{product.min_stock}</td>
-              <td className="max-lg:hidden">{product.unit}</td>
-              <td className="max-xl:hidden">{product.active ? 'Activo' : 'Inactivo'}</td>
+              <td className="max-sm:hidden">{product.skuCode}</td>
+              <td className="max-md:hidden">{product.category.name}</td>
+              <td className="max-lg:hidden">{product.stockMinimum}</td>
+              <td className="max-lg:hidden">{product.unitsOfMeasure.name}</td>
+              <td className="max-xl:hidden">{product.isActive ? 'Activo' : 'Inactivo'}</td>
               <td>
                 <TableColumnActions
                   onShow={() => onShow(product)}

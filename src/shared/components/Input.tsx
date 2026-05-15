@@ -1,8 +1,8 @@
 import { forwardRef, type InputHTMLAttributes } from 'react';
-import { Mail, RectangleEllipsis, TextCursorInput, type LucideIcon } from 'lucide-react';
+import { Hash, Mail, RectangleEllipsis, TextCursorInput, type LucideIcon } from 'lucide-react';
 
 interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
-  type: 'email' | 'text' | 'password' | 'url';
+  type: 'email' | 'text' | 'password' | 'url' | 'number';
   placeholder: string;
   errorMessage?: string;
   disabled?: boolean;
@@ -14,6 +14,7 @@ const iconMap: Record<InputProps['type'], LucideIcon> = {
   password: RectangleEllipsis,
   url: TextCursorInput,
   text: TextCursorInput,
+  number: Hash,
 };
 
 const Input = forwardRef<HTMLInputElement, InputProps>(

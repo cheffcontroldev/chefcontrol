@@ -2,6 +2,8 @@ import { supabase } from '@/supabase/client';
 
 import type { CreateProductInput, UpdateProductInput } from './types';
 
+import { responseToProduct } from './mappers/productMapping';
+
 const TABLE = 'products';
 
 export async function getProducts(restaurantId: string) {
@@ -9,8 +11,11 @@ export async function getProducts(restaurantId: string) {
     .from(TABLE)
     .select('*, units_of_measure(*), categories(*)')
     .eq('restaurant_id', restaurantId);
+
   if (error) throw new Error(error.message);
-  return data;
+
+  console.log(data);
+  return data.map(responseToProduct);
 }
 
 export async function getProduct(id: string) {
@@ -26,18 +31,17 @@ export async function getProduct(id: string) {
 export async function createProduct(input: CreateProductInput, restaurantId: string) {
   const { name, description, skuCode, unitOfMeasureId, stockMinimum, categoryId } = input;
 
-  const newProduct = {
+  const dto = {
     name,
     description,
-    skuCode,
-    unitOfMeasureId,
-    stockMinimum,
-    categoryId,
-    isActive: true,
+    sku_code: skuCode,
+    unit_of_measure_id: unitOfMeasureId,
+    stock_minimum: stockMinimum,
+    category_id: categoryId,
     restaurant_id: restaurantId,
   };
 
-  const { data, error } = await supabase.from(TABLE).insert(newProduct);
+  const { data, error } = await supabase.from(TABLE).insert(dto);
 
   if (error) throw new Error(error.message);
 
