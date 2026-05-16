@@ -10,6 +10,7 @@ interface UiState {
   categoryFormMode: FormMode;
   unitOfMeasureFormMode: FormMode;
   productFormMode: FormMode;
+  lotFormMode: FormMode;
 }
 
 interface UiActions {
@@ -19,6 +20,7 @@ interface UiActions {
   setCategoryFormMode: (formMode: FormMode) => void;
   setUnitOfMeasureFormMode: (formMode: FormMode) => void;
   setProductFormMode: (formMode: FormMode) => void;
+  setLotFormMode: (formMode: FormMode) => void;
 }
 
 export const useUiStore = create<UiState & UiActions>((set) => ({
@@ -30,6 +32,7 @@ export const useUiStore = create<UiState & UiActions>((set) => ({
   categoryFormMode: 'hidden',
   unitOfMeasureFormMode: 'hidden',
   productFormMode: 'hidden',
+  lotFormMode: 'hidden',
   setTitlePage: (titlePage: string) => set({ titlePage }),
   setShowAlertMessage: (alertType: AlertType, alertMessage: string) => {
     set({ alertType, alertMessage, showAlert: true });
@@ -41,4 +44,5 @@ export const useUiStore = create<UiState & UiActions>((set) => ({
   setCategoryFormMode: (formMode: FormMode) => set({ categoryFormMode: formMode }),
   setUnitOfMeasureFormMode: (formMode: FormMode) => set({ unitOfMeasureFormMode: formMode }),
   setProductFormMode: (formMode: FormMode) => set({ productFormMode: formMode }),
+  setLotFormMode: (formMode: FormMode) => set({ lotFormMode: formMode }),
 }));
