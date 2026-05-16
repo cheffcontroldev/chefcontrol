@@ -11,7 +11,8 @@ export async function getProducts(restaurantId: string) {
     .from(TABLE)
     .select('*, units_of_measure(*), categories(*)')
     .eq('restaurant_id', restaurantId)
-    .eq('is_deleted', false);
+    .eq('is_deleted', false)
+    .order('name', { ascending: true });
 
   if (error) throw new Error(error.message);
 

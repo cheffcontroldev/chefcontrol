@@ -45,7 +45,6 @@ export default function ProductList() {
         {/* head */}
         <thead>
           <tr>
-            <th className="max-2xl:hidden">Id</th>
             <th>Nombre</th>
             <th className="max-sm:hidden">SKUCode</th>
             <th className="max-md:hidden">Categoría</th>
@@ -80,7 +79,6 @@ export default function ProductList() {
           )}
           {products?.map((product) => (
             <tr key={product.id} className="hover:bg-base-300">
-              <th className="max-2xl:hidden">{product.id.slice(0, 8)}...</th>
               <td>{product.name}</td>
               <td className="max-sm:hidden">{product.skuCode}</td>
               <td className="max-md:hidden">{product.category.name}</td>

@@ -11,7 +11,8 @@ export async function getCategories(restaurantId: string) {
     .from(TABLE)
     .select('*')
     .eq('restaurant_id', restaurantId)
-    .eq('is_deleted', false);
+    .eq('is_deleted', false)
+    .order('name', { ascending: true });
   if (error) throw new Error(error.message);
   return responseToCategories(data);
 }

@@ -45,7 +45,6 @@ export default function CategoryList() {
         {/* head */}
         <thead>
           <tr>
-            <th className="hidden">Id</th>
             <th>Nombre</th>
             <th className="max-md:hidden">Descripción</th>
             <th className="text-center">Actions</th>
@@ -75,9 +74,8 @@ export default function CategoryList() {
           )}
           {categories?.map((category) => (
             <tr key={category.id} className="hover:bg-base-300">
-              <th className="hidden">{category.id.toString().slice(0, 8)}...</th>
               <td>{category.name}</td>
-              <td className="max-md:hidden">{category.description}</td>
+              <td className="max-md:hidden">{category.description.slice(0, 50)}...</td>
               <td>
                 <TableColumnActions
                   onShow={() => onShow(category)}
