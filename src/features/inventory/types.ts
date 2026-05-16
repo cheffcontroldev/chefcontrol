@@ -15,14 +15,15 @@ export interface Movement {
   product: Product;
 }
 
-export interface CreateMovement {
+export interface CreateEntryMovement {
   productId: string;
-  type: TypeMovement;
   quantity: number;
-  movementDate: Date;
   expirationDate: Date;
-  reason: string;
   notes?: string;
-  isCancelled: boolean;
-  canceledAt?: Date;
+}
+
+export interface EntryResult {
+  success: boolean;
+  movementId: string;
+  lotId: string;
 }

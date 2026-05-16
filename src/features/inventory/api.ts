@@ -1,6 +1,12 @@
 import { supabase } from '@/supabase/client';
 
-import { responseToMovement, responseToMovements } from './mappers/movementMapper';
+import {
+  responseToMovement,
+  responseToMovements,
+  responseToEntryResult,
+} from './mappers/movementMapper';
+
+import type { CreateEntryMovement } from './types';
 
 const TABLE = 'movements';
 
@@ -20,4 +26,15 @@ export async function getMovement(id: string) {
   const { data, error } = await supabase.from(TABLE).select('*, products(*)').eq('id', id).single();
   if (error) throw new Error(error.message);
   return responseToMovement(data);
+}
+
+export async function createMovementEntry(input: CreateEntryMovement, restaurantId: string) {
+  const { data, error } = await supabase.rpc('registry_entry', {
+    ...input,
+    restaurant_id: restaurantId,
+  });
+
+  if (error) throw new Error(error.message);
+
+  return responseToEntryResult(data);
 }

@@ -1,4 +1,4 @@
-import type { Movement, TypeMovement } from '../types';
+import type { Movement, TypeMovement, EntryResult } from '../types';
 import type { Product } from '@/features/products/types';
 
 interface ResponseMovement {
@@ -15,6 +15,12 @@ interface ResponseMovement {
   product: Product;
 }
 
+export interface ResponseEntryResult {
+  success: boolean;
+  movement_id: string;
+  lot_id: string;
+}
+
 export const responseToMovement = (response: ResponseMovement): Movement => {
   return {
     id: response.id,
@@ -22,7 +28,6 @@ export const responseToMovement = (response: ResponseMovement): Movement => {
     type: response.type,
     quantity: response.quantity,
     movementDate: response.movement_date,
-    expirationDate: response.expiration_date,
     reason: response.reason,
     notes: response.notes,
     isCancelled: response.is_cancelled,
@@ -33,4 +38,12 @@ export const responseToMovement = (response: ResponseMovement): Movement => {
 
 export const responseToMovements = (responses: ResponseMovement[]): Movement[] => {
   return responses.map(responseToMovement);
+};
+
+export const responseToEntryResult = (response: ResponseEntryResult): EntryResult => {
+  return {
+    success: response.success,
+    movementId: response.movement_id,
+    lotId: response.lot_id,
+  };
 };
