@@ -1,13 +1,13 @@
 import { Link } from 'wouter';
 import type { LucideIcon } from 'lucide-react';
 
-interface SidebarMenuItemProps {
+interface BigMenuItemProps {
   icon: LucideIcon;
   title: string;
   href: string;
 }
 
-export default function SettingsMenuItem({ icon: Icon, title, href }: SidebarMenuItemProps) {
+export default function BigMenuItem({ icon: Icon, title, href }: BigMenuItemProps) {
   return (
     <Link
       href={href}

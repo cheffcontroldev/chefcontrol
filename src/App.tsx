@@ -8,8 +8,11 @@ import CompleteRegistrationPage from '@/pages/CompleteRegistrationPage';
 import DashboardPage from '@/pages/DashboardPage';
 import InventoryPage from '@/pages/InventoryPage';
 import LoginPage from '@/pages/LoginPage';
+import LotsPage from '@/pages/LotsPage';
 import MovementsPage from '@/pages/MovementsPage';
 import ProductsPage from '@/pages/ProductsPage';
+import RecordInventoryEntryPage from '@/pages/RecordInventoryEntryPage';
+import RecordInventoryExitPage from '@/pages/RecordInventoryExitPage';
 import RegisterPage from '@/pages/RegisterPage';
 import ReportsPage from '@/pages/ReportsPage';
 import SettingsPage from '@/pages/SettingsPage';
@@ -29,6 +32,9 @@ function App() {
           <Route path="/inventario/categorias" component={CategoriesPage} />
           <Route path="/inventario/unidades-de-medida" component={UnitsOfMeasurePage} />
           <Route path="/inventario" component={InventoryPage} />
+          <Route path="/inventario/lotes" component={LotsPage} />
+          <Route path="/inventario/registrar-entrada" component={RecordInventoryEntryPage} />
+          <Route path="/inventario/registrar-salida" component={RecordInventoryExitPage} />
           <Route path="/inventario/movimientos" component={MovementsPage} />
           <Route path="/alertas" component={AlertsPage} />
           <Route path="/reportes" component={ReportsPage} />

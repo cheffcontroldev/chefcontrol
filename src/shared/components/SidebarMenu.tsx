@@ -4,6 +4,9 @@ import {
   Cuboid,
   Table,
   FolderTree,
+  PackageMinus,
+  PackageOpen,
+  PackagePlus,
   Ruler,
   ShelvingUnit,
   BellRing,
@@ -27,6 +30,17 @@ export default function SidebarMenu() {
               icon={Ruler}
               title="Unidades de Medida"
               href="/inventario/unidades-de-medida"
+            />
+            <SidebarMenuItem icon={PackageOpen} title="Lotes" href="/inventario/lotes" />
+            <SidebarMenuItem
+              icon={PackagePlus}
+              title="Registrar Entrada"
+              href="/inventario/registrar-entrada"
+            />
+            <SidebarMenuItem
+              icon={PackageMinus}
+              title="Registrar Salida"
+              href="/inventario/registrar-salida"
             />
             <SidebarMenuItem icon={Table} title="Movimientos" href="/inventario/movimientos" />
           </SidebarMenuGroup>
