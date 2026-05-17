@@ -1,25 +1,11 @@
-import type { Movement, TypeMovement, EntryResult } from '../types';
-import type { Product } from '@/features/products/types';
-
-interface ResponseMovement {
-  id: string;
-  product_id: string;
-  type: TypeMovement;
-  quantity: number;
-  movement_date: Date;
-  expiration_date: Date;
-  reason: string;
-  notes?: string;
-  is_cancelled: boolean;
-  canceled_at?: Date;
-  product: Product;
-}
-
-export interface ResponseEntryResult {
-  success: boolean;
-  movement_id: string;
-  lot_id: string;
-}
+import type {
+  Movement,
+  EntryResult,
+  CreateEntryMovement,
+  ResponseMovement,
+  RequestMovementEntry,
+  ResponseEntryResult,
+} from '../types';
 
 export const responseToMovement = (response: ResponseMovement): Movement => {
   return {
@@ -38,6 +24,22 @@ export const responseToMovement = (response: ResponseMovement): Movement => {
 
 export const responseToMovements = (responses: ResponseMovement[]): Movement[] => {
   return responses.map(responseToMovement);
+};
+
+export const movementEntryToRequest = (
+  entry: CreateEntryMovement,
+  restaurantId: string,
+  userId: string
+): RequestMovementEntry => {
+  return {
+    p_product_id: entry.productId,
+    p_user_id: userId,
+    p_restaurant_id: restaurantId,
+    p_provider: entry.provider || '',
+    p_expiration_date: entry.expirationDate,
+    p_quantity: entry.quantity,
+    p_notes: entry.notes || '',
+  };
 };
 
 export const responseToEntryResult = (response: ResponseEntryResult): EntryResult => {

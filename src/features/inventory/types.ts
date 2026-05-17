@@ -18,7 +18,8 @@ export interface Movement {
 export interface CreateEntryMovement {
   productId: string;
   quantity: number;
-  expirationDate: Date;
+  expirationDate: string;
+  provider: string;
   notes?: string;
 }
 
@@ -26,4 +27,33 @@ export interface EntryResult {
   success: boolean;
   movementId: string;
   lotId: string;
+}
+
+export interface ResponseMovement {
+  id: string;
+  product_id: string;
+  type: TypeMovement;
+  quantity: number;
+  movement_date: Date;
+  expiration_date: Date;
+  reason: string;
+  notes?: string;
+  is_cancelled: boolean;
+  canceled_at?: Date;
+  product: Product;
+}
+
+export interface RequestMovementEntry {
+  p_product_id: string;
+  p_user_id: string;
+  p_restaurant_id: string;
+  p_provider: string;
+  p_quantity: number;
+  p_expiration_date: string;
+  p_notes: string;
+}
+export interface ResponseEntryResult {
+  success: boolean;
+  movement_id: string;
+  lot_id: string;
 }

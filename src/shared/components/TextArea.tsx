@@ -13,7 +13,7 @@ const TextArea = forwardRef<HTMLTextAreaElement, InputProps>(
       <fieldset className="fieldset">
         <legend className="fieldset-legend px-1">{placeholder}</legend>
         <textarea
-          className="w-full"
+          className="w-full textarea"
           ref={ref}
           readOnly={readOnly}
           disabled={disabled}

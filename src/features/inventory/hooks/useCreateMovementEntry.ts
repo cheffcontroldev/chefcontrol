@@ -4,25 +4,25 @@ import type { CreateEntryMovement } from '../schemas';
 import { useAuthStore } from '@/stores/authStore';
 import { useUiStore } from '@/stores/uiStore';
 
-type UseMovementEntryOptions = {
-  onClose?: () => void;
+type UseCreateMovementEntryOptions = {
+  resetForm: () => void;
 };
 
-export function useMovementEntry({ onClose }: UseMovementEntryOptions) {
+export function useCreateMovementEntry({ resetForm }: UseCreateMovementEntryOptions) {
   const { user } = useAuthStore();
   const { setShowAlertMessage } = useUiStore();
   const queryClient = useQueryClient();
 
-  const restaurantId = user?.restaurantId;
-
   return useMutation({
-    mutationFn: (input: CreateEntryMovement) => createMovementEntry(input, restaurantId),
+    mutationFn: (input: CreateEntryMovement) =>
+      createMovementEntry(input, user.restaurantId, user.id),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['movements'] });
       setShowAlertMessage('success', 'Movimiento creado exitosamente');
-      onClose?.();
+      resetForm();
     },
     onError: (error: Error) => {
+      console.error(error.message);
       setShowAlertMessage('error', error.message);
     },
   });

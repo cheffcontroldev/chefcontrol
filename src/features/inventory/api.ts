@@ -4,9 +4,10 @@ import {
   responseToMovement,
   responseToMovements,
   responseToEntryResult,
+  movementEntryToRequest,
 } from './mappers/movementMapper';
 
-import type { CreateEntryMovement } from './types';
+import type { CreateEntryMovement, RequestMovementEntry } from './types';
 
 const TABLE = 'movements';
 
@@ -28,11 +29,14 @@ export async function getMovement(id: string) {
   return responseToMovement(data);
 }
 
-export async function createMovementEntry(input: CreateEntryMovement, restaurantId: string) {
-  const { data, error } = await supabase.rpc('registry_entry', {
-    ...input,
-    restaurant_id: restaurantId,
-  });
+export async function createMovementEntry(
+  input: CreateEntryMovement,
+  restaurantId: string,
+  userId: string
+) {
+  const request: RequestMovementEntry = movementEntryToRequest(input, restaurantId, userId);
+
+  const { data, error } = await supabase.rpc('register_entry', request);
 
   if (error) throw new Error(error.message);
 
