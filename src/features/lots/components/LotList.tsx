@@ -1,4 +1,5 @@
 /* Hooks */
+import { Eye } from 'lucide-react';
 import { useLots } from '../hooks/useLots';
 
 import { formatDate } from '@/shared/utils/formatDate';
@@ -58,7 +59,11 @@ export default function LotList() {
               </td>
               <td className="max-xl:hidden">{formatDate(lot.createdAt.toString())}</td>
               <td className="max-md:hidden">{lot.isActive ? 'Activo' : 'Inactivo'}</td>
-              <td className="text-center">Ver</td>
+              <td className="text-center">
+                <button className="btn btn-info btn-xs">
+                  <Eye className="w-4 h-4" />
+                </button>
+              </td>
             </tr>
           ))}
         </tbody>

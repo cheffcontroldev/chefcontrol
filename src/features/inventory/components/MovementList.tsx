@@ -1,3 +1,5 @@
+import { Eye, PackageMinus, PackagePlus } from 'lucide-react';
+
 /* Hooks */
 import { useMovements } from '../hooks/useMovements';
 
@@ -18,7 +20,7 @@ export default function MovementList() {
             <th className="max-md:hidden">Cantidad</th>
             <th className="max-lg:hidden">Fecha</th>
             <th className="max-sm:hidden">Cancelado</th>
-            <th>Acciones</th>
+            <th className="text-center">Acciones</th>
           </tr>
         </thead>
         <tbody>
@@ -46,12 +48,24 @@ export default function MovementList() {
           {movements?.map((movement) => (
             <tr key={movement.id} className="hover:bg-base-300">
               <td>{movement.product.name}</td>
-              <td>{movement.type === 'entry' ? 'Entrada' : 'Salida'}</td>
+              <td className="flex items-center gap-2">
+                {movement.type === 'entry' ? (
+                  <>
+                    Entrada <PackagePlus className="text-success w-4 h-4" />
+                  </>
+                ) : (
+                  <>
+                    Salida <PackageMinus className="text-error w-4 h-4" />
+                  </>
+                )}
+              </td>
               <td className="max-md:hidden">{movement.quantity}</td>
               <td className="max-lg:hidden">{formatDate(movement.movementDate.toString())}</td>
               <td className="max-sm:hidden">{movement.isCancelled ? 'Sí' : 'No'}</td>
-              <td>
-                <button className="btn btn-ghost btn-xs">Ver</button>
+              <td className="text-center">
+                <button className="btn btn-info btn-xs">
+                  <Eye className="w-4 h-4" />
+                </button>
               </td>
             </tr>
           ))}
