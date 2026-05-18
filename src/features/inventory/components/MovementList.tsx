@@ -5,9 +5,12 @@ import { useMovements } from '../hooks/useMovements';
 
 import { formatDate } from '@/shared/utils/dataHelpers';
 
+import { useMovementStore } from '../store/MovementStore';
+
 export default function MovementList() {
   const { data: movements, isLoading, error } = useMovements();
   const countMovements = movements?.length || 0;
+  const { setSelectedMovement } = useMovementStore();
 
   return (
     <div className="overflow-x-auto w-full min-w-[340px] max-w-7xl">
@@ -63,7 +66,10 @@ export default function MovementList() {
               <td className="max-lg:hidden">{formatDate(movement.movementDate.toString())}</td>
               <td className="max-sm:hidden">{movement.isCancelled ? 'Sí' : 'No'}</td>
               <td className="text-center">
-                <button className="btn btn-info btn-xs">
+                <button
+                  className="btn btn-info btn-xs"
+                  onClick={() => setSelectedMovement(movement)}
+                >
                   <Eye className="w-4 h-4" />
                 </button>
               </td>
