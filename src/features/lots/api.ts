@@ -10,7 +10,9 @@ export async function getLots(restaurantId: string): Promise<Lot[]> {
   const { data, error } = await supabase
     .from(TABLE)
     .select('*, products(*)')
-    .eq('restaurant_id', restaurantId);
+    .eq('restaurant_id', restaurantId)
+    .order('current_quantity', { ascending: false })
+    .order('expiration_date', { ascending: true });
   if (error) throw new Error(error.message);
   return responseToLots(data);
 }

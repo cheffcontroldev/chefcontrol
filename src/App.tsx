@@ -9,10 +9,10 @@ import DashboardPage from '@/pages/DashboardPage';
 import InventoryPage from '@/pages/InventoryPage';
 import LoginPage from '@/pages/LoginPage';
 import LotsPage from '@/pages/LotsPage';
+import MovementFormEntryPage from '@/pages/MovementFormEntryPage';
+import MovementFormExitPage from './pages/MovementFormExitPage';
 import MovementsPage from '@/pages/MovementsPage';
 import ProductsPage from '@/pages/ProductsPage';
-import MovementFormEntryPage from '@/pages/MovementFormEntryPage';
-import RecordInventoryExitPage from '@/pages/RecordInventoryExitPage';
 import RegisterPage from '@/pages/RegisterPage';
 import ReportsPage from '@/pages/ReportsPage';
 import SettingsPage from '@/pages/SettingsPage';
@@ -34,7 +34,7 @@ function App() {
           <Route path="/inventario" component={InventoryPage} />
           <Route path="/inventario/lotes" component={LotsPage} />
           <Route path="/inventario/registrar-entrada" component={MovementFormEntryPage} />
-          <Route path="/inventario/registrar-salida" component={RecordInventoryExitPage} />
+          <Route path="/inventario/registrar-salida" component={MovementFormExitPage} />
           <Route path="/inventario/movimientos" component={MovementsPage} />
           <Route path="/alertas" component={AlertsPage} />
           <Route path="/reportes" component={ReportsPage} />

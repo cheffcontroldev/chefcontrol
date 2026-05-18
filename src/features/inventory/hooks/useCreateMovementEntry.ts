@@ -17,6 +17,7 @@ export function useCreateMovementEntry({ resetForm }: UseCreateMovementEntryOpti
     mutationFn: (input: CreateEntryMovement) =>
       createMovementEntry(input, user.restaurantId, user.id),
     onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['lots'] });
       queryClient.invalidateQueries({ queryKey: ['movements'] });
       setShowAlertMessage('success', 'Movimiento creado exitosamente');
       resetForm();

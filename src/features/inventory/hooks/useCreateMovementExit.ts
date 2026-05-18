@@ -14,8 +14,10 @@ export function useCreateMovementExit({ resetForm }: UseCreateMovementExitOption
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: (input: CreateExitMovement) => createMovementExit(input, user.id),
+    mutationFn: (input: CreateExitMovement) =>
+      createMovementExit(input, user.restaurantId, user.id),
     onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['lots'] });
       queryClient.invalidateQueries({ queryKey: ['movements'] });
       setShowAlertMessage('success', 'Movimiento creado exitosamente');
       resetForm();

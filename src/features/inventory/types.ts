@@ -69,6 +69,7 @@ export interface RequestMovementEntry {
 export interface RequestMovementExit {
   p_product_id: string;
   p_user_id: string;
+  p_restaurant_id: string;
   p_quantity: number;
   p_reason: string;
   p_notes: string;
@@ -83,5 +84,5 @@ export interface ResponseEntryResult {
 export interface ResponseExitResult {
   success: boolean;
   movement_id: string;
-  consumed_lots: string;
+  consumed_lots: string[];
 }

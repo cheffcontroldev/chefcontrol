@@ -50,12 +50,23 @@ export async function createMovementEntry(
   return responseToEntryResult(data);
 }
 
-export async function createMovementExit(input: CreateExitMovement, userId: string) {
-  const request: RequestMovementExit = movementExitToRequest(input, userId);
+export async function createMovementExit(
+  input: CreateExitMovement,
+  restaurantId: string,
+  userId: string
+) {
+  const request: RequestMovementExit = movementExitToRequest(input, restaurantId, userId);
 
   const { data, error } = await supabase.rpc('register_exit', request);
 
   if (error) throw new Error(error.message);
+
+  if (data.error) {
+    if (data.error === 'Insufficient stock') {
+      throw new Error('No hay suficiente stock para realizar este movimiento');
+    }
+    throw new Error(data.error);
+  }
 
   return responseToExitResult(data);
 }
