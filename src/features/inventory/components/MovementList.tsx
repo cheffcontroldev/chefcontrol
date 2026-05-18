@@ -3,7 +3,7 @@ import { Eye, PackageMinus, PackagePlus } from 'lucide-react';
 /* Hooks */
 import { useMovements } from '../hooks/useMovements';
 
-import { formatDate } from '@/shared/utils/formatDate';
+import { formatDate } from '@/shared/utils/dataHelpers';
 
 export default function MovementList() {
   const { data: movements, isLoading, error } = useMovements();

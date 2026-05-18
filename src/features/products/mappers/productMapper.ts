@@ -2,7 +2,7 @@ import type { Category } from '@/features/categories/types';
 import type { UnitOfMeasure } from '@/features/unitsOfMeasure/types';
 import type { Product, CreateProductInput, UpdateProductInput } from '../types';
 
-interface responseProduct {
+export interface ResponseProduct {
   id: string;
   name: string;
   description: string;
@@ -17,7 +17,7 @@ interface responseProduct {
   updated_at: string;
 }
 
-export const responseToProduct = (response: responseProduct): Product => {
+export const responseToProduct = (response: ResponseProduct): Product => {
   return {
     id: response.id,
     name: response.name,
@@ -34,7 +34,7 @@ export const responseToProduct = (response: responseProduct): Product => {
   };
 };
 
-export const responseToProducts = (responses: responseProduct[]): Product[] => {
+export const responseToProducts = (responses: ResponseProduct[]): Product[] => {
   return responses.map(responseToProduct);
 };
 
