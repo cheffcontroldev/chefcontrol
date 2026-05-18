@@ -11,6 +11,8 @@ import type { Lot } from '../types';
 /* Hooks */
 import { useLots } from '../hooks/useLots';
 
+import { formatDate } from '@/shared/utils/formatDate';
+
 export default function LotList() {
   const { data: lots, isLoading, error } = useLots();
   const countLots = lots?.length || 0;
@@ -63,10 +65,10 @@ export default function LotList() {
           {lots?.map((lot) => (
             <tr key={lot.id} className="hover:bg-base-300">
               <td>{lot.product.name}</td>
-              <td>{lot.expirationDate}</td>
+              <td>{formatDate(lot.expirationDate.toString())}</td>
               <td className="max-lg:hidden">{lot.initialQuantity}</td>
               <td className="max-sm:hidden">{lot.currentQuantity}</td>
-              <td className="max-xl:hidden">{lot.createdAt}</td>
+              <td className="max-xl:hidden">{formatDate(lot.createdAt.toString())}</td>
               <td className="max-md:hidden">{lot.isActive ? 'Activo' : 'Inactivo'}</td>
               <td>
                 <TableColumnActions onShow={() => onShow(lot)} />

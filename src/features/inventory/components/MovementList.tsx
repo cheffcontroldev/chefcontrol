@@ -1,6 +1,8 @@
 /* Hooks */
 import { useMovements } from '../hooks/useMovements';
 
+import { formatDate } from '@/shared/utils/formatDate';
+
 export default function MovementList() {
   const { data: movements, isLoading, error } = useMovements();
   const countMovements = movements?.length || 0;
@@ -46,7 +48,7 @@ export default function MovementList() {
               <td>{movement.product.name}</td>
               <td>{movement.type === 'entry' ? 'Entrada' : 'Salida'}</td>
               <td className="max-md:hidden">{movement.quantity}</td>
-              <td className="max-lg:hidden">{movement.movementDate.toISOString()}</td>
+              <td className="max-lg:hidden">{formatDate(movement.movementDate.toString())}</td>
               <td className="max-sm:hidden">{movement.isCancelled ? 'Sí' : 'No'}</td>
               <td>
                 <button className="btn btn-ghost btn-xs">Ver</button>

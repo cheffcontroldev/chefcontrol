@@ -18,7 +18,7 @@ export const responseToMovement = (response: ResponseMovement): Movement => {
     notes: response.notes,
     isCancelled: response.is_cancelled,
     canceledAt: response.canceled_at,
-    product: response.product,
+    product: response.products,
   };
 };
 

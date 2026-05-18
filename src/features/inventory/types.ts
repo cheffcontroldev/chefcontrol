@@ -40,7 +40,7 @@ export interface ResponseMovement {
   notes?: string;
   is_cancelled: boolean;
   canceled_at?: Date;
-  product: Product;
+  products: Product;
 }
 
 export interface RequestMovementEntry {
