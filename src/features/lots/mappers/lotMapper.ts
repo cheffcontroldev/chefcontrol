@@ -9,7 +9,7 @@ export interface responseLot {
   created_at: string;
   is_active: boolean;
   product_id: string;
-  product: Product;
+  products: Product;
 }
 
 export const responseToLot = (response: responseLot): Lot => {
@@ -21,7 +21,7 @@ export const responseToLot = (response: responseLot): Lot => {
     createdAt: response.created_at,
     isActive: response.is_active,
     productId: response.product_id,
-    product: response.product,
+    product: response.products,
   };
 };
 
