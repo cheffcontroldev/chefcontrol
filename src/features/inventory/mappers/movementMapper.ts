@@ -1,3 +1,4 @@
+import type { CreateExitMovement } from '../schemas';
 import type {
   Movement,
   EntryResult,
@@ -5,6 +6,9 @@ import type {
   ResponseMovement,
   RequestMovementEntry,
   ResponseEntryResult,
+  RequestMovementExit,
+  ResponseExitResult,
+  ExitResult,
 } from '../types';
 
 export const responseToMovement = (response: ResponseMovement): Movement => {
@@ -47,5 +51,26 @@ export const responseToEntryResult = (response: ResponseEntryResult): EntryResul
     success: response.success,
     movementId: response.movement_id,
     lotId: response.lot_id,
+  };
+};
+
+export const movementExitToRequest = (
+  exit: CreateExitMovement,
+  userId: string
+): RequestMovementExit => {
+  return {
+    p_product_id: exit.productId,
+    p_user_id: userId,
+    p_quantity: exit.quantity,
+    p_reason: exit.reason,
+    p_notes: exit.notes || '',
+  };
+};
+
+export const responseToExitResult = (response: ResponseExitResult): ExitResult => {
+  return {
+    success: response.success,
+    movementId: response.movement_id,
+    consumedLots: response.consumed_lots,
   };
 };

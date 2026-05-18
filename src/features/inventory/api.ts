@@ -5,9 +5,16 @@ import {
   responseToMovements,
   responseToEntryResult,
   movementEntryToRequest,
+  responseToExitResult,
+  movementExitToRequest,
 } from './mappers/movementMapper';
 
-import type { CreateEntryMovement, RequestMovementEntry } from './types';
+import type {
+  CreateEntryMovement,
+  CreateExitMovement,
+  RequestMovementEntry,
+  RequestMovementExit,
+} from './types';
 
 const TABLE = 'movements';
 
@@ -41,4 +48,14 @@ export async function createMovementEntry(
   if (error) throw new Error(error.message);
 
   return responseToEntryResult(data);
+}
+
+export async function createMovementExit(input: CreateExitMovement, userId: string) {
+  const request: RequestMovementExit = movementExitToRequest(input, userId);
+
+  const { data, error } = await supabase.rpc('register_exit', request);
+
+  if (error) throw new Error(error.message);
+
+  return responseToExitResult(data);
 }
