@@ -7,14 +7,8 @@ import { useCancelMovement } from '../hooks/useCancelMovement';
 
 export default function MovementDetail() {
   const { selectedMovement, setSelectedMovement } = useMovementStore();
-  const {
-    initiateCancel,
-    confirmCancel, // ← cambiado de confirmCascade
-    closeConfirm,
-    dependencies,
-    showConfirmModal,
-    isLoading,
-  } = useCancelMovement();
+  const { initiateCancel, confirmCancel, closeConfirm, dependencies, showConfirmModal, isLoading } =
+    useCancelMovement();
 
   if (!selectedMovement) return null;
 
@@ -103,7 +97,7 @@ export default function MovementDetail() {
       <CancelConfirmModal
         isOpen={showConfirmModal}
         dependencies={dependencies}
-        onConfirm={confirmCancel} // ← cambiado de confirmCascade
+        onConfirm={confirmCancel}
         onCancel={closeConfirm}
         isLoading={isLoading}
       />

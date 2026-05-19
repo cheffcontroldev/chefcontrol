@@ -1,9 +1,9 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-// features/inventory/hooks/useCancelMovement.ts
 import { useState } from 'react';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { cancelMovement } from '../api';
 import { useAuthStore } from '@/stores/authStore';
+import { useMovementStore } from '../store/MovementStore';
 
 interface Dependency {
   id: string;
@@ -15,6 +15,7 @@ interface Dependency {
 export function useCancelMovement() {
   const { user } = useAuthStore();
   const queryClient = useQueryClient();
+  const { setSelectedMovement } = useMovementStore();
 
   const [dependencies, setDependencies] = useState<Dependency[]>([]);
   const [pendingMovementId, setPendingMovementId] = useState<string | null>(null);
@@ -28,13 +29,13 @@ export function useCancelMovement() {
       queryClient.invalidateQueries({ queryKey: ['lots'] });
       queryClient.invalidateQueries({ queryKey: ['products'] });
       closeConfirm();
+      setSelectedMovement(null);
     },
   });
 
   const initiateCancel = async (movementId: string) => {
     try {
       await mutation.mutateAsync({ movementId, cascade: false });
-
       setDependencies([]);
       setPendingMovementId(movementId);
       setShowConfirmModal(true);

@@ -11,25 +11,36 @@ import type { TypeMovement } from '../types';
 
 export default function MovementList() {
   const [filter, setFilter] = useState<TypeMovement | null>(null);
-  const { data: movements, isLoading, error } = useMovements(filter);
+  const [showCanceled, setShowCanceled] = useState(false);
+  const { data: movements, isLoading, error } = useMovements(filter, showCanceled);
   const countMovements = movements?.length || 0;
   const { setSelectedMovement } = useMovementStore();
 
   return (
     <div className="overflow-x-auto w-full min-w-[340px] max-w-7xl">
-      <div className="py-6 px-4 flex gap-3 items-center">
-        <label htmlFor="filter">Mostrar:</label>
-        <select
-          name="filter"
-          id="filter"
-          className="select"
-          value={filter || ''}
-          onChange={(e) => setFilter(e.target.value as TypeMovement | null)}
-        >
-          <option value="">Todo</option>
-          <option value="entry">Entradas</option>
-          <option value="exit">Salidas</option>
-        </select>
+      <div className="py-6 px-4 flex flex-col gap-6 items-start md:flex-row md:items-center md:justify-start md:gap-12">
+        <div className="flex gap-3 items-center">
+          <label htmlFor="filter">Mostrar:</label>
+          <select
+            name="filter"
+            id="filter"
+            className="select"
+            value={filter || ''}
+            onChange={(e) => setFilter(e.target.value as TypeMovement | null)}
+          >
+            <option value="">Todo</option>
+            <option value="entry">Entradas</option>
+            <option value="exit">Salidas</option>
+          </select>
+        </div>
+        <div className="flex gap-3 items-center">
+          <label htmlFor="cancelrecords">Mostrar registros cancelados</label>
+          <input
+            type="checkbox"
+            id="cancelrecords"
+            onChange={(e) => setShowCanceled(e.target.checked)}
+          />
+        </div>
       </div>
       <table className="table">
         {/* head */}

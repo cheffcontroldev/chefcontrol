@@ -20,7 +20,11 @@ import type {
 
 const TABLE = 'movements';
 
-export async function getMovements(restaurantId: string, filter: TypeMovement | null = null) {
+export async function getMovements(
+  restaurantId: string,
+  filter: TypeMovement | null,
+  filterStatus: boolean = false
+) {
   let query = supabase
     .from(TABLE)
     .select('*, products:products(*, units_of_measure(*))')
@@ -28,6 +32,10 @@ export async function getMovements(restaurantId: string, filter: TypeMovement | 
 
   if (filter) {
     query = query.eq('type', filter);
+  }
+
+  if (!filterStatus) {
+    query = query.eq('is_cancelled', false);
   }
 
   const { data, error } = await query.order('movement_date', { ascending: false });
