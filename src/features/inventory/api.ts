@@ -14,16 +14,19 @@ import type {
   CreateExitMovement,
   RequestMovementEntry,
   RequestMovementExit,
+  TypeMovement,
 } from './types';
 
 const TABLE = 'movements';
 
-export async function getMovements(restaurantId: string) {
-  const { data, error } = await supabase
-    .from(TABLE)
-    .select('*, products(*)')
-    .eq('restaurant_id', restaurantId)
-    .order('movement_date', { ascending: false });
+export async function getMovements(restaurantId: string, filter: TypeMovement | null = null) {
+  let query = supabase.from(TABLE).select('*, products(*)').eq('restaurant_id', restaurantId);
+
+  if (filter) {
+    query = query.eq('type', filter);
+  }
+
+  const { data, error } = await query.order('movement_date', { ascending: false });
 
   if (error) throw new Error(error.message);
 

@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { Eye, PackageMinus, PackagePlus } from 'lucide-react';
 
 /* Hooks */
@@ -6,14 +7,30 @@ import { useMovements } from '../hooks/useMovements';
 import { formatDate } from '@/shared/utils/dataHelpers';
 
 import { useMovementStore } from '../store/MovementStore';
+import type { TypeMovement } from '../types';
 
 export default function MovementList() {
-  const { data: movements, isLoading, error } = useMovements();
+  const [filter, setFilter] = useState<TypeMovement | null>(null);
+  const { data: movements, isLoading, error } = useMovements(filter);
   const countMovements = movements?.length || 0;
   const { setSelectedMovement } = useMovementStore();
 
   return (
     <div className="overflow-x-auto w-full min-w-[340px] max-w-7xl">
+      <div className="py-6 px-4 flex gap-3 items-center">
+        <label htmlFor="filter">Mostrar:</label>
+        <select
+          name="filter"
+          id="filter"
+          className="select"
+          value={filter || ''}
+          onChange={(e) => setFilter(e.target.value as TypeMovement | null)}
+        >
+          <option value="">Todo</option>
+          <option value="entry">Entradas</option>
+          <option value="exit">Salidas</option>
+        </select>
+      </div>
       <table className="table">
         {/* head */}
         <thead>
@@ -41,7 +58,7 @@ export default function MovementList() {
               </td>
             </tr>
           )}
-          {countMovements === 0 && (
+          {countMovements === 0 && !isLoading && (
             <tr>
               <td colSpan={8} className="text-center">
                 No se encontraron movimientos
