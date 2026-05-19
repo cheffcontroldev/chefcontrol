@@ -55,8 +55,6 @@ export function parseLocalDate(dateString: string | null | undefined): Date | nu
 
 export function formatDateDisplay(date: Date | string): string {
   if (!date) return '-';
-  console.log(typeof date);
-  console.log(date);
   const d = typeof date === 'string' ? parseLocalDate(new Date(date).toISOString()) : date;
   if (!d) return '-';
 
