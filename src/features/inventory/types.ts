@@ -1,4 +1,4 @@
-import type { Product } from '../products/types';
+import type { ResponseProduct } from '../products/mappers/productMapper';
 
 export type TypeMovement = 'entry' | 'exit';
 
@@ -12,7 +12,7 @@ export interface Movement {
   notes?: string;
   isCancelled: boolean;
   canceledAt?: Date;
-  product: Product;
+  product: ResponseProduct;
 }
 
 export interface CreateEntryMovement {

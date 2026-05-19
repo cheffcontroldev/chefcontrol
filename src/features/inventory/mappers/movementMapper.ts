@@ -1,4 +1,5 @@
 import type { CreateExitMovement } from '../schemas';
+import { responseToProduct } from '@/features/products/mappers/productMapper';
 import type {
   Movement,
   EntryResult,
@@ -22,7 +23,7 @@ export const responseToMovement = (response: ResponseMovement): Movement => {
     notes: response.notes,
     isCancelled: response.is_cancelled,
     canceledAt: response.canceled_at,
-    product: response.products,
+    product: responseToProduct(response.products),
   };
 };
 

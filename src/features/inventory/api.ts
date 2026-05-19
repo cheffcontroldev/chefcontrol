@@ -20,7 +20,10 @@ import type {
 const TABLE = 'movements';
 
 export async function getMovements(restaurantId: string, filter: TypeMovement | null = null) {
-  let query = supabase.from(TABLE).select('*, products(*)').eq('restaurant_id', restaurantId);
+  let query = supabase
+    .from(TABLE)
+    .select('*, products:products(*, units_of_measure(*))')
+    .eq('restaurant_id', restaurantId);
 
   if (filter) {
     query = query.eq('type', filter);

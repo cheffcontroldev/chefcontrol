@@ -79,7 +79,9 @@ export default function MovementList() {
                   </>
                 )}
               </td>
-              <td className="max-md:hidden">{movement.quantity}</td>
+              <td className="max-md:hidden">
+                {movement.quantity} {movement.product.unitsOfMeasure.abbreviation}
+              </td>
               <td className="max-lg:hidden">{formatDate(movement.movementDate.toString())}</td>
               <td className="max-sm:hidden">{movement.isCancelled ? 'Sí' : 'No'}</td>
               <td className="text-center">
