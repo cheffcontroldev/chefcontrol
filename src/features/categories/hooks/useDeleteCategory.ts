@@ -10,6 +10,7 @@ export function useDeleteCategory() {
     mutationFn: ({ id }: { id: string }) => deleteCategory(id),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['categories'] });
+      queryClient.invalidateQueries({ queryKey: ['categories_count'] });
       setShowAlertMessage('success', 'Categoría eliminada exitosamente');
     },
     onError: (error: Error) => {

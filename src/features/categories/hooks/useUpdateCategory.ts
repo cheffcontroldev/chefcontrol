@@ -19,6 +19,7 @@ export function useUpdateCategory({ resetForm, onClose }: UseUpdateCategoryOptio
       updateCategory(id, input),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['categories'] });
+      queryClient.invalidateQueries({ queryKey: ['categories_count'] });
       setShowAlertMessage('success', 'Categoría actualizada exitosamente');
       resetForm?.();
       setSelectedCategory(null);

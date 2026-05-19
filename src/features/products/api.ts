@@ -6,6 +6,16 @@ import { responseToProduct, responseToProducts, productToRequest } from './mappe
 
 const TABLE = 'products';
 
+export async function getCountProducts(restaurantId: string): Promise<number> {
+  const { count, error } = await supabase
+    .from(TABLE)
+    .select('*', { count: 'exact', head: true })
+    .eq('restaurant_id', restaurantId)
+    .eq('is_deleted', false);
+  if (error) throw new Error(error.message);
+  return count || 0;
+}
+
 export async function getProducts(restaurantId: string) {
   const { data, error } = await supabase
     .from(TABLE)

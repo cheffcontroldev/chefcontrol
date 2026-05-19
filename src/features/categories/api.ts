@@ -6,6 +6,16 @@ import { responseToCategory, responseToCategories } from './mappers/categoryMapp
 
 const TABLE = 'categories';
 
+export async function getCountCategories(restaurantId: string) {
+  const { count, error } = await supabase
+    .from(TABLE)
+    .select('*', { count: 'exact', head: true })
+    .eq('restaurant_id', restaurantId)
+    .eq('is_deleted', false);
+  if (error) throw new Error(error.message);
+  return count || 0;
+}
+
 export async function getCategories(restaurantId: string) {
   const { data, error } = await supabase
     .from(TABLE)
