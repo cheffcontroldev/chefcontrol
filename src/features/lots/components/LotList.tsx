@@ -1,4 +1,5 @@
 /* Hooks */
+import { useState } from 'react';
 import { Eye } from 'lucide-react';
 import { useLots } from '../hooks/useLots';
 
@@ -7,12 +8,22 @@ import { formatDate } from '@/shared/utils/dataHelpers';
 import { useLotStore } from '../store/LottStore';
 
 export default function LotList() {
-  const { data: lots, isLoading, error } = useLots();
+  const [includeZeroStock, setIncludeZeroStock] = useState(false);
+  const { data: lots, isLoading, error } = useLots(includeZeroStock);
   const countLots = lots?.length || 0;
   const { setSelectedLot } = useLotStore();
 
   return (
     <div className="overflow-x-auto w-full max-sm:min-w-[340px] min-w-lg md:min-w-2xl lg:min-w-4xl xl:min-w-5xl xl:max-w-6xl">
+      <div className="py-6 pl-4 flex gap-3">
+        Mostrar Agotados
+        <input
+          type="checkbox"
+          checked={includeZeroStock}
+          onChange={(e) => setIncludeZeroStock(e.target.checked)}
+          className="checkbox"
+        />
+      </div>
       <table className="table">
         {/* head */}
         <thead>
