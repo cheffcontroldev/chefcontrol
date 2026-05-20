@@ -53,21 +53,21 @@ export default function CategoryList() {
         <tbody>
           {isLoading && (
             <tr>
-              <td colSpan={5} className="text-center">
+              <td colSpan={3} className="text-center">
                 Cargando...
               </td>
             </tr>
           )}
           {error && (
             <tr>
-              <td colSpan={5} className="text-center">
+              <td colSpan={3} className="text-center">
                 Error: {error.message}
               </td>
             </tr>
           )}
-          {countCategories === 0 && (
+          {countCategories === 0 && !isLoading && !error && (
             <tr>
-              <td colSpan={5} className="text-center">
+              <td colSpan={3} className="text-center">
                 No se encontraron categorías
               </td>
             </tr>

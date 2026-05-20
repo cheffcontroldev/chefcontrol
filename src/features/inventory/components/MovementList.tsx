@@ -57,21 +57,21 @@ export default function MovementList() {
         <tbody>
           {isLoading && (
             <tr>
-              <td colSpan={8} className="text-center">
+              <td colSpan={6} className="text-center">
                 Cargando...
               </td>
             </tr>
           )}
           {error && (
             <tr>
-              <td colSpan={8} className="text-center">
+              <td colSpan={6} className="text-center">
                 Error: {error.message}
               </td>
             </tr>
           )}
-          {countMovements === 0 && !isLoading && (
+          {countMovements === 0 && !isLoading && !error && (
             <tr>
-              <td colSpan={8} className="text-center">
+              <td colSpan={6} className="text-center">
                 No se encontraron movimientos
               </td>
             </tr>

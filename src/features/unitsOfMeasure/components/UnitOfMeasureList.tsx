@@ -15,13 +15,13 @@ import type { UnitOfMeasure } from '../types';
 /* Hooks */
 import { useDeleteUnitOfMeasure } from '../hooks/useDeleteUnitsOfMeasure';
 
-export default function CategoryList() {
-  const { data: categories, isLoading, error } = useUnitsOfMeasure();
+export default function UnitOfMeasureList() {
+  const { data: unitOfMeasures, isLoading, error } = useUnitsOfMeasure();
   const { setSelectedUnitOfMeasure } = useUnitOfMeasureStore();
   const { setUnitOfMeasureFormMode } = useUiStore();
   const { setShowConfirmDelete, setConfirmDeleteAction } = useDeleteStore();
   const { mutate: deleteUnitOfMeasure } = useDeleteUnitOfMeasure();
-  const countCategories = categories?.length || 0;
+  const countUnitOfMeasures = unitOfMeasures?.length || 0;
 
   const onShow = (unitOfMeasure: UnitOfMeasure) => {
     setSelectedUnitOfMeasure(unitOfMeasure);
@@ -54,26 +54,26 @@ export default function CategoryList() {
         <tbody>
           {isLoading && (
             <tr>
-              <td colSpan={5} className="text-center">
+              <td colSpan={3} className="text-center">
                 Cargando...
               </td>
             </tr>
           )}
           {error && (
             <tr>
-              <td colSpan={5} className="text-center">
+              <td colSpan={3} className="text-center">
                 Error: {error.message}
               </td>
             </tr>
           )}
-          {countCategories === 0 && (
+          {countUnitOfMeasures === 0 && (
             <tr>
-              <td colSpan={5} className="text-center">
+              <td colSpan={3} className="text-center">
                 No se encontraron unidades de medida
               </td>
             </tr>
           )}
-          {categories?.map((unitOfMeasure) => (
+          {unitOfMeasures?.map((unitOfMeasure) => (
             <tr key={unitOfMeasure.id} className="hover:bg-base-300">
               <th className="hidden">{unitOfMeasure.id.toString().slice(0, 8)}...</th>
               <td>{unitOfMeasure.name}</td>

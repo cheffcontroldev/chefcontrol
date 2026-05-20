@@ -58,21 +58,21 @@ export default function ProductList() {
         <tbody>
           {isLoading && (
             <tr>
-              <td colSpan={8} className="text-center">
+              <td colSpan={7} className="text-center">
                 Cargando...
               </td>
             </tr>
           )}
           {error && (
             <tr>
-              <td colSpan={8} className="text-center">
+              <td colSpan={7} className="text-center">
                 Error: {error.message}
               </td>
             </tr>
           )}
-          {countProducts === 0 && (
+          {countProducts === 0 && !isLoading && !error && (
             <tr>
-              <td colSpan={8} className="text-center">
+              <td colSpan={7} className="text-center">
                 No se encontraron productos
               </td>
             </tr>

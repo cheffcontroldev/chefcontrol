@@ -53,7 +53,7 @@ export default function LotList() {
               </td>
             </tr>
           )}
-          {countLots === 0 && !isLoading && (
+          {countLots === 0 && !isLoading && !error && (
             <tr>
               <td colSpan={7} className="text-center">
                 No se encontraron lotes
