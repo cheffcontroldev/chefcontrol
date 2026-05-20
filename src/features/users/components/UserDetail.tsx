@@ -1,4 +1,5 @@
 import { useUser } from '../hooks/useUser';
+import { useUiStore } from '@/stores/uiStore';
 
 import { formatDate } from '@/shared/utils/dataHelpers';
 
@@ -15,6 +16,7 @@ function Skeleton() {
 
 export default function UserDetail() {
   const { data: user, isLoading, error } = useUser();
+  const { setUserFormMode, setUserPasswordUpdateFormMode } = useUiStore();
 
   if (isLoading) {
     return <Skeleton />;
@@ -42,19 +44,17 @@ export default function UserDetail() {
           </tr>
           <tr>
             <td className="font-semibold min-w-1/2 p-3">Fecha de creación:</td>
-            <td className="p-3">{formatDate(user?.created_at)}</td>
-          </tr>
-          <tr>
-            <td className="font-semibold min-w-1/2 p-3">Activo:</td>
-            <td className={`p-3 ${user?.is_active ? 'text-success' : 'text-error'}`}>
-              {user?.is_active ? 'Sí' : 'No'}
-            </td>
+            <td className="p-3">{formatDate(user?.createdAt)}</td>
           </tr>
         </tbody>
       </table>
       <div className="flex items-center justify-center gap-2 mt-4">
-        <button className="btn btn-primary">Editar</button>
-        <button className="btn btn-info">Actualizar contraseña</button>
+        <button className="btn btn-primary" onClick={() => setUserFormMode(true)}>
+          Editar
+        </button>
+        <button className="btn btn-info" onClick={() => setUserPasswordUpdateFormMode(true)}>
+          Actualizar contraseña
+        </button>
       </div>
     </div>
   );

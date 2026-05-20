@@ -13,17 +13,12 @@ export const createUserSchema = z.object({
 
 export const updateUserSchema = z.object({
   name: z.string().min(1, 'El nombre es requerido'),
-  email: z.string().email('Correo electrónico inválido'),
-  role: z
-    .string()
-    .min(1, 'El rol es requerido')
-    .pipe(z.enum(ROLE, { message: 'El rol no es válido' })),
 });
 
 export const updatePasswordSchema = z
   .object({
-    password: z.string().min(8, 'La contraseña debe tener al menos 8 caracteres'),
-    confirmPassword: z.string().min(1, 'La contraseña es requerida'),
+    password: z.string().min(6, 'La contraseña debe tener al menos 6 caracteres'),
+    confirmPassword: z.string(),
   })
   .refine((data) => data.password === data.confirmPassword, {
     message: 'Las contraseñas no coinciden',
