@@ -66,8 +66,7 @@ export async function getMovementReport(
       notes,
       is_cancelled,
       cancelled_at,
-      products(*, units_of_measure(*)),
-      users(name)
+      products(*, units_of_measure(*))
     `
     )
     .eq('restaurant_id', restaurantId)

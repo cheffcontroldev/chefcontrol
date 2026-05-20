@@ -43,7 +43,6 @@ export interface MovementReportItem {
   quantity: number;
   reason: string;
   notes: string | null;
-  userName: string;
   isCancelled: boolean;
   cancelledAt: string | null;
   consumedLots?: MovementDetailItem[];
@@ -106,10 +105,6 @@ export interface ResponseProductWithLots {
   lots: ResponseLot[];
 }
 
-export interface ResponseUser {
-  name: string;
-}
-
 export interface ResponseMovement {
   id: string;
   movement_date: string;
@@ -120,7 +115,6 @@ export interface ResponseMovement {
   is_cancelled: boolean;
   cancelled_at: string | null;
   products: Product;
-  users: ResponseUser | null;
 }
 
 export interface ResponseExpiringLot {
