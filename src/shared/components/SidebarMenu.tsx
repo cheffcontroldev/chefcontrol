@@ -1,17 +1,21 @@
 import {
+  ArrowBigDownDash,
+  BellRing,
   Bolt,
-  Home,
-  Settings,
   Cuboid,
-  Table,
   FolderTree,
+  Grid3X3,
+  Home,
+  NotepadText,
   PackageMinus,
   PackageOpen,
   PackagePlus,
   Ruler,
+  Settings,
   ShelvingUnit,
-  BellRing,
   ScrollText,
+  Table,
+  TriangleAlert,
 } from 'lucide-react';
 import SidebarMenuItem from './SidebarMenuItem';
 import SidebarMenuGroup from './SidebarMenuGroup';
@@ -46,11 +50,18 @@ export default function SidebarMenu() {
             <SidebarMenuItem icon={Table} title="Movimientos" href="/inventario/movimientos" />
           </SidebarMenuGroup>
           <SidebarMenuGroup icon={BellRing} title="Alertas" href="/alertas">
-            <SidebarMenuItem icon={BellRing} title="Por vencer" href="/alertas/por-vencer" />
-            <SidebarMenuItem icon={BellRing} title="Bajo stock" href="/alertas/bajo-stock" />
+            <SidebarMenuItem icon={TriangleAlert} title="Por vencer" href="/alertas/por-vencer" />
+            <SidebarMenuItem
+              icon={ArrowBigDownDash}
+              title="Bajo stock"
+              href="/alertas/bajo-stock"
+            />
             <SidebarMenuItem icon={Bolt} title="Configuración" href="/alertas/configuracion" />
           </SidebarMenuGroup>
-          <SidebarMenuItem icon={ScrollText} title="Reportes" href="/reportes" />
+          <SidebarMenuGroup icon={ScrollText} title="Reportes" href="/reportes">
+            <SidebarMenuItem icon={Grid3X3} title="Inventario" href="/reportes/inventario" />
+            <SidebarMenuItem icon={NotepadText} title="Movimientos" href="/reportes/movimientos" />
+          </SidebarMenuGroup>
           <SidebarMenuItem icon={Settings} title="Configuración" href="/configuracion" />
         </ul>
       </div>

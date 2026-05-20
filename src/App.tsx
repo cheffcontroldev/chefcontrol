@@ -10,10 +10,12 @@ import CategoriesPage from '@/pages/CategoriesPage';
 import CompleteRegistrationPage from '@/pages/CompleteRegistrationPage';
 import DashboardPage from '@/pages/DashboardPage';
 import InventoryPage from '@/pages/InventoryPage';
+import InventoryReportPage from './pages/InventoryReportPage';
 import LoginPage from '@/pages/LoginPage';
 import LotsPage from '@/pages/LotsPage';
 import MovementFormEntryPage from '@/pages/MovementFormEntryPage';
 import MovementFormExitPage from './pages/MovementFormExitPage';
+import MovementReportPage from './pages/MovementReportPage';
 import MovementsPage from '@/pages/MovementsPage';
 import ProductsPage from '@/pages/ProductsPage';
 import RegisterPage from '@/pages/RegisterPage';
@@ -44,6 +46,8 @@ function App() {
           <Route path="/alertas/por-vencer" component={AlertsExpiringLotsPage} />
           <Route path="/alertas/bajo-stock" component={AlertsLowStockPage} />
           <Route path="/reportes" component={ReportsPage} />
+          <Route path="/reportes/inventario" component={InventoryReportPage} />
+          <Route path="/reportes/movimientos" component={MovementReportPage} />
           <Route path="/configuracion" component={SettingsPage} />
           <Route path="/configuracion/usuarios" component={UsersPage} />
         </Switch>
