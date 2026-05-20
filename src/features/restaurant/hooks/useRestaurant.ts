@@ -1,14 +1,14 @@
 import { useQuery } from '@tanstack/react-query';
-import { getUsers } from '../api';
+import { getRestaurant } from '../api';
 import { useAuthStore } from '@/stores/authStore';
 
-export function useUsers() {
+export function useRestaurant() {
   const { user } = useAuthStore();
   const restaurantId = user?.restaurantId;
 
   return useQuery({
-    queryKey: ['users', restaurantId],
-    queryFn: () => getUsers(restaurantId!),
+    queryKey: ['restaurant', restaurantId],
+    queryFn: () => getRestaurant(restaurantId!),
     enabled: !!restaurantId,
   });
 }
