@@ -20,6 +20,7 @@ import MovementsPage from '@/pages/MovementsPage';
 import ProductsPage from '@/pages/ProductsPage';
 import RegisterPage from '@/pages/RegisterPage';
 import ReportsPage from '@/pages/ReportsPage';
+import RestaurantPage from '@/pages/RestaurantPage';
 import SettingsPage from '@/pages/SettingsPage';
 import UnitsOfMeasurePage from '@/pages/UnitsOfMeasurePage';
 import UsersPage from '@/pages/UsersPage';
@@ -50,6 +51,7 @@ function App() {
           <Route path="/reportes/movimientos" component={MovementReportPage} />
           <Route path="/configuracion" component={SettingsPage} />
           <Route path="/configuracion/usuarios" component={UsersPage} />
+          <Route path="/configuracion/restaurant" component={RestaurantPage} />
         </Switch>
       </AuthGuard>
     </Router>
