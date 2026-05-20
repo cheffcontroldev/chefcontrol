@@ -1,13 +1,11 @@
-import UserList from '@/features/users/components/UserList';
-import UserForm from '@/features/users/components/UserForm';
+import UserDetail from '@/features/users/components/UserDetail';
 import { usePageTitle } from '@/shared/hooks/usePageTitle';
 
 export default function UsersPage() {
-  usePageTitle('Usuarios');
+  usePageTitle('Detalle de usuario');
   return (
     <>
-      <UserList />
-      <UserForm />
+      <UserDetail />
     </>
   );
 }

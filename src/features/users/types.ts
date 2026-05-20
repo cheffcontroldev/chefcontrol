@@ -1,6 +1,6 @@
-import type { Role } from '@/shared/enums';
+import type { Role } from '../auth/types';
 
-export interface CreateUserInput {
+export interface User {
   name: string;
   email: string;
   password: string;
@@ -10,7 +10,6 @@ export interface CreateUserInput {
 export interface UpdateMyUserInput {
   name: string;
   email: string;
-  role: Role;
 }
 
 export interface UpdateMyPasswordInput {
