@@ -1,4 +1,4 @@
-import AlertList from '@/features/alerts/components/AlertsMenu';
+import DashboardAlerts from './DashboardAlerts';
 import DashboardCategories from './DashboardCategories';
 import DashboardProducts from './DashboardProducts';
 import DashboardLots from './DashboardLots';
@@ -12,7 +12,7 @@ export default function Dashboard() {
         <DashboardLots />
       </div>
       <div className="grid grid-cols-1">
-        <AlertList />
+        <DashboardAlerts />
       </div>
     </div>
   );
