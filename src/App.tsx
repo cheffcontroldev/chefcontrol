@@ -3,6 +3,8 @@ import { Route, Router, Switch } from 'wouter';
 import AuthGuard from './shared/guards/AuthGuard';
 
 import AlertsPage from '@/pages/AlertsPage';
+import AlertsExpiringLots from './pages/AlertsExpiringLots';
+import AlertsLowStockPage from './pages/AlertsLowStockPage';
 import CategoriesPage from '@/pages/CategoriesPage';
 import CompleteRegistrationPage from '@/pages/CompleteRegistrationPage';
 import DashboardPage from '@/pages/DashboardPage';
@@ -37,6 +39,8 @@ function App() {
           <Route path="/inventario/registrar-salida" component={MovementFormExitPage} />
           <Route path="/inventario/movimientos" component={MovementsPage} />
           <Route path="/alertas" component={AlertsPage} />
+          <Route path="/alertas/por-vencer" component={AlertsExpiringLots} />
+          <Route path="/alertas/bajo-stock" component={AlertsLowStockPage} />
           <Route path="/reportes" component={ReportsPage} />
           <Route path="/configuracion" component={SettingsPage} />
           <Route path="/configuracion/usuarios" component={UsersPage} />

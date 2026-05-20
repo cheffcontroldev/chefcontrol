@@ -44,7 +44,10 @@ export default function SidebarMenu() {
             />
             <SidebarMenuItem icon={Table} title="Movimientos" href="/inventario/movimientos" />
           </SidebarMenuGroup>
-          <SidebarMenuItem icon={BellRing} title="Alertas" href="/alertas" />
+          <SidebarMenuGroup icon={BellRing} title="Alertas" href="/alertas">
+            <SidebarMenuItem icon={BellRing} title="Por vencer" href="/alertas/por-vencer" />
+            <SidebarMenuItem icon={BellRing} title="Bajo stock" href="/alertas/bajo-stock" />
+          </SidebarMenuGroup>
           <SidebarMenuItem icon={ScrollText} title="Reportes" href="/reportes" />
           <SidebarMenuItem icon={Settings} title="Configuración" href="/configuracion" />
         </ul>

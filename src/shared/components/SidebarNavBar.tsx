@@ -3,6 +3,7 @@ import { PanelRightClose, UserPlus, LogIn, LogOut, User, Store } from 'lucide-re
 import { useAuthStore } from '@/stores/authStore';
 import { useUiStore } from '@/stores/uiStore';
 import { useSignOut } from '@/features/auth/hooks/useSignOut';
+import AlertBanner from '@/features/alerts/components/AlertBanner';
 
 export default function SidebarNavBar() {
   const titlePage = useUiStore((state) => state.titlePage);
@@ -18,7 +19,7 @@ export default function SidebarNavBar() {
         <div className="px-4">{titlePage}</div>
       </div>
 
-      <div className="space-x-3 flex items-center">
+      <div className="space-x-3 flex items-center max-lg:w-full">
         {!isAuthenticated ? (
           // No autenticado
           <>
@@ -33,7 +34,7 @@ export default function SidebarNavBar() {
           </>
         ) : (
           // Autenticado: mostrar usuario + restaurante
-          <>
+          <div className="w-full flex items-center relative">
             <div className="flex items-center gap-2 px-3">
               <Store className="size-4" />
               <span className="hidden md:block text-sm font-medium">{user?.restaurantName}</span>
@@ -47,7 +48,10 @@ export default function SidebarNavBar() {
               <LogOut className="size-4" />
               <span className="hidden md:block">Cerrar Sesión</span>
             </button>
-          </>
+            <div className="max-lg:absolute max-lg:right-3 max-lg:-bottom-2 lg:-mb-1 lg:px-3">
+              <AlertBanner />
+            </div>
+          </div>
         )}
       </div>
     </nav>
