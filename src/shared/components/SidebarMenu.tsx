@@ -24,7 +24,7 @@ export default function SidebarMenu() {
   return (
     <div className="drawer-side is-drawer-close:overflow-visible">
       <label htmlFor="my-drawer-4" aria-label="close sidebar" className="drawer-overlay"></label>
-      <div className="flex min-h-full flex-col items-start bg-base-200 is-drawer-close:w-14 is-drawer-open:w-58">
+      <div className="flex min-h-full flex-col items-start bg-base-200 is-drawer-close:w-14 is-drawer-open:w-65">
         <ul className="menu w-full grow pt-3">
           {/* List item */}
           <SidebarMenuItem icon={Home} title="Dashboard" href="/" />
@@ -56,7 +56,11 @@ export default function SidebarMenu() {
               title="Bajo stock"
               href="/alertas/bajo-stock"
             />
-            <SidebarMenuItem icon={Bolt} title="Configuración" href="/alertas/configuracion" />
+            <SidebarMenuItem
+              icon={Bolt}
+              title="Configuración de alertas"
+              href="/alertas/configuracion"
+            />
           </SidebarMenuGroup>
           <SidebarMenuGroup icon={ScrollText} title="Reportes" href="/reportes">
             <SidebarMenuItem icon={Grid3X3} title="Inventario" href="/reportes/inventario" />

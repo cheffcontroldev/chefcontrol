@@ -1,4 +1,4 @@
-import AlertList from '@/features/alerts/components/Alerts';
+import AlertList from '@/features/alerts/components/AlertsMenu';
 import DashboardCategories from './DashboardCategories';
 import DashboardProducts from './DashboardProducts';
 import DashboardLots from './DashboardLots';
