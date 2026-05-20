@@ -16,7 +16,7 @@ function Skeleton() {
 
 export default function UserDetail() {
   const { data: user, isLoading, error } = useUser();
-  const { setUserFormMode } = useUiStore();
+  const { setUserFormMode, setUserPasswordUpdateFormMode } = useUiStore();
 
   if (isLoading) {
     return <Skeleton />;
@@ -52,7 +52,9 @@ export default function UserDetail() {
         <button className="btn btn-primary" onClick={() => setUserFormMode(true)}>
           Editar
         </button>
-        <button className="btn btn-info">Actualizar contraseña</button>
+        <button className="btn btn-info" onClick={() => setUserPasswordUpdateFormMode(true)}>
+          Actualizar contraseña
+        </button>
       </div>
     </div>
   );
