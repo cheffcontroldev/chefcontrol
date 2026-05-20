@@ -2,6 +2,29 @@ import { supabase } from '@/supabase/client';
 
 import { responseToExpingLots, responseToLowStocks } from './mappers/alertMapper';
 
+export async function getAlertConfig(restaurantId: string) {
+  const { data, error } = await supabase
+    .from('alert_config')
+    .select('*')
+    .eq('restaurant_id', restaurantId)
+    .single();
+
+  if (error) throw new Error(error.message);
+  return data;
+}
+
+export async function updateAlertConfig(restaurantId: string, days: number) {
+  const { data, error } = await supabase
+    .from('alert_config')
+    .update({ expiration_alert_days: days })
+    .eq('restaurant_id', restaurantId)
+    .select()
+    .single();
+
+  if (error) throw new Error(error.message);
+  return data;
+}
+
 export const getExpiringLots = async (restaurantId: string, days: number = 3) => {
   const { data, error } = await supabase.rpc('get_expiring_lots', {
     p_restaurant_id: restaurantId,

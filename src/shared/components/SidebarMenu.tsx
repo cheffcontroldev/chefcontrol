@@ -1,4 +1,5 @@
 import {
+  Bolt,
   Home,
   Settings,
   Cuboid,
@@ -47,6 +48,7 @@ export default function SidebarMenu() {
           <SidebarMenuGroup icon={BellRing} title="Alertas" href="/alertas">
             <SidebarMenuItem icon={BellRing} title="Por vencer" href="/alertas/por-vencer" />
             <SidebarMenuItem icon={BellRing} title="Bajo stock" href="/alertas/bajo-stock" />
+            <SidebarMenuItem icon={Bolt} title="Configuración" href="/alertas/configuracion" />
           </SidebarMenuGroup>
           <SidebarMenuItem icon={ScrollText} title="Reportes" href="/reportes" />
           <SidebarMenuItem icon={Settings} title="Configuración" href="/configuracion" />
