@@ -8,7 +8,7 @@ export function useUser() {
 
   return useQuery({
     queryKey: ['user', userId],
-    queryFn: () => getUser(userId!),
+    queryFn: () => getUser(),
     enabled: !!userId,
   });
 }

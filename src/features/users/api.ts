@@ -1,26 +1,31 @@
 import { supabase } from '@/supabase/client';
 
-import type { UpdateMyUserInput, UpdateMyPasswordInput } from './types';
+import type { UpdateMyPasswordInput } from './types';
+import type { User } from './types';
+import type { UpdateUserInput } from './schemas';
 
-export async function getUser(id: string) {
-  const { data, error } = await supabase.from('users').select('*').eq('id', id).single();
+export async function getUser(): Promise<User> {
+  const {
+    data: { user },
+    error,
+  } = await supabase.auth.getUser();
+
   if (error) throw new Error(error.message);
-  console.log(data);
-  return data;
+  if (!user) throw new Error('Usuario no autenticado');
+
+  return {
+    id: user.id,
+    email: user.email || '',
+    name: user.user_metadata?.display_name || '',
+    role: 'Administrador',
+    createdAt: user.created_at,
+  };
 }
 
-export async function getMyUserId(authId: string) {
-  const { data, error } = await supabase.from('users').select('id').eq('auth_id', authId).single();
-  if (error) throw new Error(error.message);
-  return data.id;
-}
-
-export const updateMyUser = async (authId: string, input: UpdateMyUserInput) => {
-  if (input.email) {
-    const { error: errorAuth } = await supabase.auth.updateUser({ email: input.email });
-    if (errorAuth) throw new Error(errorAuth.message);
-  }
-  const { data, error } = await supabase.from('users').update(input).eq('auth_id', authId).single();
+export const updateMyUser = async (input: UpdateUserInput) => {
+  const { data, error } = await supabase.auth.updateUser({
+    data: { display_name: input.name },
+  });
 
   if (error) throw new Error(error.message);
 
@@ -28,6 +33,6 @@ export const updateMyUser = async (authId: string, input: UpdateMyUserInput) => 
 };
 
 export const updateMyPassword = async (password: UpdateMyPasswordInput['password']) => {
-  const { error: errorAuth } = await supabase.auth.updateUser({ password });
-  if (errorAuth) throw new Error(errorAuth.message);
+  const { error } = await supabase.auth.updateUser({ password });
+  if (error) throw new Error(error.message);
 };

@@ -1,15 +1,15 @@
 import type { Role } from '../auth/types';
 
 export interface User {
+  id: string;
   name: string;
   email: string;
-  password: string;
   role: Role;
+  createdAt: string;
 }
 
 export interface UpdateMyUserInput {
   name: string;
-  email: string;
 }
 
 export interface UpdateMyPasswordInput {
