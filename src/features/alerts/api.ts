@@ -1,6 +1,6 @@
 import { supabase } from '@/supabase/client';
 
-import { responseToExpingLots } from './mappers/expiringLotMapper';
+import { responseToExpingLots, responseToLowStocks } from './mappers/alertMapper';
 
 export const getExpiringLots = async (restaurantId: string, days: number = 3) => {
   const { data, error } = await supabase.rpc('get_expiring_lots', {
@@ -16,5 +16,5 @@ export const getLowStock = async (restaurantId: string) => {
     p_restaurant_id: restaurantId,
   });
   if (error) throw error;
-  return data;
+  return responseToLowStocks(data);
 };

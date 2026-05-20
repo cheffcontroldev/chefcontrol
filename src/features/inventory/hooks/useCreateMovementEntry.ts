@@ -19,6 +19,8 @@ export function useCreateMovementEntry({ resetForm }: UseCreateMovementEntryOpti
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['lots'] });
       queryClient.invalidateQueries({ queryKey: ['movements'] });
+      queryClient.invalidateQueries({ queryKey: ['expiring_lots'] });
+      queryClient.invalidateQueries({ queryKey: ['low_stock'] });
       setShowAlertMessage('success', 'Movimiento creado exitosamente');
       resetForm();
     },

@@ -7,7 +7,7 @@ export function useLowStock() {
   const restaurantId = user?.restaurantId;
 
   return useQuery({
-    queryKey: ['low-stock', restaurantId],
+    queryKey: ['low_stock', restaurantId],
     queryFn: () => getLowStock(restaurantId!),
     enabled: !!restaurantId,
   });
