@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { supabase } from '@/supabase/client';
 
 import {
@@ -19,7 +20,11 @@ import type {
 
 const TABLE = 'movements';
 
-export async function getMovements(restaurantId: string, filter: TypeMovement | null = null) {
+export async function getMovements(
+  restaurantId: string,
+  filter: TypeMovement | null,
+  filterStatus: boolean = false
+) {
   let query = supabase
     .from(TABLE)
     .select('*, products:products(*, units_of_measure(*))')
@@ -27,6 +32,10 @@ export async function getMovements(restaurantId: string, filter: TypeMovement | 
 
   if (filter) {
     query = query.eq('type', filter);
+  }
+
+  if (!filterStatus) {
+    query = query.eq('is_cancelled', false);
   }
 
   const { data, error } = await query.order('movement_date', { ascending: false });
@@ -75,4 +84,26 @@ export async function createMovementExit(
   }
 
   return responseToExitResult(data);
+}
+
+export async function cancelMovement(movementId: string, userId: string, cascade: boolean = false) {
+  const { data, error } = await supabase.rpc('cancel_movement', {
+    p_movement_id: movementId,
+    p_user_id: userId,
+    p_cascade: cascade,
+  });
+
+  if (error) throw new Error(error.message);
+
+  // Si tiene dependencias y no pidió cascada
+  if (!data.success && data.has_dependencies) {
+    const err = new Error(data.error);
+    (err as any).dependencies = data.dependencies;
+    (err as any).hasDependencies = true;
+    throw err;
+  }
+
+  if (!data.success) throw new Error(data.error);
+
+  return data;
 }

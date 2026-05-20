@@ -20,6 +20,7 @@ export function useCreateCategory({ resetForm, onClose }: UseCreateCategoryOptio
     mutationFn: (input: CreateCategoryInput) => createCategory(input, restaurantId), // ← usa el tipo inferido
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['categories'] });
+      queryClient.invalidateQueries({ queryKey: ['categories_count'] });
       setShowAlertMessage('success', 'Categoría creada exitosamente');
       resetForm();
       onClose?.();
