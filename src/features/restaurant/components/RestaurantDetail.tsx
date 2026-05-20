@@ -1,5 +1,7 @@
 import { useRestaurant } from '../hooks/useRestaurant';
 
+import { useUiStore } from '@/stores/uiStore';
+
 import { formatDate } from '@/shared/utils/dataHelpers';
 
 function Skeleton() {
@@ -15,6 +17,7 @@ function Skeleton() {
 
 export default function RestaurantDetail() {
   const { data: restaurant, isLoading, error } = useRestaurant();
+  const { setRestaurantFormMode } = useUiStore();
 
   if (isLoading) {
     return <Skeleton />;
@@ -57,7 +60,11 @@ export default function RestaurantDetail() {
         </tbody>
       </table>
       <div className="flex items-center justify-center gap-2 mt-4">
-        <button type="button" className="btn btn-primary">
+        <button
+          type="button"
+          className="btn btn-primary"
+          onClick={() => setRestaurantFormMode(true)}
+        >
           Editar
         </button>
       </div>

@@ -3,13 +3,14 @@ import {
   CalendarDays,
   Hash,
   Mail,
+  Phone,
   RectangleEllipsis,
   TextCursorInput,
   type LucideIcon,
 } from 'lucide-react';
 
 interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
-  type: 'email' | 'text' | 'password' | 'url' | 'number' | 'date';
+  type: 'email' | 'text' | 'password' | 'url' | 'number' | 'date' | 'tel';
   placeholder: string;
   errorMessage?: string;
   disabled?: boolean;
@@ -23,6 +24,7 @@ const iconMap: Record<InputProps['type'], LucideIcon> = {
   text: TextCursorInput,
   number: Hash,
   date: CalendarDays,
+  tel: Phone,
 };
 
 const Input = forwardRef<HTMLInputElement, InputProps>(

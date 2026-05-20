@@ -12,7 +12,6 @@ export function useUpdateMyPassword() {
       setShowAlertMessage('success', 'Contraseña actualizada exitosamente');
     },
     onError: (error: Error) => {
-      console.log(error);
       if (error.message.includes('New password should be different from the old password')) {
         setShowAlertMessage('error', 'La nueva contraseña no puede ser la misma que la actual');
       } else {

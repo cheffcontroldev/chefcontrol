@@ -20,7 +20,7 @@ export default function FormModalUserRestaurant({
       <div className="card bg-base-100 shadow-xl z-50 p-6">
         <form onSubmit={onSubmit}>
           <div className={className}>{children}</div>
-          <div className="flex items-center justify-center">
+          <div className="flex items-center justify-center pt-3">
             <button disabled={isPending} className="btn btn-success">
               Guardar
             </button>
