@@ -66,7 +66,10 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
 
     return (
       <div className="relative pb-5 w-full block">
-        <label className="input w-full">
+        <label className="label pl-0.5 pb-0.5">
+          <span className="label-text">{placeholder}</span>
+        </label>
+        <div className="input w-full">
           <Icon className="size-4" />
           <input
             className="w-full"
@@ -77,7 +80,7 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
             disabled={disabled}
             {...rest}
           />
-        </label>
+        </div>
         {hasError && (
           <div className="absolute bottom-0 left-0 right-0 text-[0.75rem] text-red-500">
             {errorMessage}

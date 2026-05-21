@@ -33,17 +33,20 @@ interface TextAreaProps extends TextareaHTMLAttributes<HTMLTextAreaElement> {
 const TextArea = forwardRef<HTMLTextAreaElement, TextAreaProps>(
   ({ placeholder, disabled = false, readOnly = false, rows = 4, ...rest }, ref) => {
     return (
-      <fieldset className="fieldset">
-        <legend className="fieldset-legend px-1">{placeholder}</legend>
+      <div className="relative pb-5 w-full block">
+        <label className="label pl-0.5 pb-0.5">
+          <span className="label-text">{placeholder}</span>
+        </label>
         <textarea
           className="w-full textarea"
           ref={ref}
           readOnly={readOnly}
           disabled={disabled}
+          placeholder={placeholder}
           rows={rows}
           {...rest}
         ></textarea>
-      </fieldset>
+      </div>
     );
   }
 );

@@ -94,15 +94,11 @@ export default function MovementExitForm() {
 
       <Input
         type="number"
-        placeholder="Cantidad"
+        placeholder={`Cantidad: (${unitAbbreviation})`}
         {...register('quantity', { valueAsNumber: true })}
         errorMessage={errors.quantity?.message}
         readOnly={isPending}
       />
-
-      <p className="-mt-6 pb-3 text-sm text-base-content/70">
-        Unidad de medida: <span className="font-medium text-base-content">{unitAbbreviation}</span>
-      </p>
 
       <TextArea placeholder="Notas" {...register('notes')} readOnly={isPending} />
 
