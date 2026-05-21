@@ -26,7 +26,10 @@ export function useCreateUnitOfMeasure({ resetForm, onClose }: UseCreateUnitOfMe
   const restaurantId = user?.restaurantId;
 
   return useMutation({
-    mutationFn: (input: CreateUnitOfMeasureInput) => createUnitOfMeasure(input, restaurantId),
+    mutationFn: (input: CreateUnitOfMeasureInput) => {
+      if (!restaurantId) throw new Error('No authenticated');
+      return createUnitOfMeasure(input, restaurantId);
+    },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['unitsOfMeasure'] });
       setShowAlertMessage('success', 'Unidad de medida creada exitosamente');

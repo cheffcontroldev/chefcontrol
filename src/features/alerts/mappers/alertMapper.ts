@@ -21,7 +21,7 @@ export const responseToLowStock = (response: ResponseLowStock): LowStock => {
   return {
     id: response.id,
     productName: response.name,
-    stockMinimun: response.stock_minimum,
+    stockMinimun: Number(response.stock_minimum),
     currentStock: response.current_stock,
     deficit: response.deficit,
     unitName: response.unit_name,

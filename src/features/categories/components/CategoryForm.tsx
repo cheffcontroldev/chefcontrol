@@ -74,8 +74,8 @@ export default function CategoryForm() {
       setSelectedCategory(null);
     } else if (action === 'show') {
       resetForm({
-        name: selectedCategory.name,
-        description: selectedCategory.description || '',
+        name: selectedCategory?.name ?? '',
+        description: selectedCategory?.description ?? '',
       });
     }
     setCategoryFormMode(action);

@@ -26,7 +26,10 @@ export function useCreateCategory({ resetForm, onClose }: UseCreateCategoryOptio
   const restaurantId = user?.restaurantId;
 
   return useMutation({
-    mutationFn: (input: CreateCategoryInput) => createCategory(input, restaurantId),
+    mutationFn: (input: CreateCategoryInput) => {
+      if (!restaurantId) throw new Error('No authenticated');
+      return createCategory(input, restaurantId);
+    },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['categories'] });
       queryClient.invalidateQueries({ queryKey: ['categories_count'] });

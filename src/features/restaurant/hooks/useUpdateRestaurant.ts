@@ -20,7 +20,10 @@ export function useUpdateRestaurant() {
   const { user } = useAuthStore();
 
   return useMutation({
-    mutationFn: (input: UpdateRestaurantInput) => updateRestaurant(user?.restaurantId, input),
+    mutationFn: (input: UpdateRestaurantInput) => {
+      if (!user?.restaurantId) throw new Error('No authenticated');
+      return updateRestaurant(user.restaurantId, input);
+    },
     onSuccess: () => {
       setShowAlertMessage('success', 'Restaurante actualizado exitosamente');
       queryClient.invalidateQueries({ queryKey: ['restaurant'] });

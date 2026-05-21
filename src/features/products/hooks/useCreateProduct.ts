@@ -26,7 +26,10 @@ export function useCreateProduct({ resetForm, onClose }: UseCreateProductOptions
   const restaurantId = user?.restaurantId;
 
   return useMutation({
-    mutationFn: (input: CreateProductInput) => createProduct(input, restaurantId),
+    mutationFn: (input: CreateProductInput) => {
+      if (!restaurantId) throw new Error('No authenticated');
+      return createProduct(input, restaurantId);
+    },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['products'] });
       setShowAlertMessage('success', 'Producto creado exitosamente');

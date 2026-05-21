@@ -112,6 +112,8 @@ export function formatDateDisplay(date: Date | string): string {
  */
 export function isTodayOrFuture(dateString: string): boolean {
   const selected = parseLocalDate(dateString);
+  if (!selected) return false;
+
   selected.setHours(0, 0, 0, 0);
 
   const today = new Date();
