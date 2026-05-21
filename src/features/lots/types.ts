@@ -1,5 +1,6 @@
 import type { Product } from '../products/types';
 
+/** Lot model used in the UI. */
 export interface Lot {
   id: string;
   expirationDate: string;
@@ -8,5 +9,6 @@ export interface Lot {
   createdAt: string;
   isActive: boolean;
   productId: string;
+  /** Resolved product relation (loaded via Supabase join) */
   product: Product;
 }

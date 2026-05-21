@@ -1,3 +1,4 @@
+/** A lot that is expiring within the configured threshold. */
 export interface ExpiringLot {
   currentQuantity: number;
   daysRemaining: number;
@@ -6,6 +7,7 @@ export interface ExpiringLot {
   productName: string;
 }
 
+/** Raw shape of an expiring-lot row returned by the RPC. */
 export interface ResponseExpiringLot {
   current_quantity: number;
   days_remaining: 2;
@@ -14,6 +16,7 @@ export interface ResponseExpiringLot {
   product_name: string;
 }
 
+/** A product that has fallen below its minimum stock threshold. */
 export interface LowStock {
   id: string;
   productName: string;
@@ -24,6 +27,7 @@ export interface LowStock {
   unitAbbreviation: string;
 }
 
+/** Raw shape of a low-stock row returned by the RPC. */
 export interface ResponseLowStock {
   id: string;
   name: string;

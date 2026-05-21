@@ -16,6 +16,14 @@ interface AlertNotificationListProps {
   onClose: () => void;
 }
 
+/**
+ * Dropdown panel that displays categorized alert notifications.
+ *
+ * Groups alerts into:
+ * - Expired lots (red)
+ * - Lots expiring soon (orange)
+ * - Low stock products (blue)
+ */
 function AlertNotificationList({
   expiringLots,
   lowStocks,
@@ -110,6 +118,13 @@ function AlertNotificationList({
 
 /* ──────────────── Componente principal ──────────────── */
 
+/**
+ * Bell icon button in the navbar that shows a dropdown with alert
+ * notifications when clicked.
+ *
+ * The badge displays the total alert count. The dropdown auto-closes when
+ * clicking outside.
+ */
 export default function AlertBanner() {
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);

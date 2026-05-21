@@ -6,6 +6,7 @@ import { responseToProduct, responseToProducts, productToRequest } from './mappe
 
 const TABLE = 'products';
 
+/** Get the total count of non-deleted products for a restaurant. */
 export async function getCountProducts(restaurantId: string): Promise<number> {
   const { count, error } = await supabase
     .from(TABLE)
@@ -16,6 +17,10 @@ export async function getCountProducts(restaurantId: string): Promise<number> {
   return count || 0;
 }
 
+/**
+ * Get all non-deleted products for a restaurant, including the related
+ * unit-of-measure and category via Supabase joins.
+ */
 export async function getProducts(restaurantId: string) {
   const { data, error } = await supabase
     .from(TABLE)
@@ -29,6 +34,7 @@ export async function getProducts(restaurantId: string) {
   return responseToProducts(data);
 }
 
+/** Get a single product by ID (only if not soft-deleted), with joins. */
 export async function getProduct(id: string) {
   const { data, error } = await supabase
     .from(TABLE)
@@ -40,6 +46,7 @@ export async function getProduct(id: string) {
   return responseToProduct(data);
 }
 
+/** Create a new product for the given restaurant. */
 export async function createProduct(input: CreateProductInput, restaurantId: string) {
   const dto = productToRequest(input);
 
@@ -52,6 +59,7 @@ export async function createProduct(input: CreateProductInput, restaurantId: str
   return data;
 }
 
+/** Update an existing product. */
 export const updateProduct = async (id: string, input: UpdateProductInput) => {
   const dto = productToRequest(input);
 
@@ -62,6 +70,7 @@ export const updateProduct = async (id: string, input: UpdateProductInput) => {
   return data;
 };
 
+/** Soft-delete a product by setting `is_deleted = true`. */
 export const deleteProduct = async (id: string) => {
   const dto = { is_deleted: true };
   const { data, error } = await supabase.from(TABLE).update(dto).eq('id', id).single();

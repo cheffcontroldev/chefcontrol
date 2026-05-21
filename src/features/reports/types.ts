@@ -4,6 +4,7 @@ import type { UnitOfMeasure } from '@/features/unitsOfMeasure/types';
 
 /* ──────────────── Report Filters ──────────────── */
 
+/** Filter parameters shared across report endpoints. */
 export interface ReportFilter {
   fromDate?: string; // ISO date: '2026-05-01'
   toDate?: string; // ISO date: '2026-05-31'
@@ -13,6 +14,7 @@ export interface ReportFilter {
 
 /* ──────────────── Current Inventory Report ──────────────── */
 
+/** A product with its lot breakdown for the current-inventory report. */
 export interface InventoryReportItem {
   productId: string;
   productName: string;
@@ -24,6 +26,7 @@ export interface InventoryReportItem {
   lots: InventoryLotItem[];
 }
 
+/** A single lot within an inventory report item. */
 export interface InventoryLotItem {
   lotId: string;
   expirationDate: string;
@@ -35,6 +38,7 @@ export interface InventoryLotItem {
 
 /* ──────────────── Movement Report ──────────────── */
 
+/** A single movement in the movement report. */
 export interface MovementReportItem {
   movementId: string;
   movementDate: string;
@@ -48,6 +52,7 @@ export interface MovementReportItem {
   consumedLots?: MovementDetailItem[];
 }
 
+/** Detail about lots consumed by an exit movement. */
 export interface MovementDetailItem {
   lotId: string;
   quantity: number;
@@ -56,6 +61,7 @@ export interface MovementDetailItem {
 
 /* ──────────────── Expiration Report ──────────────── */
 
+/** A lot that appears in the expiration report. */
 export interface ExpirationReportItem {
   lotId: string;
   productName: string;
@@ -67,6 +73,7 @@ export interface ExpirationReportItem {
 
 /* ──────────────── Low Stock Report (Historical) ──────────────── */
 
+/** A product that appears in the low-stock report. */
 export interface LowStockReportItem {
   productId: string;
   productName: string;
@@ -74,16 +81,22 @@ export interface LowStockReportItem {
   currentStock: number;
   deficit: number;
 }
+
 /* ──────────────── Export Types ──────────────── */
 
+/** Supported export file formats. */
 export type ExportFormat = 'csv' | 'excel' | 'pdf';
 
+/** Options for the export utility. */
 export interface ExportOptions {
   format: ExportFormat;
   filename: string;
   data: unknown[];
 }
 
+/* ──────────────── Raw API Response Types ──────────────── */
+
+/** @hidden */
 export interface ResponseLot {
   id: string;
   expiration_date: string;
@@ -92,10 +105,12 @@ export interface ResponseLot {
   is_active: boolean;
 }
 
+/** @hidden */
 export interface ResponseCategory {
   name: string;
 }
 
+/** @hidden */
 export interface ResponseProductWithLots {
   id: string;
   name: string;
@@ -105,6 +120,7 @@ export interface ResponseProductWithLots {
   lots: ResponseLot[];
 }
 
+/** @hidden */
 export interface ResponseMovement {
   id: string;
   movement_date: string;
@@ -117,6 +133,7 @@ export interface ResponseMovement {
   products: Product;
 }
 
+/** @hidden */
 export interface ResponseExpiringLot {
   lot_id: string;
   product_name: string;
@@ -125,6 +142,7 @@ export interface ResponseExpiringLot {
   days_remaining: number;
 }
 
+/** @hidden */
 export interface ResponseLowStockItem {
   product_id: string;
   name: string;
@@ -133,6 +151,7 @@ export interface ResponseLowStockItem {
   deficit: number;
 }
 
+/** @hidden */
 export interface ResponseMovementDetail {
   quantity: number;
   lots: {

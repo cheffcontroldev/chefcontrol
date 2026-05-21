@@ -25,6 +25,7 @@ import {
 
 /* ──────────────── API: Current Inventory ──────────────── */
 
+/** Fetch the current inventory report with lot-level detail. */
 export async function getInventoryReport(restaurantId: string): Promise<InventoryReportItem[]> {
   const { data, error } = await supabase
     .from('products')
@@ -50,6 +51,7 @@ export async function getInventoryReport(restaurantId: string): Promise<Inventor
 
 /* ──────────────── API: Movements by Period ──────────────── */
 
+/** Fetch movements filtered by date range, product, and/or type. */
 export async function getMovementReport(
   restaurantId: string,
   filter: ReportFilter
@@ -95,6 +97,7 @@ export async function getMovementReport(
 
 /* ──────────────── API: Expiring Lots ──────────────── */
 
+/** Fetch lots that expire within the given number of days. */
 export async function getExpirationReport(
   restaurantId: string,
   days: number = 7
@@ -111,6 +114,7 @@ export async function getExpirationReport(
 
 /* ──────────────── API: Low Stock ──────────────── */
 
+/** Fetch all products that have fallen below their minimum stock. */
 export async function getLowStockReport(restaurantId: string): Promise<LowStockReportItem[]> {
   const { data, error } = await supabase.rpc('get_low_stock', {
     p_restaurant_id: restaurantId,
@@ -123,6 +127,7 @@ export async function getLowStockReport(restaurantId: string): Promise<LowStockR
 
 /* ──────────────── API: Movement Details (for exits) ──────────────── */
 
+/** Fetch detail about which lots were consumed by a specific exit movement. */
 export async function getMovementDetails(movementId: string): Promise<MovementDetailItem[]> {
   const { data, error } = await supabase
     .from('movement_details')

@@ -8,6 +8,13 @@ interface ReportFilterProps {
   showTypeFilter?: boolean;
 }
 
+/**
+ * Reusable filter bar for report pages.
+ *
+ * Provides date range inputs (from/to), an optional movement type dropdown,
+ * and a clear-filters button. Every change immediately calls
+ * `onFilterChange` with the new filter state.
+ */
 export default function ReportFilter({ onFilterChange, showTypeFilter = true }: ReportFilterProps) {
   const [filter, setFilter] = useState<ReportFilterType>({});
 

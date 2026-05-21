@@ -9,6 +9,12 @@ type UseUpdateCategoryOptions = {
   onClose?: () => void;
 };
 
+/**
+ * TanStack Query mutation for updating an existing category.
+ *
+ * On **success**: invalidates queries, clears the selected category, resets
+ * the form, and calls `onClose`.
+ */
 export function useUpdateCategory({ resetForm, onClose }: UseUpdateCategoryOptions = {}) {
   const { setShowAlertMessage } = useUiStore();
   const queryClient = useQueryClient();

@@ -8,6 +8,15 @@ type UseCreateMovementEntryOptions = {
   resetForm: () => void;
 };
 
+/**
+ * TanStack Query mutation for creating an entry movement.
+ *
+ * Calls the `register_entry` RPC which creates both a movement record and a
+ * new lot atomically.
+ *
+ * On **success**: invalidates lots, movements, expiring-lots, and low-stock
+ * queries.
+ */
 export function useCreateMovementEntry({ resetForm }: UseCreateMovementEntryOptions) {
   const { user } = useAuthStore();
   const { setShowAlertMessage } = useUiStore();

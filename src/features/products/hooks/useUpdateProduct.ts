@@ -9,6 +9,12 @@ type UseUpdateProductOptions = {
   onClose?: () => void;
 };
 
+/**
+ * TanStack Query mutation for updating an existing product.
+ *
+ * On **success**: invalidates `['products']`, clears the selected product,
+ * resets the form, and calls `onClose`.
+ */
 export function useUpdateProduct({ resetForm, onClose }: UseUpdateProductOptions = {}) {
   const { setShowAlertMessage } = useUiStore();
   const queryClient = useQueryClient();

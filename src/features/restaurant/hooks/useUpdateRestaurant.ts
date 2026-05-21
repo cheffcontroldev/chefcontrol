@@ -4,6 +4,16 @@ import type { UpdateRestaurantInput } from '../schemas';
 import { useUiStore } from '@/stores/uiStore';
 import { useAuthStore } from '@/stores/authStore';
 
+/**
+ * TanStack Query mutation that updates the current user's restaurant.
+ *
+ * Gets `restaurantId` from the auth store automatically.
+ *
+ * On **success**: shows a success alert and invalidates the `['restaurant']`
+ * query.
+ *
+ * On **error**: displays the error message in an alert banner.
+ */
 export function useUpdateRestaurant() {
   const { setShowAlertMessage } = useUiStore();
   const queryClient = useQueryClient();

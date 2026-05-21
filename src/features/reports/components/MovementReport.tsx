@@ -14,6 +14,11 @@ import ExportButton from './ExportButton';
 
 import type { ReportFilter as ReportFilterType } from '../types';
 
+/**
+ * Movement report page with filters, summary stats, and a sortable data table.
+ *
+ * Includes export functionality via {@link ExportButton}.
+ */
 export default function MovementReport() {
   const { user } = useAuthStore();
   const restaurantId = user?.restaurantId;

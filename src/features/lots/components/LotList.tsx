@@ -1,4 +1,3 @@
-/* Hooks */
 import { useState } from 'react';
 import { Eye } from 'lucide-react';
 import { useLots } from '../hooks/useLots';
@@ -7,6 +6,12 @@ import { formatDate } from '@/shared/utils/dataHelpers';
 
 import { useLotStore } from '../store/LottStore';
 
+/**
+ * Table view of lots with a toggle to include or exclude zero-stock items.
+ *
+ * Each row shows product name, expiration date, quantities, and status. An eye
+ * icon opens the lot detail modal.
+ */
 export default function LotList() {
   const [includeZeroStock, setIncludeZeroStock] = useState(false);
   const { data: lots, isLoading, error } = useLots(includeZeroStock);

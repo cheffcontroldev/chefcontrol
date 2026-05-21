@@ -12,6 +12,7 @@ import type {
   ExitResult,
 } from '../types';
 
+/** Convert a single Supabase movement row to the camelCase UI model. */
 export const responseToMovement = (response: ResponseMovement): Movement => {
   return {
     id: response.id,
@@ -27,10 +28,12 @@ export const responseToMovement = (response: ResponseMovement): Movement => {
   };
 };
 
+/** Convert an array of Supabase movement rows to the UI model. */
 export const responseToMovements = (responses: ResponseMovement[]): Movement[] => {
   return responses.map(responseToMovement);
 };
 
+/** Convert an entry input to the shape expected by the `register_entry` RPC. */
 export const movementEntryToRequest = (
   entry: CreateEntryMovement,
   restaurantId: string,
@@ -47,6 +50,7 @@ export const movementEntryToRequest = (
   };
 };
 
+/** Convert the raw `register_entry` RPC result to the UI model. */
 export const responseToEntryResult = (response: ResponseEntryResult): EntryResult => {
   return {
     success: response.success,
@@ -55,6 +59,7 @@ export const responseToEntryResult = (response: ResponseEntryResult): EntryResul
   };
 };
 
+/** Convert an exit input to the shape expected by the `register_exit` RPC. */
 export const movementExitToRequest = (
   exit: CreateExitMovement,
   restaurantId: string,
@@ -70,6 +75,7 @@ export const movementExitToRequest = (
   };
 };
 
+/** Convert the raw `register_exit` RPC result to the UI model. */
 export const responseToExitResult = (response: ResponseExitResult): ExitResult => {
   return {
     success: response.success,

@@ -15,6 +15,7 @@ import type {
   ResponseProductWithLots,
 } from '../types';
 
+/** Convert a raw Supabase lot to the domain model with computed fields. */
 export function mapLotToDomain(lot: ResponseLot): InventoryLotItem {
   const today = new Date();
   today.setHours(0, 0, 0, 0);
@@ -36,6 +37,7 @@ export function mapLotToDomain(lot: ResponseLot): InventoryLotItem {
   };
 }
 
+/** Convert a raw Supabase product-with-lots to the inventory report item. */
 export function mapProductToInventoryItem(product: ResponseProductWithLots): InventoryReportItem {
   const lots = product.lots || [];
   const currentStock = lots.reduce(
@@ -55,6 +57,7 @@ export function mapProductToInventoryItem(product: ResponseProductWithLots): Inv
   };
 }
 
+/** Convert a raw Supabase movement to the movement report item. */
 export function mapMovementToDomain(movement: ResponseMovement): MovementReportItem {
   return {
     movementId: movement.id,
@@ -64,12 +67,12 @@ export function mapMovementToDomain(movement: ResponseMovement): MovementReportI
     quantity: Number(movement.quantity),
     reason: movement.reason,
     notes: movement.notes,
-    userName: movement.users?.name || '—',
     isCancelled: movement.is_cancelled,
     cancelledAt: movement.cancelled_at,
   };
 }
 
+/** Convert a raw Supabase expiring-lot to the domain model. */
 export function mapExpiringLotToDomain(item: ResponseExpiringLot): ExpirationReportItem {
   return {
     lotId: item.lot_id,
@@ -81,6 +84,7 @@ export function mapExpiringLotToDomain(item: ResponseExpiringLot): ExpirationRep
   };
 }
 
+/** Convert a raw Supabase low-stock item to the domain model. */
 export function mapLowStockToDomain(item: ResponseLowStockItem): LowStockReportItem {
   return {
     productId: item.product_id,
@@ -91,6 +95,7 @@ export function mapLowStockToDomain(item: ResponseLowStockItem): LowStockReportI
   };
 }
 
+/** Convert a raw Supabase movement-detail row to the domain model. */
 export function mapMovementDetailToDomain(detail: ResponseMovementDetail): MovementDetailItem {
   return {
     lotId: detail.lots?.id || '',

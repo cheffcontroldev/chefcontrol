@@ -8,6 +8,15 @@ type UseCreateMovementExitOptions = {
   resetForm: () => void;
 };
 
+/**
+ * TanStack Query mutation for creating an exit movement.
+ *
+ * Calls the `register_exit` RPC which consumes stock from available lots
+ * (FIFO) and creates a movement record.
+ *
+ * On **success**: invalidates lots, movements, expiring-lots, and low-stock
+ * queries.
+ */
 export function useCreateMovementExit({ resetForm }: UseCreateMovementExitOptions) {
   const { user } = useAuthStore();
   const { setShowAlertMessage } = useUiStore();

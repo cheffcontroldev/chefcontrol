@@ -31,6 +31,15 @@ import TextArea from '@/shared/components/TextArea';
 import type { FormMode } from '@/shared/types';
 import { useUnitsOfMeasure } from '@/features/unitsOfMeasure/hooks/useUnitsOfMeasure';
 
+/**
+ * Modal form for creating, editing, and viewing a product.
+ *
+ * Switches between `createProductSchema` and `updateProductSchema` depending
+ * on whether a product is selected. In `'show'` mode all fields are read-only.
+ *
+ * Loads category and unit-of-measure options from their respective hooks for
+ * the select inputs.
+ */
 export default function ProductForm() {
   const { productFormMode, setProductFormMode } = useUiStore();
   const { selectedProduct, setSelectedProduct } = useProductStore();

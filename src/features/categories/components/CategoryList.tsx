@@ -15,6 +15,10 @@ import type { Category } from '../types';
 /* Hooks */
 import { useDeleteCategory } from '../hooks/useDeleteCategory';
 
+/**
+ * Table view of all non-deleted categories with show and delete actions per
+ * row, plus an "Agregar Categoría" header button.
+ */
 export default function CategoryList() {
   const { data: categories, isLoading, error } = useCategories();
   const { setSelectedCategory } = useCategoryStore();

@@ -3,6 +3,14 @@ import { updateMyPassword } from '../api';
 import type { UpdateMyPasswordInput } from '../types';
 import { useUiStore } from '@/stores/uiStore';
 
+/**
+ * TanStack Query mutation that updates the current user's password.
+ *
+ * On **success**: shows a success alert.
+ *
+ * On **error**: maps the Supabase "same password" error to a user-friendly
+ * Spanish message; all other errors are shown as-is.
+ */
 export function useUpdateMyPassword() {
   const { setShowAlertMessage } = useUiStore();
 

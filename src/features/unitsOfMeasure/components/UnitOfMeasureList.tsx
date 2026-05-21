@@ -15,6 +15,10 @@ import type { UnitOfMeasure } from '../types';
 /* Hooks */
 import { useDeleteUnitOfMeasure } from '../hooks/useDeleteUnitsOfMeasure';
 
+/**
+ * Table view of all non-deleted units of measure with show and delete actions
+ * per row, plus an "Agregar Unidad de Medida" header button.
+ */
 export default function UnitOfMeasureList() {
   const { data: unitOfMeasures, isLoading, error } = useUnitsOfMeasure();
   const { setSelectedUnitOfMeasure } = useUnitOfMeasureStore();

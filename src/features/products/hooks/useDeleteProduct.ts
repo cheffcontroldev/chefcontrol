@@ -2,6 +2,11 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { deleteProduct } from '../api';
 import { useUiStore } from '@/stores/uiStore';
 
+/**
+ * TanStack Query mutation for soft-deleting a product.
+ *
+ * On **success**: invalidates the products list query.
+ */
 export function useDeleteProduct() {
   const { setShowAlertMessage } = useUiStore();
   const queryClient = useQueryClient();

@@ -2,6 +2,7 @@ import { supabase } from '@/supabase/client';
 
 import { responseToExpingLots, responseToLowStocks } from './mappers/alertMapper';
 
+/** Get the alert configuration (expiration alert days) for a restaurant. */
 export async function getAlertConfig(restaurantId: string) {
   const { data, error } = await supabase
     .from('alert_config')
@@ -13,6 +14,7 @@ export async function getAlertConfig(restaurantId: string) {
   return data;
 }
 
+/** Update the expiration alert threshold (in days) for a restaurant. */
 export async function updateAlertConfig(restaurantId: string, days: number) {
   const { data, error } = await supabase
     .from('alert_config')
@@ -25,6 +27,7 @@ export async function updateAlertConfig(restaurantId: string, days: number) {
   return data;
 }
 
+/** Get lots expiring within the given number of days. */
 export const getExpiringLots = async (restaurantId: string, days: number = 3) => {
   const { data, error } = await supabase.rpc('get_expiring_lots', {
     p_restaurant_id: restaurantId,
@@ -34,6 +37,7 @@ export const getExpiringLots = async (restaurantId: string, days: number = 3) =>
   return responseToExpingLots(data);
 };
 
+/** Get products that have fallen below their minimum stock threshold. */
 export const getLowStock = async (restaurantId: string) => {
   const { data, error } = await supabase.rpc('get_low_stock', {
     p_restaurant_id: restaurantId,

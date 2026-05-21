@@ -9,6 +9,14 @@ import {
   Table,
 } from 'lucide-react';
 
+/**
+ * Inventory landing page with links to all inventory sub-modules.
+ *
+ * Renders {@link BigMenuItem} cards for:
+ * - Products, Categories, Units of Measure, Lots
+ * - Register Entry, Register Exit
+ * - Movements list
+ */
 export default function InventoryMenu() {
   return (
     <div className="px-3 w-full max-w-6xl justify-center flex gap-4 flex-wrap">

@@ -13,6 +13,12 @@ import Input from '@/shared/components/Input';
 import Select from '@/shared/components/Select';
 import TextArea from '@/shared/components/TextArea';
 
+/**
+ * Form for creating an entry (stock-in) movement.
+ *
+ * The user selects a product, enters a provider, quantity, expiration date,
+ * and optional notes. On successful submission the form resets.
+ */
 export default function MovementEntryForm() {
   const { data: products, isLoading: isLoadingProducts, error: productsError } = useProducts();
 

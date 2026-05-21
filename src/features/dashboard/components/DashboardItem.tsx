@@ -1,13 +1,28 @@
 import { Link } from 'wouter';
 import { RefreshCcw } from 'lucide-react';
 
+/** Props for the {@link DashboardItem} card component. */
 interface DashboardItemProps {
+  /** Display title (e.g. "Categorías", "Productos") */
   title: string;
+  /** Numeric count to display prominently */
   count: number;
+  /** Link target for the "Ver..." button */
   href: string;
+  /** Optional callback to refresh the count */
   refresh?: () => void;
 }
 
+/**
+ * Generic dashboard card that displays a large numeric count with action
+ * buttons.
+ *
+ * Includes a "Refrescar" button and a "Ver..." link.
+ *
+ * NOTE: `DashboardCategories` and `DashboardProducts` pass an `isLoading`
+ * prop, but this component does **not** declare or use it. The prop is
+ * silently ignored (see the callers for the actual loading behaviour).
+ */
 export default function DashboardItem({ title, count, href, refresh }: DashboardItemProps) {
   return (
     <div className="card bg-base-100 w-full shadow-xl border border-base-200 xl:h-[340px]">

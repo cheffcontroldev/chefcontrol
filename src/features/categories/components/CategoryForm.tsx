@@ -26,6 +26,13 @@ import Input from '@/shared/components/Input';
 import TextArea from '@/shared/components/TextArea';
 import type { FormMode } from '@/shared/types';
 
+/**
+ * Modal form for creating, editing, and viewing a category.
+ *
+ * Switches between `createCategorySchema` and `updateCategorySchema`
+ * depending on whether a category is selected. In `'show'` mode all fields
+ * are read-only.
+ */
 export default function CategoryForm() {
   const { categoryFormMode, setCategoryFormMode } = useUiStore();
   const { selectedCategory, setSelectedCategory } = useCategoryStore();

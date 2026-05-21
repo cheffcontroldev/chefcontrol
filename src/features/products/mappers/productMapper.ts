@@ -2,6 +2,7 @@ import type { Category } from '@/features/categories/types';
 import type { UnitOfMeasure } from '@/features/unitsOfMeasure/types';
 import type { Product, CreateProductInput, UpdateProductInput } from '../types';
 
+/** Raw shape of a product row returned by Supabase (snake_case, with joins). */
 export interface ResponseProduct {
   id: string;
   name: string;
@@ -17,6 +18,7 @@ export interface ResponseProduct {
   updated_at: string;
 }
 
+/** Convert a single Supabase product row to the camelCase UI model. */
 export const responseToProduct = (response: ResponseProduct): Product => {
   return {
     id: response.id,
@@ -34,10 +36,15 @@ export const responseToProduct = (response: ResponseProduct): Product => {
   };
 };
 
+/** Convert an array of Supabase product rows to the UI model. */
 export const responseToProducts = (responses: ResponseProduct[]): Product[] => {
   return responses.map(responseToProduct);
 };
 
+/**
+ * Convert a create/update input object to the snake_case shape expected by
+ * Supabase.
+ */
 export const productToRequest = (product: CreateProductInput | UpdateProductInput) => {
   return {
     name: product.name,

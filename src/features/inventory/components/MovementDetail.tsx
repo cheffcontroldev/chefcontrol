@@ -5,6 +5,13 @@ import CancelConfirmModal from '../components/CancelConfirmModal';
 import { useMovementStore } from '../store/MovementStore';
 import { useCancelMovement } from '../hooks/useCancelMovement';
 
+/**
+ * Detail modal that displays full information about the selected movement.
+ *
+ * Includes a "Cancelar movimiento" button for non-cancelled entries/exits.
+ * When there are downstream dependencies, the cancel flow shows a
+ * confirmation modal via {@link CancelConfirmModal}.
+ */
 export default function MovementDetail() {
   const { selectedMovement, setSelectedMovement } = useMovementStore();
   const { initiateCancel, confirmCancel, closeConfirm, dependencies, showConfirmModal, isLoading } =

@@ -5,6 +5,7 @@ import { cancelMovement } from '../api';
 import { useAuthStore } from '@/stores/authStore';
 import { useMovementStore } from '../store/MovementStore';
 
+/** A downstream movement that depends on the one being cancelled. */
 interface Dependency {
   id: string;
   date: string;
@@ -12,6 +13,15 @@ interface Dependency {
   reason: string;
 }
 
+/**
+ * Hook that manages the full cancellation flow for a movement.
+ *
+ * Cancellation is **two-phase**:
+ * 1. `initiateCancel` tries a simple cancel; if the movement has downstream
+ *    dependencies, the RPC returns them and the modal state is set.
+ * 2. `confirmCancel` retries with `cascade: true`, which also cancels all
+ *    dependent movements.
+ */
 export function useCancelMovement() {
   const { user } = useAuthStore();
   const queryClient = useQueryClient();

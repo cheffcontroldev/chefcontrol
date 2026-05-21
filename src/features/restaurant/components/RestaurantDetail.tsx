@@ -4,6 +4,9 @@ import { useUiStore } from '@/stores/uiStore';
 
 import { formatDate } from '@/shared/utils/dataHelpers';
 
+/**
+ * Loading skeleton displayed while the restaurant data is being fetched.
+ */
 function Skeleton() {
   return (
     <div className="flex w-52 flex-col gap-4">
@@ -15,6 +18,12 @@ function Skeleton() {
   );
 }
 
+/**
+ * Page that displays the current restaurant's information.
+ *
+ * Shows name, email, phone, address, creation date, and active status in a
+ * read-only table. An "Editar" button opens the restaurant form modal.
+ */
 export default function RestaurantDetail() {
   const { data: restaurant, isLoading, error } = useRestaurant();
   const { setRestaurantFormMode } = useUiStore();

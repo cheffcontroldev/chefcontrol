@@ -9,6 +9,12 @@ type UseUpdateUnitOfMeasureOptions = {
   onClose?: () => void;
 };
 
+/**
+ * TanStack Query mutation for updating an existing unit of measure.
+ *
+ * On **success**: invalidates queries, clears the selected UoM, resets the
+ * form, and calls `onClose`.
+ */
 export function useUpdateUnitOfMeasure({ resetForm, onClose }: UseUpdateUnitOfMeasureOptions = {}) {
   const { setShowAlertMessage } = useUiStore();
   const queryClient = useQueryClient();

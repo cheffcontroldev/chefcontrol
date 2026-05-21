@@ -1,6 +1,9 @@
 import BigMenuItem from '@/shared/components/BigMenuItem';
 import { TriangleAlert, ArrowBigDownDash } from 'lucide-react';
 
+/**
+ * Alerts landing page with links to expiring lots and low-stock lists.
+ */
 export default function AlertsMenu() {
   return (
     <div className="px-3 w-full justify-center flex gap-4 flex-wrap lg:min-w-6xl">
