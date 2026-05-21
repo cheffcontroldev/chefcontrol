@@ -1,43 +1,40 @@
-import { useState } from 'react';
-import { Filter, Calendar, ArrowDownUp } from 'lucide-react';
+import { Filter, Calendar, ArrowDownUp, Search, X } from 'lucide-react';
 
 import type { ReportFilter as ReportFilterType } from '../types';
 
 interface ReportFilterProps {
+  filter: ReportFilterType;
   onFilterChange: (filter: ReportFilterType) => void;
+  onApply: () => void;
+  onClear: () => void;
   showTypeFilter?: boolean;
 }
 
-/**
- * Reusable filter bar for report pages.
- *
- * Provides date range inputs (from/to), an optional movement type dropdown,
- * and a clear-filters button. Every change immediately calls
- * `onFilterChange` with the new filter state.
- */
-export default function ReportFilter({ onFilterChange, showTypeFilter = true }: ReportFilterProps) {
-  const [filter, setFilter] = useState<ReportFilterType>({});
-
+export default function ReportFilter({
+  filter,
+  onFilterChange,
+  onApply,
+  onClear,
+  showTypeFilter = true,
+}: ReportFilterProps) {
   const handleChange = (key: keyof ReportFilterType, value: string | undefined) => {
-    const newFilter = { ...filter, [key]: value || undefined };
-    setFilter(newFilter);
-    onFilterChange(newFilter);
-  };
-
-  const handleClear = () => {
-    setFilter({});
-    onFilterChange({});
+    onFilterChange({ ...filter, [key]: value || undefined });
   };
 
   return (
     <div className="bg-base-100 rounded-lg shadow p-4 mb-6">
-      <div className="flex items-center gap-2 mb-4">
-        <Filter className="w-5 h-5 text-primary" />
-        <h3 className="font-semibold">Filtros</h3>
+      <div className="flex items-center justify-between mb-4">
+        <div className="flex items-center gap-2">
+          <Filter className="w-5 h-5 text-primary" />
+          <h3 className="font-semibold">Filtros</h3>
+        </div>
+        <button type="button" className="btn btn-ghost btn-sm gap-1" onClick={onClear}>
+          <X className="w-4 h-4" />
+          Limpiar
+        </button>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-        {/* From date */}
         <div className="form-control">
           <label className="label">
             <span className="label-text flex items-center gap-1">
@@ -53,7 +50,6 @@ export default function ReportFilter({ onFilterChange, showTypeFilter = true }: 
           />
         </div>
 
-        {/* To date */}
         <div className="form-control">
           <label className="label">
             <span className="label-text flex items-center gap-1">
@@ -69,7 +65,6 @@ export default function ReportFilter({ onFilterChange, showTypeFilter = true }: 
           />
         </div>
 
-        {/* Movement type */}
         {showTypeFilter && (
           <div className="form-control">
             <label className="label">
@@ -90,13 +85,13 @@ export default function ReportFilter({ onFilterChange, showTypeFilter = true }: 
           </div>
         )}
 
-        {/* Clear button */}
         <div className="form-control">
           <label className="label">
             <span className="label-text">Acciones</span>
           </label>
-          <button type="button" className="btn btn-outline btn-sm" onClick={handleClear}>
-            Limpiar filtros
+          <button type="button" className="btn btn-primary btn-sm gap-1" onClick={onApply}>
+            <Search className="w-4 h-4" />
+            Aplicar filtros
           </button>
         </div>
       </div>

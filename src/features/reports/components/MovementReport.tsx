@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useMemo, useCallback } from 'react';
 import {
   ArrowDownLeft,
   ArrowUpRight,
@@ -22,8 +22,35 @@ import type { ReportFilter as ReportFilterType } from '../types';
 export default function MovementReport() {
   const { user } = useAuthStore();
   const restaurantId = user?.restaurantId;
-  const [filter, setFilter] = useState<ReportFilterType>({});
-  const { data: movements, isLoading, isError } = useMovementReport(restaurantId || '', filter);
+
+  const [filterInput, setFilterInput] = useState<ReportFilterType>({});
+
+  const [appliedFilter, setAppliedFilter] = useState<ReportFilterType>({});
+
+  const {
+    data: movements,
+    isLoading,
+    isError,
+  } = useMovementReport(restaurantId || '', appliedFilter);
+
+  const stats = useMemo(() => {
+    if (!movements) return { totalEntries: 0, totalExits: 0, totalMovements: 0 };
+
+    return {
+      totalEntries: movements.filter((m) => m.type === 'entry').length,
+      totalExits: movements.filter((m) => m.type === 'exit').length,
+      totalMovements: movements.length,
+    };
+  }, [movements]);
+
+  const handleApplyFilters = useCallback(() => {
+    setAppliedFilter(filterInput);
+  }, [filterInput]);
+
+  const handleClearFilters = useCallback(() => {
+    setFilterInput({});
+    setAppliedFilter({});
+  }, []);
 
   if (isLoading) {
     return (
@@ -42,16 +69,16 @@ export default function MovementReport() {
     );
   }
 
-  const totalEntries = movements?.filter((m) => m.type === 'entry').length || 0;
-  const totalExits = movements?.filter((m) => m.type === 'exit').length || 0;
-  const totalMovements = movements?.length || 0;
-
   return (
     <div className="space-y-6">
-      {/* Filters */}
-      <ReportFilter onFilterChange={setFilter} showTypeFilter={true} />
+      <ReportFilter
+        filter={filterInput}
+        onFilterChange={setFilterInput}
+        onApply={handleApplyFilters}
+        onClear={handleClearFilters}
+        showTypeFilter={true}
+      />
 
-      {/* Summary */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
         <div className="stats shadow bg-base-100">
           <div className="stat">
@@ -59,7 +86,7 @@ export default function MovementReport() {
               <PackagePlus className="w-8 h-8" />
             </div>
             <div className="stat-title">Entradas</div>
-            <div className="stat-value text-success">{totalEntries}</div>
+            <div className="stat-value text-success">{stats.totalEntries}</div>
           </div>
         </div>
 
@@ -69,7 +96,7 @@ export default function MovementReport() {
               <PackageMinus className="w-8 h-8" />
             </div>
             <div className="stat-title">Salidas</div>
-            <div className="stat-value text-error">{totalExits}</div>
+            <div className="stat-value text-error">{stats.totalExits}</div>
           </div>
         </div>
 
@@ -79,17 +106,15 @@ export default function MovementReport() {
               <FileText className="w-8 h-8" />
             </div>
             <div className="stat-title">Total de movimientos</div>
-            <div className="stat-value text-primary">{totalMovements}</div>
+            <div className="stat-value text-primary">{stats.totalMovements}</div>
           </div>
         </div>
       </div>
 
-      {/* Export */}
       <div className="flex justify-end">
         <ExportButton data={movements || []} filename="movimientos" />
       </div>
 
-      {/* Table */}
       {!movements || movements.length === 0 ? (
         <div className="alert alert-info">
           <FileText className="w-5 h-5" />
