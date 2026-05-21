@@ -14,8 +14,8 @@ type UseCreateMovementEntryOptions = {
  * Calls the `register_entry` RPC which creates both a movement record and a
  * new lot atomically.
  *
- * On **success**: invalidates lots, movements, expiring-lots, and low-stock
- * queries.
+ * On **success**: invalidates lots, movements, expiring-lots, low-stock,
+ * and report queries.
  */
 export function useCreateMovementEntry({ resetForm }: UseCreateMovementEntryOptions) {
   const { user } = useAuthStore();
@@ -30,6 +30,8 @@ export function useCreateMovementEntry({ resetForm }: UseCreateMovementEntryOpti
       queryClient.invalidateQueries({ queryKey: ['movements'] });
       queryClient.invalidateQueries({ queryKey: ['expiring_lots'] });
       queryClient.invalidateQueries({ queryKey: ['low_stock'] });
+      queryClient.invalidateQueries({ queryKey: ['inventory-report'] });
+      queryClient.invalidateQueries({ queryKey: ['movement-report'] });
       setShowAlertMessage('success', 'Movimiento creado exitosamente');
       resetForm();
     },
