@@ -1,4 +1,5 @@
 import type { ResponseProduct } from '../products/mappers/productMapper';
+import type { Product } from '../products/types';
 
 /** Movement direction: entry (stock increase) or exit (stock decrease). */
 export type TypeMovement = 'entry' | 'exit';
@@ -14,7 +15,7 @@ export interface Movement {
   notes?: string;
   isCancelled: boolean;
   canceledAt?: Date;
-  product: ResponseProduct;
+  product: Product;
 }
 
 /** Input for creating an entry movement (stock increase + lot creation). */

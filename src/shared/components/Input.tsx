@@ -67,7 +67,7 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
     return (
       <div className="relative pb-5 w-full block">
         <label className="label pl-0.5 pb-0.5">
-          <span className="label-text">{placeholder}</span>
+          <span className="label-text text-primary">{placeholder}</span>
         </label>
         <div className="input w-full">
           <Icon className="size-4" />
