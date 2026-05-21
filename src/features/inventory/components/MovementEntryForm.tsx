@@ -1,5 +1,5 @@
-import { useEffect } from 'react';
-import { useForm } from 'react-hook-form';
+import { useEffect, useMemo } from 'react';
+import { useForm, useWatch } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 
 import { createMovementEntrySchema, type CreateEntryMovement } from '../schemas';
@@ -26,6 +26,7 @@ export default function MovementEntryForm() {
     register,
     handleSubmit,
     reset: resetForm,
+    control,
     formState: { errors },
   } = useForm<CreateEntryMovement>({
     resolver: zodResolver(createMovementEntrySchema),
@@ -38,6 +39,17 @@ export default function MovementEntryForm() {
       notes: '',
     },
   });
+
+  const selectedProductId = useWatch({
+    control,
+    name: 'productId',
+  });
+
+  const selectedProduct = useMemo(() => {
+    return products?.find((p) => p.id === selectedProductId);
+  }, [products, selectedProductId]);
+
+  const unitAbbreviation = selectedProduct?.unitsOfMeasure?.name || '—';
 
   useEffect(() => {
     resetForm({
@@ -63,6 +75,7 @@ export default function MovementEntryForm() {
       onSuccess: () => {},
     });
   };
+
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="w-full max-w-sm pt-12 space-y-3">
       <Select
@@ -78,7 +91,7 @@ export default function MovementEntryForm() {
         type="text"
         placeholder="Proveedor"
         {...register('provider')}
-        errorMessage={errors.quantity?.message}
+        errorMessage={errors.provider?.message}
         readOnly={isPending}
       />
 
@@ -89,7 +102,10 @@ export default function MovementEntryForm() {
         errorMessage={errors.quantity?.message}
         readOnly={isPending}
       />
-      <p className="-mt-6 pb-3 text-sm">Unidad de medida:</p>
+
+      <p className="-mt-6 pb-3 text-sm text-base-content/70">
+        Unidad de medida: <span className="font-medium text-base-content">{unitAbbreviation}</span>
+      </p>
 
       <Input
         type="date"
