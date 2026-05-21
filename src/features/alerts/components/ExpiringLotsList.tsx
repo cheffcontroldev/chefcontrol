@@ -53,15 +53,15 @@ export default function ExpiringLotsList() {
               <td className={lot.daysRemaining <= 0 && 'text-error'}>
                 {lot.daysRemaining < 0 && (
                   <>
-                    <TriangleAlert className="inline-block mr-1" size={16} />
+                    <TriangleAlert className="inline-block mr-2" size={16} />
                     Vencido
-                    <TriangleAlert className="inline-block mr-1" size={16} />
+                    <TriangleAlert className="inline-block ml-2" size={16} />
                   </>
                 )}
 
                 {lot.daysRemaining == 0 && (
                   <>
-                    <TriangleAlert className="inline-block mr-1" size={16} />
+                    <TriangleAlert className="inline-block mr-2" size={16} />
                     Vence hoy
                   </>
                 )}

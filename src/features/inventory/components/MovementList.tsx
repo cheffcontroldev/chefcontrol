@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Eye, PackageMinus, PackagePlus } from 'lucide-react';
+import { ArrowDownLeft, ArrowUpRight, Eye } from 'lucide-react';
 
 /* Hooks */
 import { useMovements } from '../hooks/useMovements';
@@ -45,6 +45,7 @@ export default function MovementList() {
             type="checkbox"
             id="cancelrecords"
             onChange={(e) => setShowCanceled(e.target.checked)}
+            className="checkbox"
           />
         </div>
       </div>
@@ -85,15 +86,17 @@ export default function MovementList() {
           {movements?.map((movement) => (
             <tr key={movement.id} className="hover:bg-base-300">
               <td>{movement.product.name}</td>
-              <td className="flex items-center gap-2">
+              <td>
                 {movement.type === 'entry' ? (
-                  <>
-                    Entrada <PackagePlus className="text-success w-4 h-4" />
-                  </>
+                  <span className="badge badge-success gap-1">
+                    <ArrowDownLeft className="w-3 h-3" />
+                    Entrada
+                  </span>
                 ) : (
-                  <>
-                    Salida <PackageMinus className="text-error w-4 h-4" />
-                  </>
+                  <span className="badge badge-error gap-1">
+                    <ArrowUpRight className="w-3 h-3" />
+                    Salida
+                  </span>
                 )}
               </td>
               <td className="max-md:hidden">

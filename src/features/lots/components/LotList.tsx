@@ -76,7 +76,9 @@ export default function LotList() {
                 {lot.initialQuantity} {lot.product.unitsOfMeasure.abbreviation}.
               </td>
               <td className="max-sm:hidden">
-                {lot.currentQuantity === 0 ? 'Agotado' : lot.currentQuantity}
+                {lot.currentQuantity === 0
+                  ? 'Agotado'
+                  : `${lot.currentQuantity} ${lot.product.unitsOfMeasure.abbreviation}.`}
               </td>
               <td className="max-xl:hidden">{formatDate(lot.createdAt.toString())}</td>
               <td className="max-md:hidden">{lot.isActive ? 'Activo' : 'Inactivo'}</td>

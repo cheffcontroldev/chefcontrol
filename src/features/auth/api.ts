@@ -78,6 +78,9 @@ export async function signIn(input: SignInInput): Promise<AuthUser> {
     throw new Error(authError?.message ?? 'Credenciales inválidas');
   }
 
+  const displayName = authData.user.user_metadata?.display_name;
+  const email = authData.user.email;
+
   const { data: userData, error: userError } = await supabase
     .from('users')
     .select('id, name, email, role, restaurant_id, is_active')
@@ -105,8 +108,8 @@ export async function signIn(input: SignInInput): Promise<AuthUser> {
   const authUser: AuthUser = {
     id: userData.id,
     authId: authData.user.id,
-    name: userData.name,
-    email: userData.email,
+    name: displayName,
+    email: email,
     role: userData.role,
     restaurantId: userData.restaurant_id,
     restaurantName: restaurantData.name,

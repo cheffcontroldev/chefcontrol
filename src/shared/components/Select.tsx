@@ -61,6 +61,9 @@ const Select = forwardRef<HTMLSelectElement, SelectProps>(
 
     return (
       <div className="relative pb-5 w-full block">
+        <label className="label pl-0.5 pb-0.5">
+          <span className="label-text">{placeholder}</span>
+        </label>
         <select className="select w-full" ref={ref} disabled={disabled} defaultValue="" {...rest}>
           {isLoadingOptions && (
             <option value="" disabled>
@@ -75,7 +78,7 @@ const Select = forwardRef<HTMLSelectElement, SelectProps>(
           {!isLoadingOptions && !isErrorOptions && (
             <>
               <option value="" disabled>
-                {placeholder}
+                Selecciona {placeholder}
               </option>
               {Object.entries(options).map(([key, value]) => (
                 <option key={key} value={key}>

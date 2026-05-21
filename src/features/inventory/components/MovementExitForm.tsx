@@ -1,5 +1,5 @@
 import { useMemo } from 'react';
-import { useForm } from 'react-hook-form';
+import { useForm, useWatch } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 
 import { createMovementExitSchema, type CreateExitMovement } from '../schemas';
@@ -22,7 +22,6 @@ import TextArea from '@/shared/components/TextArea';
 export default function MovementExitForm() {
   const { data: lots, isLoading: isLoadingLots, error: lotsError } = useLots();
 
-  // Calcular opciones de productos directamente con useMemo
   const productOptions = useMemo(() => {
     if (!lots) return {};
     return lots.reduce(
@@ -42,6 +41,7 @@ export default function MovementExitForm() {
     register,
     handleSubmit,
     reset: resetForm,
+    control,
     formState: { errors },
   } = useForm<CreateExitMovement>({
     resolver: zodResolver(createMovementExitSchema),
@@ -54,14 +54,22 @@ export default function MovementExitForm() {
     },
   });
 
+  const selectedProductId = useWatch({
+    control,
+    name: 'productId',
+  });
+
+  const selectedProduct = useMemo(() => {
+    return lots?.find((lot) => lot.product.id === selectedProductId)?.product;
+  }, [lots, selectedProductId]);
+
+  const unitAbbreviation = selectedProduct?.unitsOfMeasure?.name || '—';
+
   const { mutate, isPending } = useCreateMovementExit({ resetForm });
 
   const onSubmit = (data: CreateExitMovement) => {
     mutate(data, {
-      onSuccess: () => {
-        // Ejemplo: cerrar modal, mostrar notificación, etc.
-        // Puedes llamar a una función prop onClose si la recibes
-      },
+      onSuccess: () => {},
     });
   };
 
@@ -84,10 +92,9 @@ export default function MovementExitForm() {
         readOnly={isPending}
       />
 
-      <p className="pt-3 text-sm">Unidad de medida:</p>
       <Input
         type="number"
-        placeholder="Cantidad"
+        placeholder={`Cantidad: (${unitAbbreviation})`}
         {...register('quantity', { valueAsNumber: true })}
         errorMessage={errors.quantity?.message}
         readOnly={isPending}
