@@ -2,6 +2,11 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { deleteUnitOfMeasure } from '../api';
 import { useUiStore } from '@/stores/uiStore';
 
+/**
+ * TanStack Query mutation for soft-deleting a unit of measure.
+ *
+ * On **success**: invalidates the units-of-measure list query.
+ */
 export function useDeleteUnitOfMeasure() {
   const { setShowAlertMessage } = useUiStore();
   const queryClient = useQueryClient();

@@ -5,6 +5,16 @@ import { useUiStore } from '@/stores/uiStore';
 import { useSignOut } from '@/features/auth/hooks/useSignOut';
 import AlertBanner from '@/features/alerts/components/AlertBanner';
 
+/**
+ * Top navigation bar with authentication controls and alerts.
+ * @description Displays the page title, authenticated user info
+ * (restaurant name, user name, role), sign-out button, and alert
+ * notification bell. Shows login/register links when unauthenticated.
+ *
+ * Includes responsive behavior:
+ * - Mobile: stacks vertically, AlertBanner positioned absolutely
+ * - Desktop: horizontal layout with inline elements
+ */
 export default function SidebarNavBar() {
   const titlePage = useUiStore((state) => state.titlePage);
   const { isAuthenticated, user } = useAuthStore();

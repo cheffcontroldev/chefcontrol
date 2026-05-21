@@ -1,6 +1,7 @@
 import type { Lot } from '../types';
 import { type ResponseProduct, responseToProduct } from '@/features/products/mappers/productMapper';
 
+/** Raw shape of a lot row returned by Supabase (snake_case, with joined product). */
 export interface ResponseLot {
   id: string;
   expiration_date: string;
@@ -12,6 +13,7 @@ export interface ResponseLot {
   products: ResponseProduct;
 }
 
+/** Convert a single Supabase lot row to the camelCase UI model. */
 export const responseToLot = (response: ResponseLot): Lot => {
   return {
     id: response.id,
@@ -25,6 +27,7 @@ export const responseToLot = (response: ResponseLot): Lot => {
   };
 };
 
+/** Convert an array of Supabase lot rows to the UI model. */
 export const responseToLots = (responses: ResponseLot[]): Lot[] => {
   return responses.map(responseToLot);
 };

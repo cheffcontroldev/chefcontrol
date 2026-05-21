@@ -5,6 +5,12 @@ import { useLotStore } from '../store/LottStore';
 
 import { formatDate, isExpiringSoon, isExpired } from '@/shared/utils/dataHelpers';
 
+/**
+ * Detail modal that displays full information about the selected lot.
+ *
+ * Highlights expiring and expired dates with error styling. Only rendered
+ * when `selectedLot` is not null.
+ */
 export default function LotDetail() {
   const { selectedLot, setSelectedLot } = useLotStore();
 

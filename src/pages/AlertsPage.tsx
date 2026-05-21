@@ -2,6 +2,7 @@ import { usePageTitle } from '@/shared/hooks/usePageTitle';
 
 import AlertsMenu from '@/features/alerts/components/AlertsMenu';
 
+/** Page component for the alerts hub — navigation to alert sub-features. */
 export default function AlertsPage() {
   usePageTitle('Alertas');
   return (

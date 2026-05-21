@@ -1,6 +1,9 @@
 import BigMenuItem from '@/shared/components/BigMenuItem';
 import { Grid3X3, NotepadText } from 'lucide-react';
 
+/**
+ * Reports landing page with links to inventory and movement reports.
+ */
 export default function ReportsMenu() {
   return (
     <div className="px-3 w-full max-w-6xl justify-center flex gap-4 flex-wrap">

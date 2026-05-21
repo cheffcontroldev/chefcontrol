@@ -5,6 +5,13 @@ import Input from '@/shared/components/Input';
 import { signInSchema, type SignInInput } from '../schemas';
 import { useSignIn } from '../hooks/useSignIn';
 
+/**
+ * Login form with email + password validation.
+ *
+ * Uses `react-hook-form` with a Zod resolver (`signInSchema`). On submit it
+ * triggers the `useSignIn` mutation which handles success/error flows
+ * (navigation, alerts).
+ */
 export default function LoginForm() {
   const { mutate, isPending } = useSignIn();
 

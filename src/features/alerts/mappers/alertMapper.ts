@@ -1,5 +1,6 @@
 import type { ExpiringLot, ResponseExpiringLot, LowStock, ResponseLowStock } from '../types';
 
+/** Convert a single Supabase expiring-lot row to the UI model. */
 export const responseToExpingLot = (response: ResponseExpiringLot): ExpiringLot => {
   return {
     currentQuantity: response.current_quantity,
@@ -10,10 +11,12 @@ export const responseToExpingLot = (response: ResponseExpiringLot): ExpiringLot 
   };
 };
 
+/** Convert an array of Supabase expiring-lot rows to the UI model. */
 export const responseToExpingLots = (response: ResponseExpiringLot[]): ExpiringLot[] => {
   return response.map(responseToExpingLot);
 };
 
+/** Convert a single Supabase low-stock row to the UI model. */
 export const responseToLowStock = (response: ResponseLowStock): LowStock => {
   return {
     id: response.id,
@@ -26,6 +29,7 @@ export const responseToLowStock = (response: ResponseLowStock): LowStock => {
   };
 };
 
+/** Convert an array of Supabase low-stock rows to the UI model. */
 export const responseToLowStocks = (response: ResponseLowStock[]): LowStock[] => {
   return response.map(responseToLowStock);
 };

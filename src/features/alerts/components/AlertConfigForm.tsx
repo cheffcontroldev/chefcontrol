@@ -1,7 +1,12 @@
-// features/alerts/components/AlertConfigForm.tsx
 import { useState } from 'react';
 import { useAlertConfig } from '../hooks/useAlertConfig';
 
+/**
+ * Form that lets the user configure the expiration alert threshold (in days).
+ *
+ * Products expiring within this many days will trigger a notification. The
+ * submit button is disabled when the value hasn't changed or while saving.
+ */
 export default function AlertConfigForm() {
   const { config, isLoading, updateDays, isUpdating } = useAlertConfig();
   const [days, setDays] = useState(config?.expiration_alert_days || 3);

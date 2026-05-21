@@ -1,5 +1,6 @@
 import type { Category } from '@/features/categories/types';
 
+/** Raw shape of a category row returned by Supabase (snake_case). */
 export interface responseCategory {
   id: string;
   name: string;
@@ -7,6 +8,7 @@ export interface responseCategory {
   is_deleted: boolean;
 }
 
+/** Convert a single Supabase category row to the camelCase UI model. */
 export const responseToCategory = (response: responseCategory): Category => {
   return {
     id: response.id,
@@ -16,6 +18,7 @@ export const responseToCategory = (response: responseCategory): Category => {
   };
 };
 
+/** Convert an array of Supabase category rows to the UI model. */
 export const responseToCategories = (responses: responseCategory[]): Category[] => {
   return responses.map(responseToCategory);
 };

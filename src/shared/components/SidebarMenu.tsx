@@ -20,6 +20,26 @@ import {
 import SidebarMenuItem from './SidebarMenuItem';
 import SidebarMenuGroup from './SidebarMenuGroup';
 
+/**
+ * Main sidebar navigation menu.
+ * @description Renders the full sidebar with navigation groups and items:
+ * - Dashboard
+ * - Inventory (products, categories, units, lots, movements)
+ * - Alerts (expiring, low stock, configuration)
+ * - Reports (inventory, movements)
+ * - Settings
+ *
+ * Supports collapsed mode (icon-only with tooltips) via DaisyUI drawer.
+ *
+ * @example
+ * ```tsx
+ * <div className="drawer">
+ *   <input id="my-drawer-4" type="checkbox" className="drawer-toggle" />
+ *   <SidebarMenu />
+ * </div>
+ * ```
+ */
+
 export default function SidebarMenu() {
   return (
     <div className="drawer-side is-drawer-close:overflow-visible">

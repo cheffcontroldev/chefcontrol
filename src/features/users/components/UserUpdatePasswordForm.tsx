@@ -16,6 +16,12 @@ import { updatePasswordSchema, type UpdatePasswordInput } from '../schemas';
 /* Shared Components */
 import Input from '@/shared/components/Input';
 
+/**
+ * Modal form for updating the current user's password.
+ *
+ * Contains two fields (new password + confirm) with matching validation.
+ * On success the modal closes automatically.
+ */
 export default function UserUpdatePasswordForm() {
   const { userPasswordUpdateFormMode, setUserPasswordUpdateFormMode } = useUiStore();
 

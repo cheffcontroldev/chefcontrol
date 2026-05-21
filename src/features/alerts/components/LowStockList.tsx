@@ -4,6 +4,13 @@ import { RefreshCw } from 'lucide-react';
 /* Hooks */
 import { useLowStock } from '../hooks/useLowStock';
 
+/**
+ * Table that lists products that have fallen below their minimum stock
+ * threshold.
+ *
+ * Shows product name, current stock, and minimum stock. Includes a refresh
+ * button.
+ */
 export default function LowStockList() {
   const { data: lowStocks, isLoading, error } = useLowStock();
   const queryClient = useQueryClient();

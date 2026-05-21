@@ -20,6 +20,12 @@ import type {
 
 const TABLE = 'movements';
 
+/**
+ * Fetch movements for a restaurant with optional type and status filters.
+ *
+ * @param filter - When provided, only 'entry' or 'exit' movements are returned
+ * @param filterStatus - When `false` (default), cancelled movements are excluded
+ */
 export async function getMovements(
   restaurantId: string,
   filter: TypeMovement | null,
@@ -45,12 +51,18 @@ export async function getMovements(
   return responseToMovements(data);
 }
 
+/** Fetch a single movement by ID. */
 export async function getMovement(id: string) {
   const { data, error } = await supabase.from(TABLE).select('*, products(*)').eq('id', id).single();
   if (error) throw new Error(error.message);
   return responseToMovement(data);
 }
 
+/**
+ * Create an entry movement via the `register_entry` RPC.
+ *
+ * This creates both a movement record and a new lot atomically.
+ */
 export async function createMovementEntry(
   input: CreateEntryMovement,
   restaurantId: string,
@@ -65,6 +77,11 @@ export async function createMovementEntry(
   return responseToEntryResult(data);
 }
 
+/**
+ * Create an exit movement via the `register_exit` RPC.
+ *
+ * Consumes stock from available lots (FIFO) and creates a movement record.
+ */
 export async function createMovementExit(
   input: CreateExitMovement,
   restaurantId: string,
@@ -86,6 +103,16 @@ export async function createMovementExit(
   return responseToExitResult(data);
 }
 
+/**
+ * Cancel a movement (and optionally its downstream dependencies).
+ *
+ * This is a two-phase operation:
+ * 1. With `cascade: false` — fails if there are dependent movements.
+ * 2. With `cascade: true` — cancels the movement and all dependents.
+ *
+ * When dependencies are found, the error object carries `hasDependencies: true`
+ * and a `dependencies` array so the UI can show a confirmation dialog.
+ */
 export async function cancelMovement(movementId: string, userId: string, cascade: boolean = false) {
   const { data, error } = await supabase.rpc('cancel_movement', {
     p_movement_id: movementId,

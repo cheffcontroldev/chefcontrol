@@ -15,6 +15,10 @@ import type { Product } from '../types';
 /* Hooks */
 import { useDeleteProduct } from '../hooks/useDeleteProduct';
 
+/**
+ * Table view of all non-deleted products with show and delete actions per
+ * row, plus an "Agregar Producto" header button.
+ */
 export default function ProductList() {
   const { data: products, isLoading, error } = useProducts();
   const { setSelectedProduct } = useProductStore();

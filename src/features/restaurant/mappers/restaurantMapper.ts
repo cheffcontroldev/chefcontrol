@@ -1,5 +1,9 @@
 import type { ResponseRestaurant, Restaurant } from '../types';
 
+/**
+ * Convert a raw Supabase restaurant row (snake_case) to the camelCase
+ * {@link Restaurant} model used throughout the UI.
+ */
 export const responseToRestaurant = (response: ResponseRestaurant): Restaurant => {
   return {
     id: response.id,

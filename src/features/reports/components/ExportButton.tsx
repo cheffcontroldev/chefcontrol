@@ -8,6 +8,13 @@ interface ExportButtonProps {
   filename: string;
 }
 
+/**
+ * Dropdown button that exports report data as CSV or Excel.
+ *
+ * CSV export generates a proper CSV with headers derived from object keys.
+ * Excel export currently writes a `.xlsx` file with CSV content (basic).
+ * PDF export shows a "Pro" version placeholder.
+ */
 export default function ExportButton({ data, filename }: ExportButtonProps) {
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);

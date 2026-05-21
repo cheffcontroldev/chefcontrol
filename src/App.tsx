@@ -25,6 +25,7 @@ import SettingsPage from '@/pages/SettingsPage';
 import UnitsOfMeasurePage from '@/pages/UnitsOfMeasurePage';
 import UsersPage from '@/pages/UsersPage';
 
+/** Root application component. Defines all routes wrapped in authentication guard. */
 function App() {
   return (
     <Router>

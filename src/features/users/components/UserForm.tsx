@@ -18,6 +18,12 @@ import { updateUserSchema, type UpdateUserInput } from '../schemas';
 /* Shared Components */
 import Input from '@/shared/components/Input';
 
+/**
+ * Modal form for editing the current user's display name.
+ *
+ * Pre-fills the input with the current user name on mount. On successful
+ * update the modal closes via the mutation's `onSuccess` callback.
+ */
 export default function UserForm() {
   const { userFormMode, setUserFormMode } = useUiStore();
   const { data: user, isLoading: isUserLoading } = useUser();

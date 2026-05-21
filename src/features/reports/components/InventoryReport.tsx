@@ -4,6 +4,13 @@ import { useAuthStore } from '@/stores/authStore';
 import { useInventoryReport } from '../hooks/useInventoryReport';
 import ExportButton from './ExportButton';
 
+/**
+ * Inventory report page with expandable rows showing lot-level detail.
+ *
+ * Renders a summary bar (total products, low-stock count, expired lots),
+ * an export button, and a table where each product row can be expanded to
+ * show its individual lots with expiration status.
+ */
 export default function InventoryReport() {
   const { user } = useAuthStore();
   const restaurantId = user?.restaurantId;

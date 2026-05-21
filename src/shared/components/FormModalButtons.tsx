@@ -1,11 +1,38 @@
 import type { FormMode } from '@/shared/types';
 
+/**
+ * Props for the FormModalButtons component.
+ */
 interface FormModalButtonsProps {
+  /** Current form mode determining which buttons are shown */
   formMode: FormMode;
+  /** Callback triggered on button clicks to change form mode */
   onFormButtonActions: (formMode: FormMode) => void;
+  /** Whether an async operation is in progress (disables all buttons) */
   isPending: boolean;
 }
 
+/**
+ * Contextual action buttons for form modals.
+ * @description Renders buttons based on FormMode:
+ * - 'show': Shows "Editar" + "Cerrar"
+ * - 'create': Shows "Guardar" + "Cerrar"
+ * - 'edit': Shows "Guardar" + "Cancelar"
+ * - 'hidden': Nothing rendered
+ *
+ * @example
+ * ```tsx
+ * <FormModalButtons
+ *   formMode={formMode}
+ *   onFormButtonActions={handleModeChange}
+ *   isPending={isSubmitting}
+ * />
+ * ```
+ *
+ * @param formMode - Determines visible buttons
+ * @param onFormButtonActions - Callback for button click actions
+ * @param isPending - Disables buttons while true
+ */
 export default function FormModalButtons({
   formMode,
   onFormButtonActions,

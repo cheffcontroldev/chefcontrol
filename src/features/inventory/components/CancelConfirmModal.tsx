@@ -1,4 +1,4 @@
-// features/inventory/components/CancelConfirmModal.tsx
+/** Props for the {@link CancelConfirmModal} component. */
 interface CancelConfirmModalProps {
   isOpen: boolean;
   dependencies: Array<{
@@ -12,6 +12,12 @@ interface CancelConfirmModalProps {
   isLoading: boolean;
 }
 
+/**
+ * Modal that asks the user to confirm cancelling a movement.
+ *
+ * If the movement has downstream dependencies (other movements that consumed
+ * the same lot), it shows a warning and offers "Anular todo" instead.
+ */
 export default function CancelConfirmModal({
   isOpen,
   dependencies,

@@ -3,6 +3,9 @@ import { useUiStore } from '@/stores/uiStore';
 
 import { formatDate } from '@/shared/utils/dataHelpers';
 
+/**
+ * Loading skeleton displayed while the user profile is being fetched.
+ */
 function Skeleton() {
   return (
     <div className="flex w-52 flex-col gap-4">
@@ -14,6 +17,12 @@ function Skeleton() {
   );
 }
 
+/**
+ * Page that displays the current user's profile information.
+ *
+ * Shows name, email, role, and creation date in a read-only table. Two buttons
+ * at the bottom open modals to edit the user's name or update their password.
+ */
 export default function UserDetail() {
   const { data: user, isLoading, error } = useUser();
   const { setUserFormMode, setUserPasswordUpdateFormMode } = useUiStore();

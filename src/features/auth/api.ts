@@ -1,6 +1,14 @@
 import { supabase } from '@/supabase/client';
 import type { AuthSignUpInput, SignInInput, CompleteRegistrationInput, AuthUser } from './types';
 
+/**
+ * Create a new Supabase Auth user.
+ *
+ * After calling this the user must either confirm their email or go through the
+ * {@link completeRegistration | complete registration flow}.
+ *
+ * @returns The new auth user's UUID and email.
+ */
 export async function signUp(input: AuthSignUpInput): Promise<{ userId: string; email: string }> {
   const { email, password } = input;
   const { data, error } = await supabase.auth.signUp({ email, password });
@@ -11,12 +19,23 @@ export async function signUp(input: AuthSignUpInput): Promise<{ userId: string; 
   return { userId: data.user.id, email: data.user.email! };
 }
 
+/**
+ * Check whether a user record with the given auth UUID already exists in the
+ * `users` table. Used to determine if the user needs to complete registration.
+ */
 export async function checkUserExists(authId: string): Promise<boolean> {
   const { data, error } = await supabase.from('users').select('id').eq('auth_id', authId).single();
 
   return !error && !!data;
 }
 
+/**
+ * Execute the `create_restaurant_and_user` database RPC to finish the
+ * first-time registration flow.
+ *
+ * This creates both a restaurant record and the admin user in a single
+ * transaction.
+ */
 export async function completeRegistration(input: CompleteRegistrationInput): Promise<void> {
   const { data, error } = await supabase.rpc('create_restaurant_and_user', {
     p_auth_id: input.authId,
@@ -35,6 +54,20 @@ export async function completeRegistration(input: CompleteRegistrationInput): Pr
   }
 }
 
+/**
+ * Authenticate with email + password and return the full {@link AuthUser}
+ * profile.
+ *
+ * The function performs three sequential queries:
+ * 1. `supabase.auth.signInWithPassword`
+ * 2. `users` table lookup by `auth_id`
+ * 3. `restaurants` table lookup
+ *
+ * @throws `'INCOMPLETE_REGISTRATION'` when the auth user exists but has no
+ *   corresponding `users` row.
+ * @throws `'Usuario desactivado'` when the user account is inactive.
+ * @throws `'Restaurante no encontrado'` when the user's restaurant is missing.
+ */
 export async function signIn(input: SignInInput): Promise<AuthUser> {
   const { data: authData, error: authError } = await supabase.auth.signInWithPassword({
     email: input.email,
@@ -85,6 +118,13 @@ export async function signIn(input: SignInInput): Promise<AuthUser> {
   return authUser;
 }
 
+/**
+ * Retrieve the currently authenticated user's full profile.
+ *
+ * Checks the current Supabase session and, if valid, fetches the corresponding
+ * `users` + `restaurants` rows. Returns `null` when there is no session or the
+ * DB records are missing.
+ */
 export async function getCurrentUser(): Promise<AuthUser | null> {
   const {
     data: { session },
@@ -130,6 +170,7 @@ export async function getCurrentUser(): Promise<AuthUser | null> {
   return authUser;
 }
 
+/** Sign the current user out of Supabase Auth. */
 export async function signOut(): Promise<void> {
   const { error } = await supabase.auth.signOut();
   if (error) throw new Error(error.message);

@@ -4,6 +4,13 @@ import { RefreshCw, TriangleAlert } from 'lucide-react';
 /* Hooks */
 import { useExpiringLots } from '../hooks/useExpiringLots';
 
+/**
+ * Table that lists products/lots that are expiring within the configured
+ * threshold.
+ *
+ * Shows expired, expiring-today, and "expires in N days" states with colour
+ * coding. Includes a refresh button.
+ */
 export default function ExpiringLotsList() {
   const { data: expiringLots, isLoading, error } = useExpiringLots();
   const queryClient = useQueryClient();

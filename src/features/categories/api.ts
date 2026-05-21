@@ -6,6 +6,7 @@ import { responseToCategory, responseToCategories } from './mappers/categoryMapp
 
 const TABLE = 'categories';
 
+/** Get the total count of non-deleted categories for a restaurant. */
 export async function getCountCategories(restaurantId: string) {
   const { count, error } = await supabase
     .from(TABLE)
@@ -16,6 +17,7 @@ export async function getCountCategories(restaurantId: string) {
   return count || 0;
 }
 
+/** Get all non-deleted categories for a restaurant, ordered by name. */
 export async function getCategories(restaurantId: string) {
   const { data, error } = await supabase
     .from(TABLE)
@@ -27,6 +29,7 @@ export async function getCategories(restaurantId: string) {
   return responseToCategories(data);
 }
 
+/** Get a single category by ID (only if not soft-deleted). */
 export async function getCategory(id: string) {
   const { data, error } = await supabase
     .from(TABLE)
@@ -38,6 +41,7 @@ export async function getCategory(id: string) {
   return responseToCategory(data);
 }
 
+/** Create a new category for the given restaurant. */
 export async function createCategory(input: CreateCategoryInput, restaurantId: string) {
   const { name, description } = input;
 
@@ -54,6 +58,7 @@ export async function createCategory(input: CreateCategoryInput, restaurantId: s
   return data;
 }
 
+/** Update an existing category's name and/or description. */
 export const updateCategory = async (id: string, input: UpdateCategoryInput) => {
   const { data, error } = await supabase.from(TABLE).update(input).eq('id', id).single();
 
@@ -62,6 +67,7 @@ export const updateCategory = async (id: string, input: UpdateCategoryInput) => 
   return data;
 };
 
+/** Soft-delete a category by setting `is_deleted = true`. */
 export const deleteCategory = async (id: string) => {
   const dto = { is_deleted: true };
   const { data, error } = await supabase.from(TABLE).update(dto).eq('id', id).single();

@@ -9,6 +9,15 @@ type UseCreateProductOptions = {
   onClose?: () => void;
 };
 
+/**
+ * TanStack Query mutation for creating a new product.
+ *
+ * On **success**: invalidates `['products']`, resets the form, and calls
+ * `onClose`.
+ *
+ * On **error**: maps the Postgres "rate limit" constraint to a user-friendly
+ * message ("El producto ya está registrado").
+ */
 export function useCreateProduct({ resetForm, onClose }: UseCreateProductOptions) {
   const { user } = useAuthStore();
   const { setShowAlertMessage } = useUiStore();

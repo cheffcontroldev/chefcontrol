@@ -2,6 +2,11 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { deleteCategory } from '../api';
 import { useUiStore } from '@/stores/uiStore';
 
+/**
+ * TanStack Query mutation for soft-deleting a category.
+ *
+ * On **success**: invalidates the category list and count queries.
+ */
 export function useDeleteCategory() {
   const { setShowAlertMessage } = useUiStore();
   const queryClient = useQueryClient();

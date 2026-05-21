@@ -9,6 +9,12 @@ import { formatDate } from '@/shared/utils/dataHelpers';
 import { useMovementStore } from '../store/MovementStore';
 import type { TypeMovement } from '../types';
 
+/**
+ * Table view of movements with type and cancelled-status filters.
+ *
+ * Each row shows product, type (entry/exit with icon), quantity, date, and
+ * cancellation status. An eye icon opens the movement detail modal.
+ */
 export default function MovementList() {
   const [filter, setFilter] = useState<TypeMovement | null>(null);
   const [showCanceled, setShowCanceled] = useState(false);

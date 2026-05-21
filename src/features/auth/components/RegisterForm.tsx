@@ -5,6 +5,16 @@ import Input from '@/shared/components/Input';
 import { authSignUpSchema, type AuthSignUpInput } from '../schemas';
 import { useSignUp } from '../hooks/useSignUp';
 
+/**
+ * Registration form with email + password + confirm-password validation.
+ *
+ * Uses `react-hook-form` with a Zod resolver (`authSignUpSchema`). On submit it
+ * triggers the `useSignUp` mutation which creates the auth user and redirects
+ * to the complete-registration page.
+ *
+ * Displays inline mutation errors below the form fields via TanStack Query's
+ * `error` state.
+ */
 export default function RegisterForm() {
   const { mutate, isPending, error } = useSignUp();
 

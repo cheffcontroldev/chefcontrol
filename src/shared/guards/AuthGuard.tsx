@@ -10,6 +10,31 @@ import InitialLayout from '@/shared/components/InitialLayout';
 const PUBLIC_ROUTES = ['/ingresar', '/registrarse'];
 const SEMI_PROTECTED_ROUTES = ['/completar-registro'];
 
+/**
+ * Authentication guard that protects routes and manages auth state.
+ * @description Wraps children to enforce authentication:
+ * - Public routes ('/ingresar', '/registrarse'): No auth check
+ * - Semi-protected ('/completar-registro'): Requires auth but not setup
+ * - Protected routes: Redirects to login if not authenticated
+ *
+ * On mount, checks for an existing Supabase session and loads the
+ * full user profile via getCurrentUser(). Shows a loading spinner
+ * while checking.
+ *
+ * Route behavior:
+ * - Unauthenticated on protected route → redirect to /ingresar
+ * - Authenticated without restaurant → redirect to /completar-registro
+ * - Fully authenticated → renders children in Layout
+ *
+ * @example
+ * ```tsx
+ * <AuthGuard>
+ *   <Route path="/" component={DashboardPage} />
+ * </AuthGuard>
+ * ```
+ *
+ * @param children - Route content to protect
+ */
 export default function AuthGuard({ children }: { children: React.ReactNode }) {
   const [location, navigate] = useLocation();
   const { user, isAuthenticated, isLoading, setUser, clearUser, setLoading } = useAuthStore();

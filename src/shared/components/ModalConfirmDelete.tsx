@@ -1,6 +1,21 @@
 import { TriangleAlert } from 'lucide-react';
 import { useDeleteStore } from '@/stores/deleteStore';
 
+/**
+ * Confirmation modal for delete operations.
+ * @description Global modal that prompts the user to confirm a delete action.
+ * Reads state from deleteStore — shows the confirmation message and
+ * triggers the actual delete on confirmation.
+ *
+ * @example
+ * ```tsx
+ * // In any component:
+ * setShowConfirmDelete('¿Eliminar producto?');
+ * // ModalConfirmDelete renders "Eliminar" / "Cancelar" buttons
+ * ```
+ *
+ * @returns The modal element, or null if showConfirmDelete is null
+ */
 export default function ModalConfirmDelete() {
   const { showConfirmDelete, executeConfirmDelete, setShowConfirmDelete } = useDeleteStore();
 

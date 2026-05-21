@@ -13,6 +13,12 @@ import Input from '@/shared/components/Input';
 import Select from '@/shared/components/Select';
 import TextArea from '@/shared/components/TextArea';
 
+/**
+ * Form for creating an exit (stock-out) movement.
+ *
+ * Product options are derived from available lots (only products with stock > 0
+ * appear). On successful submission the form resets.
+ */
 export default function MovementExitForm() {
   const { data: lots, isLoading: isLoadingLots, error: lotsError } = useLots();
 
@@ -79,8 +85,6 @@ export default function MovementExitForm() {
       />
 
       <p className="pt-3 text-sm">Unidad de medida:</p>
-      {/* Nota: la unidad de medida debería mostrarse dinámicamente según el producto seleccionado, 
-          pero por ahora la cantidad es un número genérico */}
       <Input
         type="number"
         placeholder="Cantidad"

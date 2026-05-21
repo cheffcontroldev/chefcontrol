@@ -27,6 +27,13 @@ import Input from '@/shared/components/Input';
 /* Interfaces and Types */
 import type { FormMode } from '@/shared/types';
 
+/**
+ * Modal form for creating, editing, and viewing a unit of measure.
+ *
+ * Switches between `createUnitOfMeasureSchema` and
+ * `updateUnitOfMeasureSchema` depending on whether one is selected. In
+ * `'show'` mode all fields are read-only.
+ */
 export default function UnitOfMeasureForm() {
   const { unitOfMeasureFormMode, setUnitOfMeasureFormMode } = useUiStore();
   const { selectedUnitOfMeasure, setSelectedUnitOfMeasure } = useUnitOfMeasureStore();

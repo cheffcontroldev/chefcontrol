@@ -19,6 +19,16 @@ import { updateRestaurantSchema, type UpdateRestaurantInput } from '../schemas';
 import Input from '@/shared/components/Input';
 import TextArea from '@/shared/components/TextArea';
 
+/**
+ * Modal form for editing restaurant details.
+ *
+ * Pre-fills with current restaurant data on mount. On success the modal closes
+ * automatically.
+ *
+ * NOTE: This component is exported as `UserForm` instead of `RestaurantForm`.
+ * The function name does not affect functionality but may cause confusion when
+ * reading stack traces.
+ */
 export default function UserForm() {
   const { restaurantFormMode, setRestaurantFormMode } = useUiStore();
   const { data: restaurant, isLoading: isRestaurantLoading } = useRestaurant();
