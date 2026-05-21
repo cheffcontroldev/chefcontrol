@@ -20,7 +20,7 @@ export interface ResponseExpiringLot {
 export interface LowStock {
   id: string;
   productName: string;
-  stockMinimun: string;
+  stockMinimun: number;
   currentStock: number;
   deficit: number;
   unitName: string;
