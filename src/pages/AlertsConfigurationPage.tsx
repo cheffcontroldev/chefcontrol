@@ -1,6 +1,7 @@
 import AlertConfigForm from '@/features/alerts/components/AlertConfigForm';
 import { usePageTitle } from '@/shared/hooks/usePageTitle';
 
+/** Page component for configuring alert thresholds and preferences. */
 export default function AlertsConfigurationPage() {
   usePageTitle('Alertas - Configuración');
   return (

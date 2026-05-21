@@ -3,6 +3,7 @@ import { usePageTitle } from '@/shared/hooks/usePageTitle';
 import MovementList from '@/features/inventory/components/MovementList';
 import MovementDetail from '@/features/inventory/components/MovementDetail';
 
+/** Page component for viewing inventory movements and their details. */
 export default function MovementsPage() {
   usePageTitle('Movimientos');
   return (

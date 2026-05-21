@@ -2,6 +2,7 @@ import UnitOfMeasureList from '@/features/unitsOfMeasure/components/UnitOfMeasur
 import UnitOfMeasureForm from '@/features/unitsOfMeasure/components/UnitOfMeasureForm';
 import { usePageTitle } from '@/shared/hooks/usePageTitle';
 
+/** Page component for managing units of measure. */
 export default function UnitsOfMeasurePage() {
   usePageTitle('Unidades de Medida');
   return (
