@@ -7,6 +7,16 @@ import Input from '@/shared/components/Input';
 import { completeRegistrationSchema, type CompleteRegistrationFormInput } from '../schemas';
 import { useCompleteRegistration } from '../hooks/useCompleteRegistration';
 
+/**
+ * Form that finishes the first-time registration for users who signed up but
+ * have no restaurant / user record yet.
+ *
+ * On mount it checks the current Supabase session. If there is no session the
+ * user is redirected to the login page. Otherwise it extracts `authId` and
+ * `email` from the session and renders a form for restaurant details.
+ *
+ * While the session is being resolved a full-screen loading spinner is shown.
+ */
 export default function CompleteRegistrationForm() {
   const [authId, setAuthId] = useState<string | null>(null);
   const [email, setEmail] = useState<string | null>(null);

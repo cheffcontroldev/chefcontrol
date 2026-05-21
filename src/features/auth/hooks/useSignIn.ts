@@ -5,6 +5,17 @@ import type { SignInInput } from '../schemas';
 import { useAuthStore } from '@/stores/authStore';
 import { useUiStore } from '@/stores/uiStore';
 
+/**
+ * TanStack Query mutation that handles the full login flow.
+ *
+ * On **success**: stores the user in the auth store and navigates to `/`.
+ *
+ * On **error**: maps known error messages to user-facing alerts:
+ * - `'INCOMPLETE_REGISTRATION'` → warning + redirect to `/completar-registro`
+ * - `'Email not confirmed'` → error
+ * - `'Invalid login credentials'` → error (Spanish translation)
+ * - Anything else → generic error alert
+ */
 export function useSignIn() {
   const [, navigate] = useLocation();
   const { setUser } = useAuthStore();
