@@ -34,7 +34,8 @@ export async function getUser(): Promise<User> {
  */
 export const updateMyUser = async (input: UpdateUserInput) => {
   const { data, error } = await supabase.auth.updateUser({
-    data: { display_name: input.name },
+    email: input.email,
+    data: { display_name: input.name, email: input.email },
   });
 
   if (error) throw new Error(error.message);

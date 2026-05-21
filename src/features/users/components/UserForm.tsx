@@ -38,6 +38,7 @@ export default function UserForm() {
     mode: 'onBlur',
     defaultValues: {
       name: '',
+      email: '',
     },
   });
 
@@ -45,6 +46,7 @@ export default function UserForm() {
     if (user) {
       reset({
         name: user.name,
+        email: user.email,
       });
     }
   }, [user, reset]);
@@ -78,6 +80,13 @@ export default function UserForm() {
         placeholder="Nombre Completo"
         {...register('name')}
         errorMessage={errors.name?.message}
+        readOnly={isUpdating}
+      />
+      <Input
+        type="email"
+        placeholder="Correo Electrónico"
+        {...register('email')}
+        errorMessage={errors.email?.message}
         readOnly={isUpdating}
       />
     </FormModalUserRestaurant>
