@@ -21,7 +21,8 @@ export interface User {
 
 /** Input for updating the current user's display name. */
 export interface UpdateMyUserInput {
-  name: string;
+  name?: string;
+  email?: string;
 }
 
 /** Input for updating the current user's password. */

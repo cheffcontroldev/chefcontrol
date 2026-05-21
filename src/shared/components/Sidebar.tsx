@@ -1,15 +1,16 @@
-import Alert from './Alert';
 import ModalConfirmDelete from './ModalConfirmDelete';
 import SidebarMenu from './SidebarMenu';
 import SidebarNavBar from './SidebarNavBar';
 
 /**
- * Main layout shell with sidebar, navbar, and global overlays.
+ * Main layout shell with sidebar and navbar.
  * @description The authenticated app shell combining:
  * - SidebarNavBar (top navigation)
  * - SidebarMenu (collapsible sidebar)
- * - Alert (global notification)
  * - ModalConfirmDelete (global delete confirmation)
+ *
+ * Note: Alert was moved to App.tsx (rendered outside Router) so
+ * notifications display globally above all routes.
  *
  * Uses DaisyUI drawer for responsive sidebar behavior.
  *
@@ -32,7 +33,6 @@ export default function Sidebar({ children }: { children: React.ReactNode }) {
         {/* Page content here */}
         <div className="p-4 min-h-[calc(100vh-4.5rem)] flex justify-center relative">
           {children}
-          <Alert />
           <ModalConfirmDelete />
         </div>
       </div>

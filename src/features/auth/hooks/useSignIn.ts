@@ -40,12 +40,16 @@ export function useSignIn() {
       navigate('/');
     },
     onError: (error: Error) => {
+      console.error('SignIn error:', error);
+      setShowAlertMessage('error', 'Error al iniciar sesión');
       if (error.message === 'INCOMPLETE_REGISTRATION') {
         setShowAlertMessage('warning', 'Debes completar tu registro antes de continuar');
         navigate('/completar-registro');
       } else if (error.message === 'Email not confirmed') {
         setShowAlertMessage('error', 'Tu email no ha sido confirmado');
-      } else if (error.message === 'Invalid login credentials') {
+      } else if (
+        error.message.toLocaleLowerCase() === 'Invalid login credentials'.toLocaleLowerCase()
+      ) {
         setShowAlertMessage('error', 'Credenciales inválidas');
       } else {
         setShowAlertMessage('error', error.message);

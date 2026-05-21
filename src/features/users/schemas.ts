@@ -25,7 +25,12 @@ export const createUserSchema = z.object({
  * - `name`: required
  */
 export const updateUserSchema = z.object({
-  name: z.string().min(1, 'El nombre es requerido'),
+  name: z.string().min(1, 'El nombre es requerido').optional(),
+  email: z
+    .string()
+    .min(1, 'El correo electrónico es requerido')
+    .email('Correo electrónico inválido')
+    .optional(),
 });
 
 /**
