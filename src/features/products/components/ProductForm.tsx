@@ -98,10 +98,10 @@ export default function ProductForm() {
       setSelectedProduct(null);
     } else if (action === 'show') {
       resetForm({
-        name: selectedProduct.name,
-        description: selectedProduct.description || '',
-        skuCode: selectedProduct.skuCode || '',
-        stockMinimum: selectedProduct.stockMinimum || 0,
+        name: selectedProduct?.name ?? '',
+        description: selectedProduct?.description ?? '',
+        skuCode: selectedProduct?.skuCode ?? '',
+        stockMinimum: selectedProduct?.stockMinimum ?? 0,
       });
     }
     setProductFormMode(action);
@@ -123,12 +123,11 @@ export default function ProductForm() {
     {} as Record<string, string>
   );
 
-  const onSubmit = (data: CreateProductInput) => {
+  const onSubmit = (data: CreateProductInput | UpdateProductInput) => {
     if (selectedProduct) {
       const { id } = selectedProduct || null;
-      const dto = data as CreateProductInput;
       updateMutate(
-        { id, input: dto },
+        { id, input: data as CreateProductInput },
         {
           onSuccess: () => {
             resetForm();
@@ -137,7 +136,7 @@ export default function ProductForm() {
         }
       );
     } else {
-      createMutate(data, {
+      createMutate(data as CreateProductInput, {
         onSuccess: () => {
           resetForm();
           setProductFormMode('hidden');
@@ -173,7 +172,7 @@ export default function ProductForm() {
 
       <Select
         placeholder="Categoría"
-        options={categoriesOptions}
+        options={categoriesOptions ?? {}}
         {...register('categoryId')}
         errorMessage={errors.categoryId?.message}
         isLoadingOptions={isLoadingCategories}
@@ -190,7 +189,7 @@ export default function ProductForm() {
 
       <Select
         placeholder="Unidad de Medida"
-        options={unitsOfMeasureOptions}
+        options={unitsOfMeasureOptions ?? {}}
         {...register('unitOfMeasureId')}
         errorMessage={errors.unitOfMeasureId?.message}
         isLoadingOptions={isLoadingUnitsOfMeasure}

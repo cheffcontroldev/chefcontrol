@@ -80,7 +80,7 @@ export default function MovementEntryForm() {
     <form onSubmit={handleSubmit(onSubmit)} className="w-full max-w-sm pt-12 space-y-3">
       <Select
         placeholder="Producto"
-        options={productOptions}
+        options={productOptions ?? {}}
         {...register('productId')}
         errorMessage={errors.productId?.message}
         isLoadingOptions={isLoadingProducts}

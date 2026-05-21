@@ -109,7 +109,7 @@ export async function signIn(input: SignInInput): Promise<AuthUser> {
     id: userData.id,
     authId: authData.user.id,
     name: displayName,
-    email: email,
+    email: email ?? '',
     role: userData.role,
     restaurantId: userData.restaurant_id,
     restaurantName: restaurantData.name,

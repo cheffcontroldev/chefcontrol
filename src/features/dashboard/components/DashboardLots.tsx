@@ -19,7 +19,7 @@ export default function DashboardLots() {
   return (
     <DashboardItem
       title="Lotes"
-      count={lotsCount}
+      count={lotsCount ?? 0}
       refresh={refresh}
       href="/inventario/lotes"
       isLoading={isLoading}

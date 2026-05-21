@@ -77,8 +77,8 @@ export default function UnitOfMeasureForm() {
       setSelectedUnitOfMeasure(null);
     } else if (action === 'show') {
       resetForm({
-        name: selectedUnitOfMeasure.name,
-        abbreviation: selectedUnitOfMeasure.abbreviation || '',
+        name: selectedUnitOfMeasure?.name ?? '',
+        abbreviation: selectedUnitOfMeasure?.abbreviation ?? '',
       });
     }
     setUnitOfMeasureFormMode(action);

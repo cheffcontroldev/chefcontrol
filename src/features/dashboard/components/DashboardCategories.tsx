@@ -20,7 +20,7 @@ export default function DashboardCategories() {
   return (
     <DashboardItem
       title="Categorías"
-      count={categoriesCount}
+      count={categoriesCount ?? 0}
       refresh={refresh}
       href="/inventario/categorias"
       isLoading={isLoading}

@@ -155,7 +155,7 @@ export default function UserDetail() {
                 <p className="text-sm text-base-content/60">Miembro desde</p>
                 <p className="font-medium flex items-center gap-1.5">
                   <Clock className="w-3.5 h-3.5 text-base-content/40" />
-                  {formatDate(user?.createdAt)}
+                  {formatDate(user?.createdAt ?? '')}
                 </p>
               </div>
             </div>

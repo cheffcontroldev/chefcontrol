@@ -10,7 +10,7 @@ import { useCountProducts } from '@/features/products/hooks/useCountProducts';
  * query.
  */
 export default function DashboardProducts() {
-  const { data: productsCount } = useCountProducts();
+  const { data: productsCount, isLoading } = useCountProducts();
   const queryClient = useQueryClient();
 
   const refresh = () => {
@@ -20,9 +20,10 @@ export default function DashboardProducts() {
   return (
     <DashboardItem
       title="Productos"
-      count={productsCount}
+      count={productsCount ?? 0}
       refresh={refresh}
       href="/inventario/productos"
+      isLoading={isLoading}
     />
   );
 }

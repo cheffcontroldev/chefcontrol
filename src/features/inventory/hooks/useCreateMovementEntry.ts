@@ -23,8 +23,10 @@ export function useCreateMovementEntry({ resetForm }: UseCreateMovementEntryOpti
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: (input: CreateEntryMovement) =>
-      createMovementEntry(input, user.restaurantId, user.id),
+    mutationFn: (input: CreateEntryMovement) => {
+      if (!user) throw new Error('No authenticated');
+      return createMovementEntry(input, user.restaurantId, user.id);
+    },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['lots'] });
       queryClient.invalidateQueries({ queryKey: ['movements'] });
