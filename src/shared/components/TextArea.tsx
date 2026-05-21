@@ -35,7 +35,7 @@ const TextArea = forwardRef<HTMLTextAreaElement, TextAreaProps>(
     return (
       <div className="relative pb-5 w-full block">
         <label className="label pl-0.5 pb-0.5">
-          <span className="label-text">{placeholder}</span>
+          <span className="label-text text-primary">{placeholder}</span>
         </label>
         <textarea
           className="w-full textarea"

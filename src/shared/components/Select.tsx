@@ -62,7 +62,7 @@ const Select = forwardRef<HTMLSelectElement, SelectProps>(
     return (
       <div className="relative pb-5 w-full block">
         <label className="label pl-0.5 pb-0.5">
-          <span className="label-text">{placeholder}</span>
+          <span className="label-text text-primary">{placeholder}</span>
         </label>
         <select className="select w-full" ref={ref} disabled={disabled} defaultValue="" {...rest}>
           {isLoadingOptions && (

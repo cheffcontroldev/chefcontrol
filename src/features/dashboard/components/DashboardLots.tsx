@@ -23,6 +23,7 @@ export default function DashboardLots() {
       refresh={refresh}
       href="/inventario/lotes"
       isLoading={isLoading}
+      color="info"
     />
   );
 }

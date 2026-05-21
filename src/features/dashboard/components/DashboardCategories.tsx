@@ -24,6 +24,7 @@ export default function DashboardCategories() {
       refresh={refresh}
       href="/inventario/categorias"
       isLoading={isLoading}
+      color="accent"
     />
   );
 }
