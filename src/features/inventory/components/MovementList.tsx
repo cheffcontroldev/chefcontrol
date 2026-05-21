@@ -45,6 +45,7 @@ export default function MovementList() {
             type="checkbox"
             id="cancelrecords"
             onChange={(e) => setShowCanceled(e.target.checked)}
+            className="checkbox"
           />
         </div>
       </div>
