@@ -110,6 +110,7 @@
 - [ ] Mutation invalidates TanStack Query cache.
 - [ ] Hook name describes what it does.
 - [ ] No debug `console.log`.
+- [ ] JSDoc is added for every exported function, component, hook, and type.
 - [ ] ESLint and Prettier pass without errors.
 - [ ] Commit describes what and why, not just "fix".
 
@@ -120,16 +121,8 @@
 | Situation | Exception |
 |---|---|
 | Unit tests | Not mandatory in MVP. Only for critical logic (FEFO). |
-| Internal documentation | No exhaustive JSDoc. Descriptive names are sufficient. |
 | Over-engineering | If a feature needs 2 lines of code, do not create 3 files. |
 
 ---
 
-*Document generated for the ChefControl project. Last updated: 2026-05-09*
-torios en el MVP. Solo si hay lógica crítica (FEFO). |
-| Documentación interna | No JSDoc exhaustivo. Nombres descriptivos suficientes. |
-| Over-engineering | Si una feature necesita 2 líneas de código, no crees 3 archivos. |
-
----
-
-*Documento generado para el proyecto ChefControl. Última actualización: 2026-05-09*
+*Document generated for the ChefControl project. Last updated: 2026-05-20*
